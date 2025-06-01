@@ -107,5 +107,6 @@ export default function Page() {
       <h1>Welcome to SkillCert</h1>
       <Footer />
     </div>
+    </div>
   )
 }
