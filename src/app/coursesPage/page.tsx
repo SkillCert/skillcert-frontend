@@ -2,9 +2,9 @@ import React from "react";
 import CourseExplore from "./courseExplore";
 
 const CoursesPage = () => {
-	return(
+    return (
         <main>
-            <CourseExplore/>
+            <CourseExplore />
         </main>
     )
 };
