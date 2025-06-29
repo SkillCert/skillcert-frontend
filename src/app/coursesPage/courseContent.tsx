@@ -5,7 +5,10 @@ export default function CourseContentPage() {
   return (
     <div className="min-h-screen bg-[#151a23] text-white py-6">
       {/* Course name alineado */}
-      <div className="flex items-center justify-between mx-auto mb-12 mt-12" style={{ width: "1000px" }}>
+      <div
+        className="flex items-center justify-between mx-auto mb-12 mt-12"
+        style={{ width: "1000px" }}
+      >
         <div className="flex items-center gap-2">
           <span className="text-white">←</span>
           <span
@@ -13,7 +16,7 @@ export default function CourseContentPage() {
             style={{
               fontFamily: "'Poppins', sans-serif",
               fontSize: "48px",
-              lineHeight: "100%"
+              lineHeight: "100%",
             }}
           >
             Course name
@@ -31,7 +34,7 @@ export default function CourseContentPage() {
               lineHeight: "100%",
               display: "flex",
               alignItems: "center",
-              justifyContent: "center"
+              justifyContent: "center",
             }}
           >
             Preview
@@ -55,7 +58,7 @@ export default function CourseContentPage() {
             height: "114px",
             alignItems: "center",
             justifyContent: "center",
-            padding: "0 32px"
+            padding: "0 32px",
           }}
         >
           <button
@@ -89,7 +92,7 @@ export default function CourseContentPage() {
           style={{
             fontFamily: "'Poppins', sans-serif",
             fontSize: "40px",
-            lineHeight: "100%"
+            lineHeight: "100%",
           }}
         >
           Course Content
@@ -109,7 +112,7 @@ export default function CourseContentPage() {
           background: "#1F2937",
           width: "1000px",
           height: "296px",
-          padding: "32px"
+          padding: "32px",
         }}
       >
         <div className="flex justify-between items-center mb-4">
@@ -140,7 +143,11 @@ export default function CourseContentPage() {
               <div className="flex gap-2">
                 <button
                   className="bg-[#9D174D] text-white font-semibold rounded-[25px]"
-                  style={{ width: "150px", height: "50px", padding: "10px 20px" }}
+                  style={{
+                    width: "150px",
+                    height: "50px",
+                    padding: "10px 20px",
+                  }}
                 >
                   Edit
                 </button>
@@ -157,7 +164,11 @@ export default function CourseContentPage() {
               <div className="flex gap-2">
                 <button
                   className="bg-[#9D174D] text-white font-semibold rounded-[25px]"
-                  style={{ width: "150px", height: "50px", padding: "10px 20px" }}
+                  style={{
+                    width: "150px",
+                    height: "50px",
+                    padding: "10px 20px",
+                  }}
                 >
                   Edit
                 </button>
@@ -170,7 +181,9 @@ export default function CourseContentPage() {
               </div>
             </li>
             <li className="mb-4 ml-4 flex items-center justify-between">
-              <button className="text-[#a259ff] focus:outline-none">• Add Lesson</button>
+              <button className="text-[#a259ff] focus:outline-none">
+                • Add Lesson
+              </button>
               <span />
             </li>
           </ul>

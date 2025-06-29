@@ -1,5 +1,7 @@
 import Image from "next/image";
 import circlePlay from "@/../public/images/CircledPlay.png";
+
+
 export const CoursesOverview = () => {
   return (
     <section className="py-24 flex flex-col items-center justify-center gap-12 bg-gray-900 px-4">
@@ -14,6 +16,7 @@ export const CoursesOverview = () => {
           <CourseCard />
         </div>
       </div>
+      
     </section>
   );
 };

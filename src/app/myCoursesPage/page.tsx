@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Footer from "@/components/footer";
+import ContentModal from "../coursesPage/coursesPreview/components/contentModal";
 
 interface Course {
   id: number;
@@ -51,6 +52,7 @@ export default function MyCourses() {
         <h1 className="text-3xl font-semibold text-purple-400 mb-10">
           My courses
         </h1>
+        <ContentModal />
 
         {/* Course Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">

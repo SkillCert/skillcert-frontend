@@ -70,7 +70,7 @@ const welcomePage = () => {
                     "Fast and secure transactions",
                     "Low transaction fee",
                     "Global accessibility",
-                    "Easy integration with our platform"
+                    "Easy integration with our platform",
                   ].map((item, index) => (
                     <li key={index} className="list-disc">
                       {item}
