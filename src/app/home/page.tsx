@@ -5,10 +5,13 @@ import { featuredCourses } from "../../../public/mock-data";
 import Card from "@/components/welcomePage/Card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import CourseExplorationSection from "./components/welcomepage/courseExplorationSection";
 
 const welcomePage = () => {
   return (
+     
     <div className="pt-24 px-4 pb-10 mx-auto">
+     
       <section>
         <h1 className=" font-bold pb-12 text-purple-600 text-center text-4xl sm:text-4xl md:text-6xl lg:text-[82px] ">
           Welcome to Skillcert
@@ -27,9 +30,7 @@ const welcomePage = () => {
       </section>
 
       <section className="mt-20">
-        <h2 className="text-center font-medium text-2xl text-purple-600 md:text-4xl">
-          Featured Courses
-        </h2>
+        <CourseExplorationSection/>
 
         <div className=" mx-auto w-full grid gap-2 pt-10 grid-cols-1 sm:grid-cols-2  md:grid-cols-3  md:w-8/12 md:gap-4">
           {" "}
@@ -107,7 +108,7 @@ const welcomePage = () => {
           </div>
         </div>
       </section>
-    </div>
+</div>
   );
 };
 
