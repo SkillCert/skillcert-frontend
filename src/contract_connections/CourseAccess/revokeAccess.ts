@@ -4,7 +4,7 @@ interface RevokeAccessResponse {
   success: boolean;
   error?: string;
 }
-export async function revokeAccess(
+export async function revokeCourseAccess(
   user: string,
   courseId: string
 ): Promise<RevokeAccessResponse> {
@@ -44,7 +44,7 @@ async function simulateContractCall(
   return { success: true };
 }
 
-export function useRevokeAccess() {
+export function useRevokeCourseAccess() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<RevokeAccessResponse | null>(null);
@@ -53,7 +53,7 @@ export function useRevokeAccess() {
     setLoading(true);
     setError(null);
     try {
-      const response = await revokeAccess(user, courseId);
+      const response = await revokeCourseAccess(user, courseId);
       setResult(response);
       if (!response.success) {
         setError(response.error || "Failed to revoke access.");
