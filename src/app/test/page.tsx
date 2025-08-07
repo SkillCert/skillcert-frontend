@@ -1,7 +1,8 @@
-import CourseCard from "../instructor/courses/components/courseCard";
+import InputFieldTest from "./inputFieldTest";
+//import CourseCard from "../instructor/courses/components/courseCard";
 
 export default function Test() {
-  const course = {
+  /*const course = {
     id: 1,
     name: "Web Development",
     category: "Web Development" as const,
@@ -17,5 +18,7 @@ export default function Test() {
     <div className="flex justify-center items-center h-screen">
       <CourseCard course={course} />
     </div>
-  );
+  );*/
+
+  return <InputFieldTest />;
 }

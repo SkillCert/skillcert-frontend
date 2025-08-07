@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import { cn } from "@/lib/utils"
 import { ChevronDown } from "lucide-react"
@@ -105,35 +107,3 @@ const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
 InputField.displayName = "InputField"
 
 export { InputField }
-
-// Ejemplo de uso:
-/*
-import { InputField } from "@/components/ui/inputField"
-
-// Campo de texto
-<InputField 
-  label="Nombre del campo" 
-  placeholder="Place holder" 
-  variant="text"
-/>
-
-// Campo selector
-<InputField 
-  label="Nombre del campo" 
-  placeholder="Seleccionar opción" 
-  variant="select"
-  options={[
-    { value: "option1", label: "Opción 1" },
-    { value: "option2", label: "Opción 2" },
-    { value: "option3", label: "Opción 3" }
-  ]}
-  onValueChange={(value) => console.log(value)}
-/>
-
-// Con error
-<InputField 
-  label="Campo con error" 
-  placeholder="Place holder" 
-  error="Este campo es requerido"
-/>
-*/
