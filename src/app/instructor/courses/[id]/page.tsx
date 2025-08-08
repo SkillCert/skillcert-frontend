@@ -1,1 +1,1 @@
-export default function CourseManagementView() {}
+export default function CourseMainView() {}
