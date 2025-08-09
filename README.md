@@ -7,7 +7,7 @@ We are currently in the integration phase between the Web3 logic and the fronten
 ## 📌 Roadmap
 
 The project roadmap is available in Notion:  
-🔗 [View Roadmap in Notion](https://www.notion.so/Requerimientos-y-funcionalidades-214bfdf2613c80eba304fe619884aeeb?source=copy_link)
+🔗 [View Roadmap in Notion](https://www.notion.so/Skillcert-240bfdf2613c805898c9c91f0990600e)
 
 ## Getting Started
 
