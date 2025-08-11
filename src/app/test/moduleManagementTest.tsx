@@ -41,4 +41,18 @@ describe("ModuleManagement Page", () => {
     // After delete, lesson count should decrease
     expect(screen.getAllByText(/Lesson Name/i).length).toBeLessThan(4)
   })
+
+  it("adds a new lesson when Add Lesson is used", () => {
+    render(<ModuleManagement />)
+    fireEvent.click(screen.getByRole("button", { name: /Add Lesson/i }))
+    fireEvent.change(screen.getByLabelText(/Lesson Name/i), {
+      target: { value: "New Lesson" },
+    })
+    fireEvent.change(screen.getByLabelText(/Description/i), {
+      target: { value: "New lesson description" },
+    })
+    fireEvent.click(screen.getByRole("button", { name: /Save/i }))
+    expect(screen.getByText(/New Lesson/i)).toBeInTheDocument()
+    expect(screen.getByText(/New lesson description/i)).toBeInTheDocument()
+  })
 })

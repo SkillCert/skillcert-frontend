@@ -1,7 +1,16 @@
 "use client"
 import { JSX, useState } from "react"
-import { BookOpen, Eye, Pencil, Trash2, Plus, ChevronLeft } from "lucide-react"
+import {
+  BookOpen,
+  Eye,
+  Pencil,
+  Trash2,
+  Plus,
+  ChevronLeft,
+  GripVertical,
+} from "lucide-react"
 
+// Lesson type definition
 type Lesson = {
   id: number
   name: string
@@ -9,6 +18,7 @@ type Lesson = {
   icon: JSX.Element
 }
 
+// Initial lessons data for mock
 const initialLessons: Lesson[] = [
   {
     id: 1,
@@ -44,6 +54,10 @@ export default function ModuleManagement() {
   const [editDescription, setEditDescription] = useState("")
   const [showEditModal, setShowEditModal] = useState(false)
 
+  const [showAddModal, setShowAddModal] = useState(false)
+  const [addName, setAddName] = useState("")
+  const [addDescription, setAddDescription] = useState("")
+
   function handleDelete(id: number) {
     setLessons(lessons.filter((lesson) => lesson.id !== id))
   }
@@ -74,8 +88,35 @@ export default function ModuleManagement() {
     setEditingLesson(null)
   }
 
+  function handleAddLesson() {
+    setShowAddModal(true)
+    setAddName("")
+    setAddDescription("")
+  }
+
+  function handleAddSave() {
+    if (addName.trim() !== "") {
+      const newLesson: Lesson = {
+        id: lessons.length > 0 ? lessons[lessons.length - 1].id + 1 : 1,
+        name: addName,
+        description: addDescription,
+        icon: <BookOpen className="w-7 h-7 text-purple-400" />,
+      }
+      setLessons([...lessons, newLesson])
+      setShowAddModal(false)
+      setAddName("")
+      setAddDescription("")
+    }
+  }
+
+  function handleAddCancel() {
+    setShowAddModal(false)
+    setAddName("")
+    setAddDescription("")
+  }
+
   return (
-    <div className="min-h-screen bg-[#151a23] text-white p-4 sm:p-8 lg:p-12">
+    <div className="min-h-screen bg-slate-900 text-white p-4 sm:p-8 lg:p-12">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-2">
@@ -103,7 +144,7 @@ export default function ModuleManagement() {
         <textarea
           id="module-description"
           aria-label="Describe your module"
-          className="w-full bg-[#23263a] text-white rounded-lg p-4 min-h-[80px] border-none focus:outline-none focus:ring-2 focus:ring-purple-500"
+          className="w-full bg-gray-800 text-white rounded-lg p-4 min-h-[80px] border-none focus:outline-none focus:ring-2 focus:ring-purple-500"
           placeholder="Describe your module..."
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -117,6 +158,7 @@ export default function ModuleManagement() {
         <button
           className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors"
           type="button"
+          onClick={handleAddLesson}
         >
           <Plus className="w-5 h-5" />
           Add Lesson
@@ -128,14 +170,11 @@ export default function ModuleManagement() {
         {lessons.map((lesson) => (
           <div
             key={lesson.id}
-            className="flex flex-col md:flex-row md:items-center justify-between gap-5 bg-[#23263a] rounded-lg p-4 sm:p-6 border border-gray-700"
+            className="flex flex-col md:flex-row md:items-center justify-between gap-5 bg-gray-800 rounded-lg p-4 sm:p-6 border border-gray-700"
           >
             <div className="flex items-center gap-5">
-              <div className="flex-col gap-1 mr-2 hidden sm:flex">
-                <span className="block w-1 h-1 bg-gray-400 rounded-full"></span>
-                <span className="block w-1 h-1 bg-gray-400 rounded-full"></span>
-                <span className="block w-1 h-1 bg-gray-400 rounded-full"></span>
-              </div>
+              {/* Replaced hardcoded div with the GripVertical icon */}
+              <GripVertical className="h-5 w-5 text-gray-400 cursor-grab hidden sm:block" />
               <div>{lesson.icon}</div>
               <div>
                 <div className="font-bold text-lg text-white">
@@ -149,29 +188,29 @@ export default function ModuleManagement() {
             {/* Actions */}
             <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
               <button
-                className="flex items-center justify-center gap-2 bg-[#23263a] border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+                className="flex items-center justify-center gap-2 bg-slate-900 border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
                 type="button"
                 aria-label="Preview"
               >
-                <Eye className="w-5 h-5 text-purple-400" />
+                <Eye className="w-5 h-5 text-white" />
                 Preview
               </button>
               <button
-                className="flex items-center justify-center gap-2 bg-[#23263a] border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+                className="flex items-center justify-center gap-2 bg-slate-900 border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
                 type="button"
                 aria-label="Edit"
                 onClick={() => handleEdit(lesson)}
               >
-                <Pencil className="w-5 h-5 text-purple-400" />
+                <Pencil className="w-5 h-5 text-white" />
                 Edit
               </button>
               <button
-                className="flex items-center justify-center gap-2 bg-[#23263a] border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+                className="flex items-center justify-center gap-2 bg-slate-900 border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
                 type="button"
                 aria-label="Delete"
                 onClick={() => handleDelete(lesson.id)}
               >
-                <Trash2 className="w-5 h-5 text-purple-400" />
+                <Trash2 className="w-5 h-5 text-white" />
                 Delete
               </button>
             </div>
@@ -182,7 +221,7 @@ export default function ModuleManagement() {
       {/* Edit Modal */}
       {showEditModal && (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
-          <div className="bg-[#23263a] rounded-lg p-8 w-full max-w-md border border-gray-700">
+          <div className="bg-slate-900 rounded-lg p-8 w-full max-w-md border border-gray-700">
             <h3 className="text-xl font-bold mb-4 text-white">Edit Lesson</h3>
             <label className="block text-sm font-semibold mb-2 text-white">
               Lesson Name
@@ -213,6 +252,50 @@ export default function ModuleManagement() {
                 className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-semibold"
                 type="button"
                 onClick={handleEditSave}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Add Lesson Modal */}
+      {showAddModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+          <div className="bg-slate-900 rounded-lg p-8 w-full max-w-md border border-gray-700">
+            <h3 className="text-xl font-bold mb-4 text-white">Add Lesson</h3>
+            <label className="block text-sm font-semibold mb-2 text-white">
+              Lesson Name
+            </label>
+            <input
+              type="text"
+              aria-label="Lesson Name"
+              className="w-full bg-[#151a23] text-white rounded-lg p-2 mb-4 border-none focus:outline-none focus:ring-2 focus:ring-purple-500"
+              value={addName}
+              onChange={(e) => setAddName(e.target.value)}
+            />
+            <label className="block text-sm font-semibold mb-2 text-white">
+              Description
+            </label>
+            <textarea
+              aria-label="Description"
+              className="w-full bg-[#151a23] text-white rounded-lg p-2 mb-4 border-none focus:outline-none focus:ring-2 focus:ring-purple-500"
+              value={addDescription}
+              onChange={(e) => setAddDescription(e.target.value)}
+            />
+            <div className="flex justify-end gap-3">
+              <button
+                className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-lg"
+                type="button"
+                onClick={handleAddCancel}
+              >
+                Cancel
+              </button>
+              <button
+                className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-semibold"
+                type="button"
+                onClick={handleAddSave}
               >
                 Save
               </button>
