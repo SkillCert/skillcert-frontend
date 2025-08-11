@@ -7,7 +7,7 @@ import {
   Trash2,
   Plus,
   ChevronLeft,
-  GripVertical, // Import the GripVertical icon
+  GripVertical,
 } from "lucide-react"
 
 // Lesson type definition
@@ -125,9 +125,8 @@ export default function ModuleManagement() {
     const newLessons = [...lessons]
     const draggedItem = newLessons[draggedIndex]
 
-    // Remove the dragged item from its original position
     newLessons.splice(draggedIndex, 1)
-    // Insert the dragged item at the new (target) position
+
     newLessons.splice(targetIndex, 0, draggedItem)
 
     // Update the state with the new order and reset the dragged index
