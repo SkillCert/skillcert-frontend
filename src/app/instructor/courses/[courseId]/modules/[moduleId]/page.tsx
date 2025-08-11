@@ -39,6 +39,7 @@ export default function ModuleManagement() {
         <button className="text-purple-400 text-sm font-medium mb-2 hover:underline">
           &lt; Back to Course
         </button>
+        {/* this is still hardcoded */}
         <div className="flex items-center gap-4">
           <span className="text-gray-400 text-xs">Course name</span>
           <h1 className="text-3xl font-bold text-white">Module name</h1>
