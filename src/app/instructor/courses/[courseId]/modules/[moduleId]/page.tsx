@@ -7,7 +7,7 @@ import {
   Trash2,
   Plus,
   ChevronLeft,
-  GripVertical,
+  GripVertical, // Import the GripVertical icon
 } from "lucide-react"
 
 // Lesson type definition
@@ -58,6 +58,9 @@ export default function ModuleManagement() {
   const [addName, setAddName] = useState("")
   const [addDescription, setAddDescription] = useState("")
 
+  // State to keep track of the item being dragged
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
+
   function handleDelete(id: number) {
     setLessons(lessons.filter((lesson) => lesson.id !== id))
   }
@@ -97,7 +100,7 @@ export default function ModuleManagement() {
   function handleAddSave() {
     if (addName.trim() !== "") {
       const newLesson: Lesson = {
-        id: lessons.length > 0 ? lessons[lessons.length - 1].id + 1 : 1,
+        id: lessons.length > 0 ? Math.max(...lessons.map((l) => l.id)) + 1 : 1,
         name: addName,
         description: addDescription,
         icon: <BookOpen className="w-7 h-7 text-purple-400" />,
@@ -113,6 +116,23 @@ export default function ModuleManagement() {
     setShowAddModal(false)
     setAddName("")
     setAddDescription("")
+  }
+
+  // Function to handle the drop event and reorder the lessons
+  function handleDrop(targetIndex: number) {
+    if (draggedIndex === null) return
+
+    const newLessons = [...lessons]
+    const draggedItem = newLessons[draggedIndex]
+
+    // Remove the dragged item from its original position
+    newLessons.splice(draggedIndex, 1)
+    // Insert the dragged item at the new (target) position
+    newLessons.splice(targetIndex, 0, draggedItem)
+
+    // Update the state with the new order and reset the dragged index
+    setLessons(newLessons)
+    setDraggedIndex(null)
   }
 
   return (
@@ -167,13 +187,19 @@ export default function ModuleManagement() {
 
       {/* Lessons List */}
       <div className="space-y-5">
-        {lessons.map((lesson) => (
+        {lessons.map((lesson, index) => (
           <div
             key={lesson.id}
-            className="flex flex-col md:flex-row md:items-center justify-between gap-5 bg-gray-800 rounded-lg p-4 sm:p-6 border border-gray-700"
+            draggable
+            onDragStart={() => setDraggedIndex(index)}
+            onDragOver={(e) => e.preventDefault()} // Necessary to allow dropping
+            onDrop={() => handleDrop(index)}
+            onDragEnd={() => setDraggedIndex(null)}
+            className={`flex flex-col md:flex-row md:items-center justify-between gap-5 bg-gray-800 rounded-lg p-4 sm:p-6 border border-gray-700 transition-opacity ${
+              draggedIndex === index ? "opacity-50" : "opacity-100"
+            }`}
           >
             <div className="flex items-center gap-5">
-              {/* Replaced hardcoded div with the GripVertical icon */}
               <GripVertical className="h-5 w-5 text-gray-400 cursor-grab hidden sm:block" />
               <div>{lesson.icon}</div>
               <div>
@@ -188,7 +214,7 @@ export default function ModuleManagement() {
             {/* Actions */}
             <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
               <button
-                className="flex items-center justify-center gap-2 bg-slate-900 border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+                className="flex items-center justify-center gap-2 bg-slate-900 border border-white text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
                 type="button"
                 aria-label="Preview"
               >
@@ -196,7 +222,7 @@ export default function ModuleManagement() {
                 Preview
               </button>
               <button
-                className="flex items-center justify-center gap-2 bg-slate-900 border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+                className="flex items-center justify-center gap-2 bg-slate-900 border border-white text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
                 type="button"
                 aria-label="Edit"
                 onClick={() => handleEdit(lesson)}
@@ -205,7 +231,7 @@ export default function ModuleManagement() {
                 Edit
               </button>
               <button
-                className="flex items-center justify-center gap-2 bg-slate-900 border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+                className="flex items-center justify-center gap-2 bg-slate-900 border border-white text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
                 type="button"
                 aria-label="Delete"
                 onClick={() => handleDelete(lesson.id)}
