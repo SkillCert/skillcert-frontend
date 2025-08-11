@@ -1,6 +1,6 @@
 "use client"
 import { useState } from "react"
-import { BookOpen, Eye, Pencil, Trash2, Plus } from "lucide-react"
+import { BookOpen, Eye, Pencil, Trash2, Plus, ChevronLeft } from "lucide-react"
 
 const mockLessons = [
   {
@@ -36,13 +36,17 @@ export default function ModuleManagement() {
     <div className="min-h-screen bg-[#151a23] text-white px-12 py-8">
       {/* Header */}
       <div className="mb-8">
-        <button className="text-purple-400 text-sm font-medium mb-2 hover:underline">
-          &lt; Back to Course
-        </button>
-        {/* this is still hardcoded */}
-        <div className="flex items-center gap-4">
-          <span className="text-gray-400 text-xs">Course name</span>
-          <h1 className="text-3xl font-bold text-white">Module name</h1>
+        <div className="flex items-center gap-2 mb-2">
+          <ChevronLeft className="w-5 h-5 text-purple-400" />
+          <button className="text-purple-400 text-sm font-medium hover:underline p-0 bg-transparent border-none">
+            Back to Course
+          </button>
+        </div>
+        <div className="flex flex-col items-start">
+          <span className="text-gray-400 text-xs mb-1">Course name</span>
+          <h1 className="text-3xl font-bold text-white leading-tight">
+            Module name
+          </h1>
         </div>
       </div>
 
