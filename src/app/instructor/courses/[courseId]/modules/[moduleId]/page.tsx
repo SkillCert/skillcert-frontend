@@ -33,7 +33,7 @@ export default function ModuleManagement() {
   const [description, setDescription] = useState("")
 
   return (
-    <div className="min-h-screen bg-[#151a23] text-white px-12 py-8">
+    <div className="min-h-screen bg-[#151a23] text-white p-4 sm:p-8 lg:p-12">
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-2">
@@ -70,10 +70,11 @@ export default function ModuleManagement() {
       </div>
 
       {/* Lessons Section */}
-      <div className="flex items-center justify-between mb-4">
+
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-4">
         <h2 className="text-2xl font-bold text-white">Lessons</h2>
         <button
-          className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-2 rounded-lg flex items-center gap-2 transition-colors"
+          className="bg-purple-600 hover:bg-purple-700 text-white font-semibold px-6 py-2 rounded-lg flex items-center justify-center gap-2 transition-colors"
           type="button"
         >
           <Plus className="w-5 h-5" />
@@ -86,18 +87,17 @@ export default function ModuleManagement() {
         {mockLessons.map((lesson) => (
           <div
             key={lesson.id}
-            className="flex items-center justify-between bg-[#23263a] rounded-lg px-6 py-5 border border-gray-700"
+            className="flex flex-col md:flex-row md:items-center justify-between gap-5 bg-[#23263a] rounded-lg p-4 sm:p-6 border border-gray-700"
           >
             <div className="flex items-center gap-5">
-              {/* Drag Handle */}
-              <div className="flex flex-col gap-1 mr-2">
+              <div className="flex-col gap-1 mr-2 hidden sm:flex">
                 <span className="block w-1 h-1 bg-gray-400 rounded-full"></span>
                 <span className="block w-1 h-1 bg-gray-400 rounded-full"></span>
                 <span className="block w-1 h-1 bg-gray-400 rounded-full"></span>
               </div>
-              {/* Icon */}
+
               <div>{lesson.icon}</div>
-              {/* Lesson Info */}
+
               <div>
                 <div className="font-bold text-lg text-white">
                   {lesson.name}
@@ -108,9 +108,10 @@ export default function ModuleManagement() {
               </div>
             </div>
             {/* Actions */}
-            <div className="flex gap-3">
+
+            <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
               <button
-                className="flex items-center gap-2 bg-[#23263a] border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+                className="flex items-center justify-center gap-2 bg-[#23263a] border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
                 type="button"
                 aria-label="Preview"
               >
@@ -118,7 +119,7 @@ export default function ModuleManagement() {
                 Preview
               </button>
               <button
-                className="flex items-center gap-2 bg-[#23263a] border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+                className="flex items-center justify-center gap-2 bg-[#23263a] border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
                 type="button"
                 aria-label="Edit"
               >
@@ -126,7 +127,7 @@ export default function ModuleManagement() {
                 Edit
               </button>
               <button
-                className="flex items-center gap-2 bg-[#23263a] border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+                className="flex items-center justify-center gap-2 bg-[#23263a] border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
                 type="button"
                 aria-label="Delete"
               >
