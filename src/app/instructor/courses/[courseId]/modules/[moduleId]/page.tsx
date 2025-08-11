@@ -1,8 +1,15 @@
 "use client"
-import { useState } from "react"
+import { JSX, useState } from "react"
 import { BookOpen, Eye, Pencil, Trash2, Plus, ChevronLeft } from "lucide-react"
 
-const mockLessons = [
+type Lesson = {
+  id: number
+  name: string
+  description: string
+  icon: JSX.Element
+}
+
+const initialLessons: Lesson[] = [
   {
     id: 1,
     name: "Lesson Name",
@@ -31,6 +38,41 @@ const mockLessons = [
 
 export default function ModuleManagement() {
   const [description, setDescription] = useState("")
+  const [lessons, setLessons] = useState(initialLessons)
+  const [editingLesson, setEditingLesson] = useState<Lesson | null>(null)
+  const [editName, setEditName] = useState("")
+  const [editDescription, setEditDescription] = useState("")
+  const [showEditModal, setShowEditModal] = useState(false)
+
+  function handleDelete(id: number) {
+    setLessons(lessons.filter((lesson) => lesson.id !== id))
+  }
+
+  function handleEdit(lesson: Lesson) {
+    setEditingLesson(lesson)
+    setEditName(lesson.name)
+    setEditDescription(lesson.description)
+    setShowEditModal(true)
+  }
+
+  function handleEditSave() {
+    if (editingLesson !== null) {
+      setLessons(
+        lessons.map((lesson) =>
+          lesson.id === editingLesson.id
+            ? { ...lesson, name: editName, description: editDescription }
+            : lesson
+        )
+      )
+      setShowEditModal(false)
+      setEditingLesson(null)
+    }
+  }
+
+  function handleEditCancel() {
+    setShowEditModal(false)
+    setEditingLesson(null)
+  }
 
   return (
     <div className="min-h-screen bg-[#151a23] text-white p-4 sm:p-8 lg:p-12">
@@ -70,7 +112,6 @@ export default function ModuleManagement() {
       </div>
 
       {/* Lessons Section */}
-
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-4">
         <h2 className="text-2xl font-bold text-white">Lessons</h2>
         <button
@@ -84,7 +125,7 @@ export default function ModuleManagement() {
 
       {/* Lessons List */}
       <div className="space-y-5">
-        {mockLessons.map((lesson) => (
+        {lessons.map((lesson) => (
           <div
             key={lesson.id}
             className="flex flex-col md:flex-row md:items-center justify-between gap-5 bg-[#23263a] rounded-lg p-4 sm:p-6 border border-gray-700"
@@ -95,9 +136,7 @@ export default function ModuleManagement() {
                 <span className="block w-1 h-1 bg-gray-400 rounded-full"></span>
                 <span className="block w-1 h-1 bg-gray-400 rounded-full"></span>
               </div>
-
               <div>{lesson.icon}</div>
-
               <div>
                 <div className="font-bold text-lg text-white">
                   {lesson.name}
@@ -108,7 +147,6 @@ export default function ModuleManagement() {
               </div>
             </div>
             {/* Actions */}
-
             <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
               <button
                 className="flex items-center justify-center gap-2 bg-[#23263a] border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
@@ -122,6 +160,7 @@ export default function ModuleManagement() {
                 className="flex items-center justify-center gap-2 bg-[#23263a] border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
                 type="button"
                 aria-label="Edit"
+                onClick={() => handleEdit(lesson)}
               >
                 <Pencil className="w-5 h-5 text-purple-400" />
                 Edit
@@ -130,6 +169,7 @@ export default function ModuleManagement() {
                 className="flex items-center justify-center gap-2 bg-[#23263a] border border-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
                 type="button"
                 aria-label="Delete"
+                onClick={() => handleDelete(lesson.id)}
               >
                 <Trash2 className="w-5 h-5 text-purple-400" />
                 Delete
@@ -138,6 +178,48 @@ export default function ModuleManagement() {
           </div>
         ))}
       </div>
+
+      {/* Edit Modal */}
+      {showEditModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+          <div className="bg-[#23263a] rounded-lg p-8 w-full max-w-md border border-gray-700">
+            <h3 className="text-xl font-bold mb-4 text-white">Edit Lesson</h3>
+            <label className="block text-sm font-semibold mb-2 text-white">
+              Lesson Name
+            </label>
+            <input
+              type="text"
+              className="w-full bg-[#151a23] text-white rounded-lg p-2 mb-4 border-none focus:outline-none focus:ring-2 focus:ring-purple-500"
+              value={editName}
+              onChange={(e) => setEditName(e.target.value)}
+            />
+            <label className="block text-sm font-semibold mb-2 text-white">
+              Description
+            </label>
+            <textarea
+              className="w-full bg-[#151a23] text-white rounded-lg p-2 mb-4 border-none focus:outline-none focus:ring-2 focus:ring-purple-500"
+              value={editDescription}
+              onChange={(e) => setEditDescription(e.target.value)}
+            />
+            <div className="flex justify-end gap-3">
+              <button
+                className="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-lg"
+                type="button"
+                onClick={handleEditCancel}
+              >
+                Cancel
+              </button>
+              <button
+                className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-semibold"
+                type="button"
+                onClick={handleEditSave}
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

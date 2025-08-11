@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import ModuleManagement from "./page"
+import { render, screen, fireEvent } from "@testing-library/react"
+import ModuleManagement from "../../app/instructor/courses/[courseId]/modules/[moduleId]/page"
 
 describe("ModuleManagement Page", () => {
   it("renders module name, description, lessons section, and add lesson button", () => {
@@ -24,5 +24,21 @@ describe("ModuleManagement Page", () => {
     expect(
       screen.getAllByRole("button", { name: /Delete/i }).length
     ).toBeGreaterThan(0)
+  })
+
+  it("calls edit handler when Edit button is clicked", () => {
+    const { container } = render(<ModuleManagement />)
+    const editButtons = screen.getAllByRole("button", { name: /Edit/i })
+    fireEvent.click(editButtons[0])
+    // Should show edit modal or set editing state
+    expect(container.textContent).toMatch(/Edit Lesson/i)
+  })
+
+  it("removes lesson when Delete button is clicked", () => {
+    render(<ModuleManagement />)
+    const deleteButtons = screen.getAllByRole("button", { name: /Delete/i })
+    fireEvent.click(deleteButtons[0])
+    // After delete, lesson count should decrease
+    expect(screen.getAllByText(/Lesson Name/i).length).toBeLessThan(4)
   })
 })
