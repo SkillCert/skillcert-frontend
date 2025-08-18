@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import { Info } from 'lucide-react';
 import Image from 'next/image';
+import  CourseHeader  from "../../components/courseHeader";
+
 
 interface Objective {
-  id: string;
+  id: string; 
   text: string;
 }
 
@@ -53,7 +55,10 @@ export default function Details() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4">
+      {/* Course Header */}
+      <CourseHeader />
+
       {/* Learning Objectives Section */}
       <div className="bg-gray-900 rounded-lg p-6 border border-gray-800">
         <div className="flex justify-between items-start mb-4">
