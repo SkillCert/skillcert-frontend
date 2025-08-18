@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import { Info } from 'lucide-react';
 import Image from 'next/image';
-import  CourseHeader  from "../../components/courseHeader";
+import CourseHeader from "../../components/courseHeader";
 
 
 interface Objective {
-  id: string; 
+  id: string;
   text: string;
 }
 
@@ -84,11 +84,11 @@ export default function Details() {
               className="flex items-center justify-between w-[1064px] h-[45px] px-6 py-3 rounded-lg border border-gray-800"
             >
               <div className="flex items-center gap-5">
-                <Image 
-                  src="/checkmark.png" 
-                  alt="Check" 
-                  width={20} 
-                  height={20} 
+                <Image
+                  src="/checkmark.png"
+                  alt="Check"
+                  width={20}
+                  height={20}
                   className="filter brightness-0 saturate-100 invert-[0.85] sepia-[0.5] saturate-[2.5] hue-rotate-[320deg]"
                 />
                 <span className="text-white">{objective.text}</span>
