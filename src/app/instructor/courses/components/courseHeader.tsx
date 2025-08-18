@@ -5,7 +5,7 @@ import Image from "next/image"
 
 export default function CourseHeader() {
     return (
-        <header className="bg-slate-900 font-poppins h-[155px] px-[7px] flex items-center justify-between my-6 border border-yellow-400">
+        <header className="bg-slate-900 font-poppins h-[155px] px-[7px] flex items-center justify-between my-6">
             <div className="flex flex-col gap-y-5 items-start justify-center h-[103px">
                 <h1 className="text-white leading-[100%] text-[40px] font-medium align-top">Course management</h1>
                 <div className="bg-pink-500 flex items-center justify-center text-white text-[16px] hover:bg-pink-600 py-[6px] px-[12px] rounded-md">
