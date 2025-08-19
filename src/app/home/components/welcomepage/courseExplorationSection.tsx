@@ -1,5 +1,8 @@
+"use client"
 import React from 'react';
 import { Clock, Users, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import { grantAccess } from '../../../../../contract_connections/CourseRegistry/grantAccess';
 
 interface Course {
   id: string;
@@ -38,6 +41,20 @@ const courses: Course[] = [
 ];
 
 const CourseCard: React.FC<{ course: Course }> = ({ course }) => {
+  const [userAddress, setUserAddress] = useState("0x1234567890123456789012345678901234567890");
+
+  const handleEnroll = async (courseId: string) => {
+    const result = await grantAccess({
+      course_id: courseId,
+      user: userAddress,
+    });
+    if (result.success) {
+      alert("Enrollment successful!");
+    } else {
+      alert(`Enrollment failed: ${result.error}`);
+    }
+  };
+
   return (
     <div className="bg-gray-800 rounded-xl overflow-hidden shadow-xl">
       <div className={`h-32 bg-gradient-to-r from-purple-700 to-pink-700`}></div>
@@ -59,7 +76,10 @@ const CourseCard: React.FC<{ course: Course }> = ({ course }) => {
         
         <div className="flex items-center justify-between">
           <span className="text-2xl font-bold text-white">{course.price}</span>
-          <button className="bg-gradient-to-r from-purple-700 to-pink-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2 group">
+          <button 
+            className="bg-gradient-to-r from-purple-700 to-pink-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2 group"
+            onClick={() => handleEnroll(course.id)}
+          >
             Enroll Now
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
           </button>

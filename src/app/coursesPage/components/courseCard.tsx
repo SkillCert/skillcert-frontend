@@ -1,7 +1,11 @@
+"use client"
 import { CourseCardProps, CourseCategory } from "@/lib/interface";
 import { Star, Clock } from "lucide-react";
+import { useState } from "react";
+import { grantAccess } from "../../../../contract_connections/CourseRegistry/grantAccess";
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
+  const [userAddress, setUserAddress] = useState("0x1234567890123456789012345678901234567890");
   const getCategoryColor = (category: CourseCategory): string => {
     switch (category) {
       case "Web Development":
@@ -14,6 +18,18 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
         return "bg-orange-600";
       default:
         return "bg-gray-600";
+    }
+  };
+
+  const handleEnroll = async (courseId: number) => {
+    const result = await grantAccess({
+      course_id: courseId.toString(),
+      user: userAddress,
+    });
+    if (result.success) {
+      alert("Enrollment successful!");
+    } else {
+      alert(`Enrollment failed: ${result.error}`);
     }
   };
 
@@ -68,7 +84,10 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           <span className="text-base sm:text-lg text-white font-bold mt-2">
             {course.price.toFixed(2)} XLM
           </span>
-          <button className="bg-pink-800 text-white px-3 py-2 sm:px-4 rounded-full font-medium transition-colors text-xs sm:text-sm mt-2">
+          <button
+            className="bg-pink-800 text-white px-3 py-2 sm:px-4 rounded-full font-medium transition-colors text-xs sm:text-sm mt-2"
+            onClick={() => handleEnroll(course.id)}
+          >
             Enroll Now
           </button>
         </div>
