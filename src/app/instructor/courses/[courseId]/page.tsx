@@ -3,6 +3,7 @@
 import Button from "@/components/button";
 import Image from "next/image";
 import { useState } from "react";
+import CourseModules from "./components/courseModules";
 
 type StatItem = {
   id: number;
@@ -37,7 +38,7 @@ export default function CourseMainView() {
   const TabContent = () => {
     switch (activeTab) {
       case "courseContents":
-        return <div>Course Content</div>;
+        return <CourseModules />;
       case "students":
         return <div>Students Content</div>;
       default:
@@ -75,7 +76,7 @@ export default function CourseMainView() {
 
       {/* stats components */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {data.map(stats => (
+        {data.map((stats) => (
           <div key={stats.id} className="border p-4 rounded-lg mb-6">
             <div className="flex flex-col gap-3 items-start">
               <span className="text-white text-base">{stats.title}</span>
@@ -100,7 +101,7 @@ export default function CourseMainView() {
       <div className="mb-5 mt-10">
         <div className="">
           <nav className="flex space-x-8">
-            {tabs.map(tab => {
+            {tabs.map((tab) => {
               const isActive = activeTab === tab.id;
 
               return (
