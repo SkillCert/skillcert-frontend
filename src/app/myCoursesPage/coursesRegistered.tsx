@@ -1,8 +1,11 @@
+"use client"
 import { Search, Star, ImageIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
+import { useState } from "react"
+import { grantAccess } from "../../../contract_connections/CourseRegistry/grantAccess"
 
 interface Course {
   id: number
@@ -17,6 +20,7 @@ interface Course {
 }
 
 export default function CoursesRegistered() {
+  const [userAddress, setUserAddress] = useState("0x1234567890123456789012345678901234567890")
   const courses: Course[] = [
     {
       id: 1,
@@ -91,6 +95,18 @@ export default function CoursesRegistered() {
       category: "Category",
     },
   ]
+
+  const handleEnroll = async (courseId: number) => {
+    const result = await grantAccess({
+      course_id: courseId.toString(),
+      user: userAddress,
+    })
+    if (result.success) {
+      alert("Enrollment successful!")
+    } else {
+      alert(`Enrollment failed: ${result.error}`)
+    }
+  }
 
   return (
     <div className="bg-slate-900 min-h-screen p-8">
@@ -174,7 +190,12 @@ export default function CoursesRegistered() {
                     {/* Price and Enroll Button */}
                     <div className="flex items-center justify-between">
                       <span className="text-lg font-semibold">{course.price}</span>
-                      <Button className="bg-pink-600 hover:bg-pink-700 text-white px-6">Enroll Now</Button>
+                      <Button
+                        className="bg-pink-600 hover:bg-pink-700 text-white px-6"
+                        onClick={() => handleEnroll(course.id)}
+                      >
+                        Enroll Now
+                      </Button>
                     </div>
                   </div>
                 </CardContent>
