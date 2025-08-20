@@ -41,14 +41,14 @@ export default function CourseCard({ course }: CourseCardProps) {
         </p>
 
         <div className="flex flex-wrap gap-2 my-6">
-          <span className="text-white px-3 py-1 rounded-full text-xs font-medium bg-purple-600">
+          <span className="border border-gray-400  bg-blue-900 text-gray-300 px-3 py-1 rounded-full text-xs font-medium">
+            {course.status}
+          </span>
+          <span className="text-white border border-gray-500 px-3 py-1 rounded-full text-xs font-medium ">
             {course.category}
           </span>
           <span className="border border-gray-400 text-gray-300 px-3 py-1 rounded-full text-xs font-medium">
             {course.level}
-          </span>
-          <span className="border border-gray-400 text-gray-300 px-3 py-1 rounded-full text-xs font-medium">
-            Category
           </span>
         </div>
 

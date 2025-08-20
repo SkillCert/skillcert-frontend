@@ -2,6 +2,7 @@
 import React, { useState, useMemo } from "react";
 import { Search, Filter, X } from "lucide-react";
 import CourseCard from "./components/courseCard";
+import CreateCourse from "./components/createCourse";
 import { levels } from "@/lib/interface";
 import { categories } from "@/lib/interface";
 import { Course, CourseLevel, CourseCategory } from "@/lib/interface";
@@ -202,15 +203,18 @@ const CourseExplore: React.FC = () => {
 						Explore courses
 					</h1>
 
-					<div className="relative">
-						<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-						<input
-							type="text"
-							placeholder="Search"
-							value={searchTerm}
-							onChange={handleSearchChange}
-							className="bg-gray-800 text-white pl-10 pr-4 py-2 rounded-lg border border-gray-700 focus:border-purple-500 focus:outline-none w-full sm:w-80"
-						/>
+					<div className="flex flex-col sm:flex-row gap-4 sm:items-center">
+						<CreateCourse />
+						<div className="relative">
+							<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+							<input
+								type="text"
+								placeholder="Search"
+								value={searchTerm}
+								onChange={handleSearchChange}
+								className="bg-gray-800 text-white pl-10 pr-4 py-2 rounded-lg border border-gray-700 focus:border-purple-500 focus:outline-none w-full sm:w-80"
+							/>
+						</div>
 					</div>
 				</div>
 
