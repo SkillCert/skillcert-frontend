@@ -31,7 +31,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#111627]`}
       >
         <NavbarMenu variant="default" />
-        <Toaster position="top-right" />
+        <Toaster position="top-right" richColors />
         <main className="flex flex-col min-h-screen">{children}</main>
         <Footer />
       </body>
