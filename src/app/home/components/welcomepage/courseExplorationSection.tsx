@@ -3,6 +3,7 @@ import React from 'react';
 import { Clock, Users, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { grantAccess } from '../../../../../contract_connections/CourseRegistry/grantAccess';
+import Link from "next/link";
 
 interface Course {
   id: string;
@@ -60,9 +61,9 @@ const CourseCard: React.FC<{ course: Course }> = ({ course }) => {
       <div className={`h-32 bg-gradient-to-r from-purple-700 to-pink-700`}></div>
       <div className="p-6">
         <h3 className="text-xl font-bold text-white mb-2">{course.title}</h3>
-        
+
         <p className="text-gray-400 mb-4">By {course.instructor}</p>
-        
+
         <div className="flex items-center gap-4 mb-6 text-gray-400 text-sm">
           <div className="flex items-center gap-1">
             <Clock size={16} />
@@ -73,10 +74,10 @@ const CourseCard: React.FC<{ course: Course }> = ({ course }) => {
             <span>{course.students}</span>
           </div>
         </div>
-        
+
         <div className="flex items-center justify-between">
           <span className="text-2xl font-bold text-white">{course.price}</span>
-          <button 
+          <button
             className="bg-gradient-to-r from-purple-700 to-pink-700 text-white px-6 py-2 rounded-lg font-semibold flex items-center gap-2 group"
             onClick={() => handleEnroll(course.id)}
           >
@@ -99,17 +100,20 @@ const courseExplorationSection: React.FC = () => {
             Discover our most popular courses designed to accelerate your career growth
           </p>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {courses.map((course) => (
             <CourseCard key={course.id} course={course} />
           ))}
         </div>
-        
+
         <div className="text-center">
-          <button className="bg-gradient-to-r from-purple-700 to-pink-700 text-white px-8 py-3 rounded-lg border border-gray-400 font-semibold text-lg">
-            Explore all courses in the app
-          </button>
+          <Link href="/coursesPage"
+            className="bg-gradient-to-r from-purple-700 to-pink-700 text-white px-8 py-3 rounded-lg border border-gray-400 font-semibold text-lg">
+            <button>
+              Explore all courses in the app
+            </button>
+          </Link>
         </div>
       </div>
     </section>

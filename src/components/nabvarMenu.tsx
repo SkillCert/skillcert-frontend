@@ -8,7 +8,7 @@ import {
   Bell,
   User,
   Settings,
-  LogOut,
+  LogOut
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,6 +23,7 @@ import {
 } from "@stellar/freighter-api";
 
 import { Toaster, toast } from "sonner";
+import Link from "next/link";
 
 // Default user data
 const defaultUserInfo = {
@@ -218,9 +219,9 @@ export default function NavbarMenu({
 
   const displayUserInfo = walletConnected
     ? {
-        ...userInfo,
-        userId: walletId,
-      }
+      ...userInfo,
+      userId: walletId,
+    }
     : userInfo;
 
   return (
@@ -229,14 +230,18 @@ export default function NavbarMenu({
         {/* Logo and Explore Section */}
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-3">
-            <Image
-              src="/nabvar-logo.png"
-              alt="Skillcert Logo"
-              width={100}
-              height={100}
-            />
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/nabvar-logo.png"
+                alt="Skillcert Logo"
+                width={100}
+                height={100}
+              />
+            </Link>
           </div>
-          <span className="text-white/80 text-sm">Explore</span>
+          <Link href="/coursesPage" className="text-white/80 text-sm" >
+          <span>Explore</span>
+          </Link>
         </div>
 
         {/* Search Bar Section */}
@@ -250,9 +255,8 @@ export default function NavbarMenu({
               onBlur={() => setIsSearchFocused(false)}
             />
             <Search
-              className={`absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 transition-colors duration-200 ${
-                isSearchFocused ? "text-red-400" : "text-white"
-              }`}
+              className={`absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 transition-colors duration-200 ${isSearchFocused ? "text-red-400" : "text-white"
+                }`}
             />
           </div>
         </div>
@@ -286,7 +290,7 @@ function DefaultNavigation({
 }) {
   return (
     <div className="flex items-center gap-6">
-      <a href="#" className="text-white/80 hover:text-white transition-colors">
+      <a href="/" className="text-white/80 hover:text-white transition-colors">
         Home
       </a>
       <a href="#" className="text-white/80 hover:text-white transition-colors">
