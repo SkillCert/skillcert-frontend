@@ -12,7 +12,7 @@
 
 .containerAlt {
     margin-inline: 20px;
-    max-width: 1280px;
+    max-width: 1200px;
 }
 
 @media screen and (min-width: 1300px) {
