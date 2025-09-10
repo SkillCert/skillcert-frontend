@@ -45,7 +45,6 @@ describe('validateProfileData', () => {
       name: 'John Doe',
       email: 'john@example.com',
       country: 'USA'
-      // profession and goals are undefined
     };
 
     const result = validateProfileData(validData);

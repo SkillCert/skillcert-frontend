@@ -30,7 +30,6 @@ describe("ModuleManagement Page", () => {
     const { container } = render(<ModuleManagement />)
     const editButtons = screen.getAllByRole("button", { name: /Edit/i })
     fireEvent.click(editButtons[0])
-    // Should show edit modal or set editing state
     expect(container.textContent).toMatch(/Edit Lesson/i)
   })
 
@@ -38,7 +37,6 @@ describe("ModuleManagement Page", () => {
     render(<ModuleManagement />)
     const deleteButtons = screen.getAllByRole("button", { name: /Delete/i })
     fireEvent.click(deleteButtons[0])
-    // After delete, lesson count should decrease
     expect(screen.getAllByText(/Lesson Name/i).length).toBeLessThan(4)
   })
 

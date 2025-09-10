@@ -15,14 +15,12 @@ export default function InputFieldTest() {
       <div className="max-w-md mx-auto space-y-6">
         <h1 className="text-2xl font-bold text-white mb-8">Test InputField Component</h1>
         
-        {/* Campo de texto */}
         <InputField 
           label="Field name" 
           placeholder="Place holder" 
           variant="text"
         />
         
-        {/* Campo de opciones */}
         <InputField 
           label="Field name" 
           placeholder="Seleccionar opción" 
