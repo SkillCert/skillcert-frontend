@@ -20,7 +20,6 @@ export const CoursesOverview = () => {
           <CourseCard />
         </div>
 
-        {/* Preview Button */}
         <div className="flex justify-center">
           <button
             onClick={() => setShowModal(true)}
@@ -36,7 +35,6 @@ export const CoursesOverview = () => {
         </div>
       </div>
 
-      {/* ContentModal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="relative">

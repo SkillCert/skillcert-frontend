@@ -30,9 +30,7 @@ export default function HeaderModal({
 
   return (
     <div className="bg-slate-900 text-white">
-      {/* Header section */}
       <div className="relative p-6 pb-4">
-        {/* Close button - positioned absolutely */}
         <button
           onClick={onClose}
           className="absolute top-6 right-6 p-2 hover:bg-slate-800 rounded-lg transition-colors duration-200"
@@ -41,7 +39,6 @@ export default function HeaderModal({
           <X size={20} className="text-gray-400 hover:text-white" />
         </button>
         
-        {/* Left aligned content */}
         <div className="flex flex-col items-start text-left ml-5">
           <h1 
             className="text-white mb-2 font-poppins"
@@ -74,7 +71,6 @@ export default function HeaderModal({
         </div>
       </div>
 
-      {/* Divider line */}
       <div className="px-6">
         <div 
           style={{
@@ -86,8 +82,7 @@ export default function HeaderModal({
           }}
         ></div>
       </div>
-
-      {/* Navigation tabs */}
+      
       <div className="px-6 py-6 flex justify-center">
                 <div 
           style={{
