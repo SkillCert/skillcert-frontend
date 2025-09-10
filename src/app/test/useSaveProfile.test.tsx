@@ -1,9 +1,7 @@
-//Mock Testing for React Hook
 import { renderHook, act } from '@testing-library/react';
 import { useSaveProfile } from '../contract_connections/UserProfile/useSaveProfile';
 import { saveProfile } from '../contract_connections/UserProfile/saveProfile';
 
-// Mock the saveProfile function
 jest.mock('../contract_connections/UserProfile/saveProfile', () => ({
   ...jest.requireActual('../contract_connections/UserProfile/saveProfile'),
   saveProfile: jest.fn()

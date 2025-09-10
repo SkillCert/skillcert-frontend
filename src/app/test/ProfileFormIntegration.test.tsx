@@ -2,7 +2,6 @@ import React from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { useSaveProfile } from '../contract_connections/UserProfile/useSaveProfile'
 
-// Mock the entire saveProfile module
 jest.mock('../contract_connections/UserProfile/saveProfile', () => ({
   ...jest.requireActual('../contract_connections/UserProfile/saveProfile'),
   saveProfile: jest.fn(),
@@ -86,7 +85,6 @@ describe('Profile Form Integration', () => {
       expect(screen.getByTestId('validation-errors')).toBeInTheDocument()
     })
 
-    // Check that saveProfile was not called due to validation errors
     expect(saveProfile).not.toHaveBeenCalled()
   })
 
@@ -104,7 +102,6 @@ describe('Profile Form Integration', () => {
 
     render(<TestProfileForm />)
     
-    // Fill out the form with valid data
     fireEvent.change(screen.getByTestId('name-input'), {
       target: { value: 'John Doe' }
     })
@@ -125,7 +122,6 @@ describe('Profile Form Integration', () => {
       expect(screen.getByText('Save Profile')).toBeInTheDocument()
     })
 
-    // Verify saveProfile was called with correct data
     expect(saveProfile).toHaveBeenCalledWith(
       {
         name: 'John Doe',
@@ -139,7 +135,6 @@ describe('Profile Form Integration', () => {
   })
 
   it('should handle wallet connection errors', async () => {
-    // Mock wallet error
     saveProfile.mockResolvedValue({
       success: false,
       error: 'Wallet connection required. Please connect your wallet and try again.'
@@ -147,7 +142,6 @@ describe('Profile Form Integration', () => {
 
     render(<TestProfileForm />)
     
-    // Fill out valid form data
     fireEvent.change(screen.getByTestId('name-input'), {
       target: { value: 'John Doe' }
     })
@@ -170,7 +164,6 @@ describe('Profile Form Integration', () => {
   })
 
   it('should handle contract errors', async () => {
-    // Mock contract error
     saveProfile.mockResolvedValue({
       success: false,
       error: 'Transaction failed: Contract execution failed'
@@ -178,7 +171,6 @@ describe('Profile Form Integration', () => {
 
     render(<TestProfileForm />)
     
-    // Fill out valid form data
     fireEvent.change(screen.getByTestId('name-input'), {
       target: { value: 'John Doe' }
     })
@@ -201,7 +193,6 @@ describe('Profile Form Integration', () => {
   })
 })
 
-// Test the validation function separately
 describe('Validation Function Tests', () => {
   const { validateProfileData } = require('../contract_connections/UserProfile/saveProfile')
 
@@ -247,7 +238,6 @@ describe('Validation Function Tests', () => {
       name: 'John Doe',
       email: 'john@example.com',
       country: 'USA'
-      // profession and goals are undefined
     }
 
     const result = validateProfileData(dataWithoutOptionals)
