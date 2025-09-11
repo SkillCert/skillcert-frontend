@@ -2,28 +2,35 @@ name: CI
 
 on:
   push:
-    branches: [ main, ci-setup]
+    branches: ["**"]
   pull_request:
-    branches: [ main ]
+    branches: ["**"]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+  jobs:
+    build-and-test:
+       runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+       steps:
+           - name: Checkout repository
+             uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'   # or '20' if the repo requires Node 20
-          cache: 'npm'
+           - name: Set up Node.js
+             uses: actions/setup-node@v4
+             with:
+               node-version: 20
+               cache: 'pnpm'
 
-      - name: Install dependencies
-        run: npm ci
+           - name: Install pnpm
+             run: npm install -g pnpm
 
-      - name: Lint
-        run: npm run lint
+           - name: Install dependencies
+             run: pnpm install --frozen-lockfile
 
-      - name: Build Next.js app
-        run: npm run build
+           - name: Run linter
+             run: pnpm lint
+
+           - name: Run tests
+             run: pnpm test -- --ci --coverage
+
+           - name: Build project
+             run: pnpm build
