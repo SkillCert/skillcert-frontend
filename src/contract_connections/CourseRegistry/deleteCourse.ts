@@ -15,7 +15,7 @@ type Result<T, E> = { ok: true; value: T } | { ok: false; error: E };
 const getContractConfig = () => {
   return {
     contractAddress: process.env.NEXT_PUBLIC_COURSE_REGISTRY_CONTRACT || '',
-    networkRpc: process.env.NEXT_PUBLIC_STELLAR_RPC || 'https://soroban-testnet.stellar.org',
+    networkRpc: process.env.NEXT_PUBLIC_STELLAR_RPC || '',
     networkPassphrase: process.env.NEXT_PUBLIC_NETWORK_PASSPHRASE || Networks.TESTNET,
   };
 };
