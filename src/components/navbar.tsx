@@ -12,10 +12,10 @@ export function Navbar({ variant = "navbar1" }: NavbarProps) {
   return (
     <nav className="bg-gray-800 px-6 py-4">
       <div className="flex items-center justify-between max-w-5xl mx-auto">
-        {/* Logo and Explore */}
+        
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-3">
-            {/* Logo */}
+           
             <img
               src="/nabvar-logo.svg" 
               alt="Skillcert Logo"
@@ -26,7 +26,7 @@ export function Navbar({ variant = "navbar1" }: NavbarProps) {
           <span className="text-white/80 text-sm">Explore</span>
         </div>
 
-        {/* Search Bar */}
+       
         <div className="flex-1 max-w-md mx-4">
           <div className="relative">
             <Input
@@ -38,7 +38,7 @@ export function Navbar({ variant = "navbar1" }: NavbarProps) {
           </div>
         </div>
 
-        {/* Right Navigation */}
+       
         {variant === "navbar1" ? (
           <div className="flex items-center gap-6">
             <a href="#" className="text-white/80 hover:text-white transition-colors">

@@ -22,15 +22,15 @@ const DeleteCourseDialog: React.FC<DeleteCourseDialogProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
+     
       <div 
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={onClose}
       />
       
-      {/* Dialog */}
+     
       <div className="relative bg-gray-800 border border-gray-600 rounded-xl p-6 max-w-md mx-4 shadow-2xl">
-        {/* Close Button */}
+      
         <button
           onClick={onClose}
           disabled={isDeleting}
@@ -39,7 +39,7 @@ const DeleteCourseDialog: React.FC<DeleteCourseDialogProps> = ({
           <X className="w-5 h-5" />
         </button>
 
-        {/* Warning Icon */}
+        
         <div className="flex items-center mb-4">
           <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
             <AlertTriangle className="w-6 h-6 text-red-600" />
@@ -47,7 +47,7 @@ const DeleteCourseDialog: React.FC<DeleteCourseDialogProps> = ({
           <h3 className="text-lg font-semibold text-white">Delete Course</h3>
         </div>
 
-        {/* Warning Message */}
+        
         <div className="mb-6">
           <p className="text-gray-300 mb-3">
             Are you sure you want to delete <span className="font-semibold text-white">"{courseName}"</span>?
@@ -64,7 +64,7 @@ const DeleteCourseDialog: React.FC<DeleteCourseDialogProps> = ({
           </div>
         </div>
 
-        {/* Error Message */}
+      
         {error && (
           <div className="mb-4 bg-red-900/50 border border-red-700 rounded-lg p-3">
             <p className="text-red-300 text-sm">
@@ -73,7 +73,7 @@ const DeleteCourseDialog: React.FC<DeleteCourseDialogProps> = ({
           </div>
         )}
 
-        {/* Action Buttons */}
+       
         <div className="flex justify-end space-x-3">
           <button
             onClick={onClose}

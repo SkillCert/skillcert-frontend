@@ -352,7 +352,7 @@ function UserNavigation({
 					</div>
 				</button>
 
-				{/* Dropdown Menu */}
+				
 				{showDropdown && (
 					<UserDropdown
 						userInfo={userInfo}
