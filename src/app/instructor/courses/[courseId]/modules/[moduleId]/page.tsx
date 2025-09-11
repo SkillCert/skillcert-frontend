@@ -16,7 +16,6 @@ type Lesson = {
   icon: React.ReactElement
 }
 
-// Initial lessons data for mock
 const initialLessons: Lesson[] = [
   {
     id: 1,
@@ -56,7 +55,6 @@ export default function ModuleManagement() {
   const [addName, setAddName] = useState("")
   const [addDescription, setAddDescription] = useState("")
 
-  // State to keep track of the item being dragged
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
 
   function handleDelete(id: string | number) {
@@ -116,7 +114,6 @@ export default function ModuleManagement() {
     setAddDescription("")
   }
 
-  // Function to handle the drop event and reorder the lessons
   function handleDrop(targetIndex: number) {
     if (draggedIndex === null) return
 
@@ -127,14 +124,12 @@ export default function ModuleManagement() {
 
     newLessons.splice(targetIndex, 0, draggedItem)
 
-    // Update the state with the new order and reset the dragged index
     setLessons(newLessons)
     setDraggedIndex(null)
   }
 
   return (
     <div className="min-h-screen bg-slate-900 text-white p-4 sm:p-8 lg:p-12">
-      {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-2">
           <ChevronLeft className="w-5 h-5 text-purple-400" />
@@ -150,7 +145,6 @@ export default function ModuleManagement() {
         </div>
       </div>
 
-      {/* Description */}
       <div className="mb-8">
         <label
           htmlFor="module-description"
@@ -169,7 +163,6 @@ export default function ModuleManagement() {
         <hr className="border-gray-700 mt-6" />
       </div>
 
-      {/* Lessons Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-4">
         <h2 className="text-2xl font-bold text-white">Lessons</h2>
         <button
@@ -182,7 +175,6 @@ export default function ModuleManagement() {
         </button>
       </div>
 
-      {/* Lessons List */}
       <div className="space-y-5">
         {lessons.map((lesson, index) => (
           <Lessons lesson={lesson}
@@ -196,7 +188,6 @@ export default function ModuleManagement() {
         ))}
       </div>
 
-      {/* Edit Modal */}
       {showEditModal && (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
           <div className="bg-slate-900 rounded-lg p-8 w-full max-w-md border border-gray-700">
@@ -238,7 +229,6 @@ export default function ModuleManagement() {
         </div>
       )}
 
-      {/* Add Lesson Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
           <div className="bg-slate-900 rounded-lg p-8 w-full max-w-md border border-gray-700">

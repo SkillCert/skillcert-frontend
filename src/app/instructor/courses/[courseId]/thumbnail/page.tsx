@@ -32,14 +32,9 @@ export default function ThumbnailView() {
 
     setIsUploading(true);
     try {
-      // Previsualización local
       setPreviewUrl(URL.createObjectURL(f));
       setFileName(f.name);
 
-      // TODO: Subida real si aplica:
-      // const fd = new FormData();
-      // fd.append("thumbnail", f);
-      // await fetch(`/api/courses/${courseId}/thumbnail`, { method: "POST", body: fd });
     } catch (e) {
       console.error(e);
       alert("No se pudo subir la imagen.");
@@ -50,15 +45,12 @@ export default function ThumbnailView() {
 
   return (
     <section className="w-full">
-      {/* Encabezado */}
       <h2 className="text-[28px] leading-8 font-semibold text-white">
         Course Thumbnail
       </h2>
       <p className="mt-2 text-sm text-zinc-400">
         Upload an attractive thumbnail image for your course (recommended: 1280x720px)
       </p>
-
-      {/* Tarjeta principal */}
       <div
         className={[
           "mt-6 rounded-2xl border border-zinc-800 bg-[#0a0f1a]/80 px-6 py-6 md:px-8 md:py-8",
@@ -76,7 +68,6 @@ export default function ThumbnailView() {
         }}
       >
         <div className="mx-auto w-full max-w-[880px]">
-          {/* Marco 16:9 con preview o placeholder */}
           <div className="relative overflow-hidden rounded-xl bg-zinc-900">
             {previewUrl ? (
               <img
@@ -111,7 +102,6 @@ export default function ThumbnailView() {
             )}
           </div>
 
-          {/* Botón Upload */}
           <div className="mt-5">
             <button
               type="button"
