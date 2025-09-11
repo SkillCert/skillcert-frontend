@@ -13,7 +13,7 @@ describe('useSaveProfile', () => {
   const mockConfig = {
     contractAddress: 'MOCK_ADDRESS',
     networkPassphrase: 'Test SDF Network ; September 2015',
-    rpcUrl: 'https://soroban-testnet.stellar.org'
+    rpcUrl: process.env.NEXT_PUBLIC_SOROBAN_RPC_URL as string,
   };
 
   beforeEach(() => {
