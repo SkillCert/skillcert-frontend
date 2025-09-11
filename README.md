@@ -1,4 +1,4 @@
-## Description
+## Description.
 
 Skillcert is platform for issuing NFT-based digital certificates on the Stellar blockchain, ensuring authenticity, traceability, and instant verification. It also features an educational marketplace for courses with automated validated certification.
 
