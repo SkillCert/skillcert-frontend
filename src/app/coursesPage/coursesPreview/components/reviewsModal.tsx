@@ -1,6 +1,5 @@
 import Image from 'next/image';
 
-// Mock data
 const reviews = [
   {
     id: 1,
@@ -44,17 +43,14 @@ const reviews = [
   },
 ];
 
-// Mock data
 const mockRating = 4.5;
 const mockReviewsCount = 1250;
 
-// Fonction pour render les étoiles selon le rating
 const renderStars = (rating: number) => {
   const stars = [];
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 !== 0;
 
-  // Étoiles pleines
   for (let i = 0; i < fullStars; i++) {
     stars.push(
       <svg
@@ -73,7 +69,6 @@ const renderStars = (rating: number) => {
     );
   }
 
-  // Étoile à moitié remplie
   if (hasHalfStar) {
     stars.push(
       <svg
@@ -92,8 +87,6 @@ const renderStars = (rating: number) => {
     );
   }
 
-  // Étoiles vides
-  // TODO: Change it with the correct svg (need an export from figma from an empty star)
   const emptyStars = 5 - Math.ceil(rating);
   for (let i = 0; i < emptyStars; i++) {
     stars.push(
@@ -121,32 +114,24 @@ const renderStars = (rating: number) => {
 export default function ReviewsModal() {
   return (
     <div className="bg-[#151a23] rounded-lg min-w-[700px] max-h-[600px] overflow-y-auto">
-      {/* Section Rating */}
       <div className="flex items-center gap-4 mb-4 p-8">
-        {/* Rating Score */}
         <h1 className="text-white text-7xl font-medium">{mockRating}</h1>
 
-        {/* Stars et Reviews */}
         <div className="flex flex-col items-start gap-2">
-          {/* Stars */}
           <div className="flex items-center gap-2">
             {renderStars(mockRating)}
           </div>
 
-          {/* Reviews Count */}
           <h2 className="text-gray-400 text-2xl font-bold">
             {mockReviewsCount} reviews
           </h2>
         </div>
       </div>
 
-      {/* Liste des Reviews */}
       <div className="space-y-10 px-8 pb-8">
         {reviews.map((review) => (
           <div key={review.id} className="flex flex-col gap-4">
-            {/* Partie du haut */}
             <div className="flex items-center gap-4">
-              {/* Avatar */}
               <Image
                 src={review.avatarUrl}
                 alt={review.name}
@@ -155,19 +140,15 @@ export default function ReviewsModal() {
                 className="rounded-full object-cover"
               />
 
-              {/* Nom et étoiles */}
               <div className="flex flex-col gap-2">
-                {/* Nom */}
                 <h3 className="text-white text-3xl font-bold">{review.name}</h3>
 
-                {/* Étoiles */}
                 <div className="flex items-center gap-2">
                   {renderStars(review.rating)}
                 </div>
               </div>
             </div>
 
-            {/* Commentaire */}
             <p className="text-gray-400 text-2xl font-bold leading-relaxed">
               {review.comment}
             </p>

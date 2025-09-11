@@ -137,7 +137,6 @@ const SearchCourses: React.FC = () => {
   return (
     <main className="min-h-screen bg-gray-900 py-8">
       <div className="max-w-[1544px] mx-auto">
-        {/* Search Header */}
         <div className="text-center max-w-[1199px] mx-auto">
           <h1 className="text-4xl text-left sm:text-4xl font-poppins font-medium text-white mb-8">
             Search courses
@@ -159,7 +158,6 @@ const SearchCourses: React.FC = () => {
 
         <div className="border-b-2 border-purple-400 w-full h-12 my-4"></div>
 
-        {/* Courses Section */}
         <div className="mb-8 max-w-[1379px] mx-auto">
           <h2 className="text-5xl sm:text-3xl font-medium font-poppins text-white mb-8">
             All Courses

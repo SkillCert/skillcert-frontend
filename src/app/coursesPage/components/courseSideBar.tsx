@@ -7,7 +7,6 @@ export const CourseSideBar = () => {
 
   return (
     <>
-      {/* Hamburger button for mobile */}
       <button
         className="fixed top-6 left-4 z-50 md:hidden bg-gray-800 p-2 rounded"
         onClick={() => setOpen((prev) => !prev)}
@@ -18,7 +17,6 @@ export const CourseSideBar = () => {
         <span className="block w-6 h-0.5 bg-white"></span>
       </button>
 
-      {/* Sidebar */}
       <aside
         className={`
           fixed sm:static top-0 left-0 h-full w-4/5 max-w-xs bg-gray-800 z-40 transform transition-transform duration-300
@@ -65,8 +63,7 @@ export const CourseSideBar = () => {
           </nav>
         </div>
       </aside>
-
-      {/* Overlay for mobile */}
+      
       {open && (
         <div
           className="fixed inset-0 bg-black bg-opacity-40 z-30 md:hidden"

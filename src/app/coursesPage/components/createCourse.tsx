@@ -43,7 +43,6 @@ export default function CreateCourse() {
     
     if (result.success) {
       setSuccessMessage(`Course created successfully! Course ID: ${result.courseId}`);
-      // Reset form
       setFormData({
         title: "",
         description: "",
@@ -65,15 +64,13 @@ export default function CreateCourse() {
             Fill in the details to create your new course
           </DialogDescription>
         </DialogHeader>
-        
-        {/* Error Message */}
+
         {error && (
           <div className="bg-red-900/50 border border-red-500 rounded-md p-3">
             <p className="text-red-400 text-sm">{error}</p>
           </div>
         )}
         
-        {/* Success Message */}
         {successMessage && (
           <div className="bg-green-900/50 border border-green-500 rounded-md p-3">
             <p className="text-green-400 text-sm">{successMessage}</p>
