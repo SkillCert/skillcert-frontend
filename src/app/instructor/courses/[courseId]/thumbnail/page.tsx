@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import Image from "next/image";
 
 export default function ThumbnailView() {
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -49,7 +50,8 @@ export default function ThumbnailView() {
         Course Thumbnail
       </h2>
       <p className="mt-2 text-sm text-zinc-400">
-        Upload an attractive thumbnail image for your course (recommended: 1280x720px)
+        Upload an attractive thumbnail image for your course (recommended:
+        1280x720px)
       </p>
       <div
         className={[
@@ -70,11 +72,14 @@ export default function ThumbnailView() {
         <div className="mx-auto w-full max-w-[880px]">
           <div className="relative overflow-hidden rounded-xl bg-zinc-900">
             {previewUrl ? (
-              <img
+              <Image
                 src={previewUrl}
                 alt={fileName ?? "Course thumbnail preview"}
+                width={1280}
+                height={720}
                 className="h-auto w-full object-cover"
                 style={{ aspectRatio: "16 / 9" }}
+                unoptimized
               />
             ) : (
               <div
