@@ -82,11 +82,9 @@ export default function CourseModules({
     const draggedIndex = newModules.findIndex((m) => m.id === draggedModule.id);
     const targetIndex = newModules.findIndex((m) => m.id === targetModule.id);
 
-    // Remove dragged module and insert at target position
     newModules.splice(draggedIndex, 1);
     newModules.splice(targetIndex, 0, draggedModule);
 
-    // Update order numbers
     const reorderedModules = newModules.map((module, index) => ({
       ...module,
       order: index + 1,
@@ -99,7 +97,6 @@ export default function CourseModules({
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <h2 className="text-xl sm:text-2xl font-semibold text-white">
           Course Modules
@@ -113,7 +110,6 @@ export default function CourseModules({
         </Button>
       </div>
 
-      {/* Modules List */}
       <div className="space-y-4">
         {modules.map((module) => (
           <Card
@@ -125,7 +121,6 @@ export default function CourseModules({
             onDrop={(e) => handleDrop(e, module)}
           >
             <div className="flex items-start gap-3 sm:gap-4">
-              {/* Drag Handle */}
               <div className="cursor-grab active:cursor-grabbing text-slate-400 hover:text-slate-300 mt-1">
                 <GripVertical className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
@@ -136,9 +131,7 @@ export default function CourseModules({
                 </div>
               </div>
 
-              {/* Module Content */}
               <div className="flex-1 min-w-0">
-                {/* Mobile Layout - Full vertical stack */}
                 <div className="block md:hidden space-y-3">
                   <div>
                     <h3 className="text-white font-medium text-base leading-tight mb-2">
@@ -179,7 +172,6 @@ export default function CourseModules({
                   </div>
                 </div>
 
-                {/* Tablet Layout - Description below title, horizontal buttons */}
                 <div className="hidden md:block lg:hidden">
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
@@ -222,9 +214,7 @@ export default function CourseModules({
                   </div>
                 </div>
 
-                {/* Desktop Layout  */}
                 <div className="hidden lg:grid grid-cols-[280px_1fr_auto] gap-6 items-start">
-                  {/* Title and Lesson Count */}
                   <div className="min-w-0">
                     <h3 className="text-white font-medium text-lg mb-2 leading-tight">
                       {module.title}
@@ -235,14 +225,11 @@ export default function CourseModules({
                     </div>
                   </div>
 
-                  {/* Description  */}
                   <div className="min-w-0">
                     <p className="text-slate-400 text-sm leading-relaxed mt-1">
                       {module.description}
                     </p>
                   </div>
-
-                  {/* Action Buttons*/}
                   <div className="flex items-center gap-2 flex-shrink-0 mt-1">
                     <Button
                       variant="outline"
@@ -275,7 +262,6 @@ export default function CourseModules({
         ))}
       </div>
 
-      {/* Empty State */}
       {modules.length === 0 && (
         <Card className="bg-slate-800/30 border-slate-700 border-dashed p-8 sm:p-12 text-center">
           <div className="text-gray-100 mb-4">

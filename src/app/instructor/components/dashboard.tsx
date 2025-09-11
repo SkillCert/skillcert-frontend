@@ -3,7 +3,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 
-// Data placeholders
 const totalCourses = 0
 const publishedCourses = 0
 const totalStudents = 0
@@ -13,7 +12,6 @@ const averageRating: number | null = null
 export default function Dashboard() {
   return (
     <div className="max-w-screen-xl mx-auto">
-      {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Instructor Overview</h1>
@@ -25,7 +23,6 @@ export default function Dashboard() {
         </Button>
       </div>
 
-      {/* Stats Cards */}
       <div className="mb-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <Card className="bg-transparent text-white border-[#9CA3AF]">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -72,7 +69,6 @@ export default function Dashboard() {
         </Card>
       </div>
 
-      {/* Recent Activity */}
       <Card className="bg-[#111827] text-white border-[#1F2937]">  
         <CardHeader>
           <CardTitle className="text-xl">Recent Activity</CardTitle>

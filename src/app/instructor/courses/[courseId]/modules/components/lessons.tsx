@@ -31,7 +31,7 @@ export default function Lessons({
             key={lesson.id}
             draggable
             onDragStart={() => setDraggedIndex(index)}
-            onDragOver={(e) => e.preventDefault()} // allow dropping
+            onDragOver={(e) => e.preventDefault()} 
             onDrop={() => handleDrop(index)}
             onDragEnd={() => setDraggedIndex(null)}
             className={`flex flex-col md:flex-row md:items-center justify-between gap-5 bg-gray-800 rounded-lg p-4 sm:p-6 border border-gray-700 transition-opacity ${draggedIndex === index ? "opacity-50" : "opacity-100"
@@ -46,7 +46,6 @@ export default function Lessons({
                 </div>
             </div>
 
-            {/* Actions */}
             <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
                 <button
                     className="flex items-center justify-center gap-2 bg-slate-900 border border-white text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"

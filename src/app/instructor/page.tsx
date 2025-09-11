@@ -24,10 +24,7 @@ export default function InstructorDashboard() {
   return (
     <div className="w-full bg-[#020618] mx-auto text-white">
       <main className="px-8 pb-8 pt-6">
-        {/* Navigation Tabs */}
         <InstructorMenu activeTab={activeTab} onTabChange={setActiveTab} />
-
-        {/* Tab Content */}
         {renderTabContent()}
       </main>
     </div>

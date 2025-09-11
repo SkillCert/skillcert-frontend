@@ -74,14 +74,12 @@ export default function CourseMainView() {
         </Button>
       </div>
 
-      {/* stats components */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {data.map((stats) => (
           <div key={stats.id} className="border p-4 rounded-lg mb-6">
             <div className="flex flex-col gap-3 items-start">
               <span className="text-white text-base">{stats.title}</span>
               <span className="text-white text-3xl font-semibold flex items-center">
-                {/* Conditionally render based on the unit */}
                 {stats.unit === "USD" ? (
                   <div className="flex items-center">
                     {stats.value} {stats.unit}
@@ -97,7 +95,6 @@ export default function CourseMainView() {
         ))}
       </div>
 
-      {/* Navigation Tabs */}
       <div className="mb-5 mt-10">
         <div className="">
           <nav className="flex space-x-8">
@@ -125,7 +122,6 @@ export default function CourseMainView() {
         </div>
       </div>
 
-      {/* Tab Content */}
       {TabContent()}
     </main>
   );

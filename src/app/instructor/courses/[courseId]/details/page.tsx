@@ -56,10 +56,8 @@ export default function Details() {
 
   return (
     <div className="space-y-4">
-      {/* Course Header */}
       <CourseHeader />
 
-      {/* Learning Objectives Section */}
       <div className="bg-gray-900 rounded-lg p-6 border border-gray-800">
         <div className="flex justify-between items-start mb-4">
           <div>
@@ -76,7 +74,6 @@ export default function Details() {
           </button>
         </div>
 
-        {/* Objectives list */}
         <div className="space-y-3">
           {objectives.map((objective) => (
             <div
@@ -104,7 +101,6 @@ export default function Details() {
         </div>
       </div>
 
-      {/* Prerequisites Section */}
       <div className="bg-gray-900 rounded-lg p-6 border border-gray-800">
         <div className="flex justify-between items-start mb-4">
           <div>
@@ -121,7 +117,6 @@ export default function Details() {
           </button>
         </div>
 
-        {/* Prerequisites list */}
         <div className="space-y-3">
           {prerequisites.map((prerequisite) => (
             <div
