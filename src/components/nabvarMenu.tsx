@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { isConnected, requestAccess, getAddress } from "@stellar/freighter-api";
 import { toast } from "sonner";
-import Link from "next/link";
 import { Brand } from "../../public/images";
 
 const defaultUserInfo = {
