@@ -1,16 +1,5 @@
 import SorobanClient from "@stellar/stellar-sdk";
-
-export interface Course {
-  id: string;
-  title: string;
-  description?: string;
-  creator: string;
-  price?: string;
-  category?: string;
-  language?: string;
-  thumbnail_url?: string;
-  published: boolean;
-}
+import { Course } from "@/types";
 
 export async function getCourse(courseId: string): Promise<Course | null> {
   if (!courseId) throw new Error("Course ID is required");

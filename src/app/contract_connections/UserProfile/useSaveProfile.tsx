@@ -60,8 +60,8 @@ export function useSaveProfile(
         }
 
         return result;
-      } catch (err: any) {
-        const errorMessage = err.message || "An unexpected error occurred";
+      } catch (err: unknown) {
+        const errorMessage = err instanceof Error ? err.message : "An unexpected error occurred";
         setError(errorMessage);
         return {
           success: false,
