@@ -29,6 +29,44 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## 🛠 Development Guidelines
+
+### Code Quality & Linting
+
+This project enforces strict code quality standards through ESLint configuration:
+
+- **Console Statements**: Console logs are **warnings** in development but **errors** in production builds
+- **Production Builds**: Will fail if any `console.log`, `console.error`, `console.warn`, etc. statements are present
+- **Development**: Console statements are allowed with warnings for debugging purposes
+
+#### Linting Commands
+
+```bash
+# Development linting (warnings for console statements)
+pnpm run lint
+
+# Production linting (errors for console statements)
+NODE_ENV=production pnpm run lint
+
+# Production build (will fail if console statements exist)
+NODE_ENV=production pnpm run build
+```
+
+#### Console Log Policy
+
+- ✅ **Development**: Use console statements for debugging, but clean them up before committing
+- ❌ **Production**: No console statements allowed - use proper error handling and logging
+- 🔧 **Error Handling**: Replace console.error with proper error throwing or user-friendly error messages
+- 📝 **Debugging**: Use browser dev tools or proper logging libraries for production debugging
+
+### Best Practices
+
+1. **Remove console statements** before committing code
+2. **Use proper error handling** instead of console.error
+3. **Implement user-friendly error messages** for production
+4. **Use TypeScript** for better type safety
+5. **Follow Next.js conventions** for optimal performance
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

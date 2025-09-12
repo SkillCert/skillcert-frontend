@@ -43,7 +43,7 @@ const courses: Course[] = [
 ];
 
 const CourseCard: React.FC<{ course: Course }> = ({ course }) => {
-	const [userAddress, setUserAddress] = useState("0x1234567890123456789012345678901234567890");
+	const [userAddress] = useState("0x1234567890123456789012345678901234567890");
 
 	const handleEnroll = async (courseId: string) => {
 		const result = await grantAccess({

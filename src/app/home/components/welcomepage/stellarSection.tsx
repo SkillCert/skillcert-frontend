@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { CheckCircle2, CheckCircle } from 'lucide-react';
 
 export default function StellarSection() {
   const features = [

@@ -1,7 +1,6 @@
 "use client";
 import React from 'react';
-import Image from "next/image";
-import { Dialog, DialogContent, DialogTrigger, DialogClose } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { PrimaryButton } from "@/components/ui/primaryButton";
 import { Clock, BookOpen, Users, Star, Check } from 'lucide-react';
 

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { CirclePlus } from "lucide-react";
-import React, { useCallback } from "react";
+import React from "react";
 import Image from "next/image";
 
 interface Course {
@@ -27,9 +27,6 @@ const Courses: React.FC<CoursesProps> = ({
   onCreateCourse,
   className = "",
 }) => {
-  const handleCreateCourse = useCallback(() => {
-    onCreateCourse();
-  }, [onCreateCourse]);
 
   if (isLoading) {
     return (

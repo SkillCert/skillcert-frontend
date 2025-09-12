@@ -5,7 +5,7 @@ import { useState } from "react";
 import { grantAccess } from "../../../../contract_connections/CourseRegistry/grantAccess";
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
-  const [userAddress, setUserAddress] = useState("0x1234567890123456789012345678901234567890");
+  const [userAddress] = useState("0x1234567890123456789012345678901234567890");
   const getCategoryColor = (category: CourseCategory): string => {
     switch (category) {
       case "Web Development":

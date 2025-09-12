@@ -89,9 +89,8 @@ export default function ChangePasswordForm() {
         newPassword: "",
         confirmNewPassword: "",
       })
-    } catch (error) {
+    } catch {
       alert("Failed to change password. Please try again.")
-      console.log(error)
     } finally {
       setIsSubmitting(false)
     }
