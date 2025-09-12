@@ -8,7 +8,6 @@ import {
   Networks,
   BASE_FEE,
   nativeToScVal,
-  Address,
   type xdr,
 } from "@stellar/stellar-sdk";
 import {
@@ -39,7 +38,7 @@ interface ProfileData {
   teachingCategories: string;
 }
 
-interface FreighterResponse<T> {
+interface FreighterResponse {
   error?: string;
 }
 
@@ -89,7 +88,7 @@ async function checkConnection(): Promise<boolean> {
       return false;
     }
     return result.isAllowed;
-  } catch (error) {
+  } catch {
     return false;
   }
 }
@@ -129,8 +128,8 @@ const stringToScVal = (value: string): xdr.ScVal => {
   return nativeToScVal(value, { type: "string" });
 };
 
-const accountToScVal = (account: string): xdr.ScVal =>
-  new Address(account).toScVal();
+// const accountToScVal = (account: string): xdr.ScVal =>
+//   new Address(account).toScVal();
 
 const arrayToScVal = (array: string[]): xdr.ScVal => {
   return nativeToScVal(
