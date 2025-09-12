@@ -18,6 +18,8 @@ function HelloTest() {
 
     fetchValue();
   });
+
+  
   if (loading) return <div>Loading...</div>;
   return (
     <div className="border border-[#c6c6c6] rounded-sm py-2 px-5 font-normal">
