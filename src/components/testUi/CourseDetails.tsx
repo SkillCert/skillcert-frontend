@@ -12,20 +12,23 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({ courseId }) => {
   const [course, setCourse] = useState<Course | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  
   useEffect(() => {
-    setLoading(true);
-    setError(null);
+    const fetchCourse = async () => {
+      setLoading(true);
+      setError(null);
 
-    getCourse(courseId)
-      .then((data) => {
+      try {
+        const data = await getCourse(courseId);
         setCourse(data);
-        setLoading(false);
-      })
-      .catch((err) => {
+      } catch (err: any) {
         setError(err.message || "Failed to load course.");
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchCourse();
   }, [courseId]);
 
   if (loading) return <div>Loading...</div>;

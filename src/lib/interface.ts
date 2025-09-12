@@ -1,23 +1,55 @@
-// Re-export all types from the centralized types directory
-export * from '../types';
+import { JSX } from "react";
 
-// Legacy data - keeping for backward compatibility
-export const levels = ["Beginner", "Intermediate", "Advanced"] as const;
-export const categories = [
+export interface WelcomePageBlockProps {
+  icon: JSX.Element;
+  text: string;
+  figure: number;
+}
+
+export interface featuredCourseProps {
+  id: number;
+  title: string;
+  description: string;
+  img: string;
+}
+
+export const levels: CourseLevel[] = ["Beginner", "Intermediate", "Advanced"];
+type CourseCategory =
+  | "Web Development"
+  | "Data Science"
+  | "Design & UI/UX"
+  | "DevOps & Cloud";
+type CourseLevel = "Beginner" | "Intermediate" | "Advanced";
+
+interface Course {
+  id: number;
+  name: string;
+  category: CourseCategory;
+  level: CourseLevel;
+  rating: number;
+  students: number;
+  description: string;
+  duration: string;
+  price: number;
+  img?: string;
+  status?: CourseStatus;
+}
+
+export const categories: CourseCategory[] = [
   "Web Development",
   "Data Science",
   "Design & UI/UX",
   "DevOps & Cloud",
-] as const;
+];
 
-// Sample data for development
-export const instructorCoursesData = [
+type CourseStatus = "Published" | "Draft";
+export const instructorCoursesData: Course[] = [
   {
     id: 1,
     name: "React Fundamentals",
-    category: "Web Development" as const,
-    level: "Beginner" as const,
-    status: "Published" as const,
+    category: "Web Development",
+    level: "Beginner",
+    status: "Published",
     rating: 4.7,
     students: 1250,
     description:
@@ -29,9 +61,9 @@ export const instructorCoursesData = [
   {
     id: 2,
     name: "Advanced JavaScript",
-    category: "Web Development" as const,
-    level: "Advanced" as const,
-    status: "Draft" as const,
+    category: "Web Development",
+    level: "Advanced",
+    status: "Draft",
     rating: 4.8,
     students: 890,
     description:
@@ -40,12 +72,13 @@ export const instructorCoursesData = [
     price: 450.75,
     img: "/images/not-found.jpg",
   },
+
   {
     id: 3,
     name: "Python for Data Science",
-    category: "Data Science" as const,
-    level: "Intermediate" as const,
-    status: "Published" as const,
+    category: "Data Science",
+    level: "Intermediate",
+    status: "Published",
     rating: 4.6,
     students: 2100,
     description:
@@ -55,3 +88,20 @@ export const instructorCoursesData = [
     img: "/images/not-found.jpg",
   },
 ];
+interface CourseCardProps {
+  course: Course;
+}
+
+interface FilterState {
+  searchTerm: string;
+  selectedCategories: CourseCategory[];
+  selectedLevels: CourseLevel[];
+}
+
+export type {
+  CourseCardProps,
+  CourseCategory,
+  CourseLevel,
+  Course,
+  FilterState,
+};

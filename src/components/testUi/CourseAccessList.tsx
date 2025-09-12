@@ -15,18 +15,21 @@ const CourseAccessList: React.FC<CourseAccessListProps> = ({ courseId }) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
+    const fetchAccess = async () => {
+      setLoading(true);
+      setError(null);
 
-    listCourseAccess(courseId)
-      .then((data) => {
+      try {
+        const data = await listCourseAccess(courseId);
         setCourseAccess(data);
-        setLoading(false);
-      })
-      .catch((err) => {
+      } catch (err: any) {
         setError(err.message || "Failed to load course access.");
-        setLoading(false);
-      });
+      } finally {
+        setLoading(false); // ensures loading stops in both success & error
+      }
+    };
+
+    fetchAccess();
   }, [courseId]);
 
   if (loading) return <div>Loading course access...</div>;

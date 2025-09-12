@@ -3,10 +3,8 @@
 export default function ErrorPage() {
   return (
     <div className="min-h-screen bg-slate-900 ">
-      
       {/* Main Error */}
       <div className="h-screen flex flex-col items-center justify-center">
-
         {/* Error Header */}
         <div className="flex items-center justify-center mb-6">
           <h1 className="text-4xl text-white mr-2">500 |</h1>

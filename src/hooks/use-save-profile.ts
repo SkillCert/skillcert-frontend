@@ -16,7 +16,6 @@ import {
   setAllowed,
   getAddress,
 } from "@stellar/freighter-api";
-import { ProfileData, FreighterResponse } from "@/types";
 
 /**
  * Custom React hook for managing teacher profile registration on the Stellar blockchain.
@@ -28,23 +27,37 @@ import { ProfileData, FreighterResponse } from "@/types";
  * @returns {UseSaveProfileReturn} Hook interface with saveProfile function and state management
  */
 
-interface AddressResponse {
-  address: string;
+interface ProfileData {
+  name: string;
+  lastname: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  specialization: string;
+  languages: string;
+  teachingCategories: string;
+}
+
+interface FreighterResponse {
   error?: string;
 }
 
-interface AllowedResponse extends FreighterResponse<boolean> {
+interface AddressResponse extends FreighterResponse {
+  address: string;
+}
+
+interface AllowedResponse extends FreighterResponse {
   isAllowed: boolean;
 }
 
-interface SignTransactionResponse extends FreighterResponse<string> {
+interface SignTransactionResponse extends FreighterResponse {
   signedTxXdr: string;
   signerAddress: string;
 }
 
 interface ContractResult {
   success: boolean;
-  result?: unknown;
+  result?: any;
   hash: string;
 }
 

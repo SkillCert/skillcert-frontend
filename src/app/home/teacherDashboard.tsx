@@ -1,58 +1,83 @@
-'use client'
+"use client";
 
-import React from 'react';
-import { Users, BookOpen, DollarSign, BarChart } from 'lucide-react';
-import DashboardHeader from '@/components/dashboard/DashboardHeader';
-import DashboardMetrics from '@/components/dashboard/DashboardMetrics';
-import TopCourses from '@/components/dashboard/TopCourses';
-import CourseStatistics from '@/components/dashboard/CourseStatistics';
-import QuickActions from '@/components/dashboard/QuickActions';
+import React from "react";
+import { Users, BookOpen, DollarSign, BarChart } from "lucide-react";
+import DashboardHeader from "@/components/dashboard/DashboardHeader";
+import DashboardMetrics from "@/components/dashboard/DashboardMetrics";
+import TopCourses from "@/components/dashboard/TopCourses";
+import CourseStatistics from "@/components/dashboard/CourseStatistics";
+import QuickActions from "@/components/dashboard/QuickActions";
 
 const TeacherDashboard = () => {
   return (
     <div className="container min-h-screen px-6 py-8 mx-auto">
       <DashboardHeader userName="Alex Johnson" />
-      <DashboardMetrics 
+      <DashboardMetrics
         metrics={[
-          { icon: <Users color="#be185d" size={50} /> as React.ReactElement, label: 'Total Students', value: '1000+' },
-          { icon: <BookOpen color="#be185d" size={50} /> as React.ReactElement, label: 'Total Courses', value: '6' },
-          { icon: <DollarSign color="#be185d" size={50} /> as React.ReactElement, label: 'Total Revenue', value: '$12 580' },
-          { icon: <BarChart color="#be185d" size={50} /> as React.ReactElement, label: 'Completion Rate', value: '78%' },
-        ]} 
+          {
+            icon: (<Users color="#be185d" size={50} />) as React.ReactElement,
+            label: "Total Students",
+            value: "1000+",
+          },
+          {
+            icon: (
+              <BookOpen color="#be185d" size={50} />
+            ) as React.ReactElement,
+            label: "Total Courses",
+            value: "6",
+          },
+          {
+            icon: (
+              <DollarSign color="#be185d" size={50} />
+            ) as React.ReactElement,
+            label: "Total Revenue",
+            value: "$12 580",
+          },
+          {
+            icon: (
+              <BarChart color="#be185d" size={50} />
+            ) as React.ReactElement,
+            label: "Completion Rate",
+            value: "78%",
+          },
+        ]}
       />
-      <TopCourses 
+      <TopCourses
         courses={[
           {
-            name: 'Course Name',
+            name: "Course Name",
             rating: 4.7,
             students: 100,
-            description: 'Description of the course text. In this space users will see a brief orientation about course content.',
-            price: '340.56 XLM',
-            category: 'Category',
-            level: 'Level',
-            duration: '3 weeks',
+            description:
+              "Description of the course text. In this space users will see a brief orientation about course content.",
+            price: "340.56 XLM",
+            category: "Category",
+            level: "Level",
+            duration: "3 weeks",
           },
           {
-            name: 'Course Name',
+            name: "Course Name",
             rating: 4.7,
             students: 100,
-            description: 'Description of the course text. In this space users will see a brief orientation about course content.',
-            price: '340.56 XLM',
-            category: 'Category',
-            level: 'Level',
-            duration: '3 weeks',
+            description:
+              "Description of the course text. In this space users will see a brief orientation about course content.",
+            price: "340.56 XLM",
+            category: "Category",
+            level: "Level",
+            duration: "3 weeks",
           },
           {
-            name: 'Course Name',
+            name: "Course Name",
             rating: 4.7,
             students: 100,
-            description: 'Description of the course text. In this space users will see a brief orientation about course content.',
-            price: '340.56 XLM',
-            category: 'Category',
-            level: 'Level',
-            duration: '3 weeks',
+            description:
+              "Description of the course text. In this space users will see a brief orientation about course content.",
+            price: "340.56 XLM",
+            category: "Category",
+            level: "Level",
+            duration: "3 weeks",
           },
-        ]} 
+        ]}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[85%] mx-auto">
         <CourseStatistics />
@@ -62,4 +87,4 @@ const TeacherDashboard = () => {
   );
 };
 
-export default TeacherDashboard; 
+export default TeacherDashboard;

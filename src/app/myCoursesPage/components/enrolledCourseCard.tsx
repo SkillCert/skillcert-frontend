@@ -184,4 +184,3 @@ function StarSolid(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
-

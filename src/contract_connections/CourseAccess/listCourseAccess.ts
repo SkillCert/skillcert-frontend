@@ -13,6 +13,7 @@ export async function listCourseAccess(
   if (!rpcUrl) {
     throw new Error("Missing NEXT_PUBLIC_SOROBAN_RPC_URL environment variable.");
   }
+  
   if (!contractId) {
     throw new Error("Missing NEXT_PUBLIC_COURSE_ACCESS_CONTRACT_ID environment variable.");
   }
