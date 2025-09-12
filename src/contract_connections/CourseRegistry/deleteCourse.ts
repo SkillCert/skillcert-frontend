@@ -1,5 +1,5 @@
 import * as StellarSdk from '@stellar/stellar-sdk';
-import { Contract, Networks, Keypair, TransactionBuilder, BASE_FEE, Operation } from '@stellar/stellar-sdk';
+import { Contract, Networks, TransactionBuilder, BASE_FEE } from '@stellar/stellar-sdk';
 import { Server } from '@stellar/stellar-sdk/rpc';
 import { useState } from 'react';
 
@@ -78,7 +78,7 @@ const parseSorobanResult = (result: any): Result<void, string> => {
     }
     
     return { ok: true, value: undefined };
-  } catch (error) {
+  } catch {
     return { ok: false, error: 'Failed to parse contract result' };
   }
 };
@@ -188,8 +188,6 @@ const callDeleteCourseContract = async (courseId: string): Promise<Result<string
     return { ok: true, value: result.hash };
 
   } catch (error) {
-    console.error('Stellar contract call error:', error);
-    
     // Handle specific error types
     if (error instanceof Error) {
       if (error.message.includes('Freighter')) {
@@ -240,9 +238,7 @@ export const deleteCourse = async (courseId: string): Promise<DeleteCourseResult
       transactionId: result.value,
     };
 
-  } catch (error) {
-    console.error('Error deleting course:', error);
-    
+  } catch {
     return {
       success: false,
       error: 'An unexpected error occurred while deleting the course',
@@ -285,8 +281,7 @@ export const useDeleteCourse = () => {
         setError(result.error || 'Failed to delete course');
         return false;
       }
-    } catch (error) {
-      console.error('Delete course hook error:', error);
+    } catch {
       setError('An unexpected error occurred');
       return false;
     } finally {
