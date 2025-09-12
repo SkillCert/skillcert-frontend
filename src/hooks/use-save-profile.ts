@@ -42,15 +42,15 @@ interface FreighterResponse {
   error?: string;
 }
 
-interface AddressResponse extends FreighterResponse<string> {
+interface AddressResponse extends FreighterResponse {
   address: string;
 }
 
-interface AllowedResponse extends FreighterResponse<boolean> {
+interface AllowedResponse extends FreighterResponse {
   isAllowed: boolean;
 }
 
-interface SignTransactionResponse extends FreighterResponse<string> {
+interface SignTransactionResponse extends FreighterResponse {
   signedTxXdr: string;
   signerAddress: string;
 }

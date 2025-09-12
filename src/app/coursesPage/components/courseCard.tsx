@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { CourseCardProps, CourseCategory } from "@/lib/interface";
 import { Star, Clock } from "lucide-react";
 import { useState } from "react";
@@ -22,14 +22,24 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   };
 
   const handleEnroll = async (courseId: number) => {
-    const result = await grantAccess({
-      course_id: courseId.toString(),
-      user: userAddress,
-    });
-    if (result.success) {
-      alert("Enrollment successful!");
-    } else {
-      alert(`Enrollment failed: ${result.error}`);
+    try {
+      const result = await grantAccess({
+        course_id: courseId.toString(),
+        user: userAddress,
+      });
+
+      if (result.success) {
+        alert("Enrollment successful!");
+      } else {
+        alert(`Enrollment failed: ${result.error}`);
+      }
+    } catch (error) {
+      console.error("Enrollment error:", error);
+      alert(
+        error instanceof Error
+          ? `Enrollment failed: ${error.message}`
+          : "Enrollment failed due to an unexpected error."
+      );
     }
   };
 
