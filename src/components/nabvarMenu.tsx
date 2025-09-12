@@ -10,16 +10,27 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { isConnected, requestAccess, getAddress } from "@stellar/freighter-api";
 import { toast } from "sonner";
-import Link from "next/link";
 import { Brand } from "../../public/images";
+import {
+	UserInfo,
+	WalletConnectionResponse,
+	WalletAddressResponse,
+	WalletAccessResponse,
+	WalletError,
+	DropdownMenuItem,
+	DefaultNavigationProps,
+	UserNavigationProps,
+	UserDropdownProps,
+	NavbarMenuProps,
+} from "@/types";
 
-const defaultUserInfo = {
+const defaultUserInfo: UserInfo = {
 	name: "Legend4tech",
 	email: "Legend4tech1@gmail.com",
 	userId: "001",
 };
 
-const dropdownMenu = [
+const dropdownMenu: DropdownMenuItem[] = [
 	{
 		title: "Settings",
 		icon: <Settings className="w-4 h-4 group-hover:text-pink-500" />,
@@ -35,16 +46,7 @@ const dropdownMenu = [
 		icon: <LogOut className="w-4 h-4 group-hover:text-pink-500" />,
 		href: "/logout",
 	},
-] as const;
-
-interface NavbarMenuProps {
-	variant?: "default" | "withUser";
-	userInfo?: {
-		name: string;
-		email: string;
-		userId: string;
-	};
-}
+];
 
 export default function NavbarMenu({
 	variant = "default",
@@ -91,11 +93,11 @@ export default function NavbarMenu({
 		checkWalletConnection();
 	}, []);
 
-	const checkWalletConnection = async () => {
+	const checkWalletConnection = async (): Promise<void> => {
 		try {
-			const connected = await isConnected();
+			const connected = await isConnected() as WalletConnectionResponse;
 			if (connected.isConnected) {
-				const address = await getAddress();
+				const address = await getAddress() as WalletAddressResponse;
 				if (address.address) {
 					setWalletConnected(true);
 					setWalletId(`${address.address.slice(0, 6)}...${address.address.slice(-6)}`);
@@ -107,7 +109,7 @@ export default function NavbarMenu({
 		}
 	};
 
-	const handleConnect = async () => {
+	const handleConnect = async (): Promise<void> => {
 		setIsConnecting(true);
 
 		const connectionTimeout = setTimeout(() => {
@@ -118,7 +120,7 @@ export default function NavbarMenu({
 		}, 30000);
 
 		try {
-			const connected = await isConnected();
+			const connected = await isConnected() as WalletConnectionResponse;
 
 			if (!connected.isConnected) {
 				clearTimeout(connectionTimeout);
@@ -130,15 +132,15 @@ export default function NavbarMenu({
 			}
 
 			const accessPromise = requestAccess();
-			const timeoutPromise = new Promise((_, reject) => {
+			const timeoutPromise = new Promise<never>((_, reject) => {
 				setTimeout(() => reject(new Error("User closed wallet extension")), 15000);
 			});
 
-			const accessResult = await Promise.race([accessPromise, timeoutPromise]);
+			const accessResult = await Promise.race([accessPromise, timeoutPromise]) as WalletAccessResponse;
 
 			clearTimeout(connectionTimeout);
 
-			if ((accessResult as any).error) {
+			if (accessResult.error) {
 				setIsConnecting(false);
 				toast.error("Connection Failed", {
 					description: "Failed to connect wallet. Please try again.",
@@ -146,12 +148,10 @@ export default function NavbarMenu({
 				return;
 			}
 
-			if ((accessResult as any).address) {
+			if (accessResult.address) {
 				setWalletConnected(true);
 				setWalletId(
-					`${(accessResult as any).address.slice(0, 6)}...${(
-						accessResult as any
-					).address.slice(-6)}`
+					`${accessResult.address.slice(0, 6)}...${accessResult.address.slice(-6)}`
 				);
 				setCurrentMode("withUser");
 
@@ -164,7 +164,8 @@ export default function NavbarMenu({
 
 			let errorMessage = "An error occurred while connecting to the wallet.";
 
-			const msg = (error as any)?.message;
+			const walletError = error as WalletError;
+			const msg = walletError?.message;
 			if (msg === "User closed wallet extension") {
 				errorMessage = "Wallet connection was cancelled. Please try again when ready.";
 			} else if (typeof msg === "string" && msg.includes("User rejected")) {
@@ -180,7 +181,7 @@ export default function NavbarMenu({
 		}
 	};
 
-	const handleDisconnect = () => {
+	const handleDisconnect = (): void => {
 		setWalletConnected(false);
 		setWalletId("");
 		setCurrentMode("default");
@@ -191,7 +192,7 @@ export default function NavbarMenu({
 		});
 	};
 
-	const handleDropdownItemClick = (href: string) => {
+	const handleDropdownItemClick = (href: string): void => {
 		if (href === "/logout") {
 			handleDisconnect();
 		} else {
@@ -288,10 +289,7 @@ export default function NavbarMenu({
 function DefaultNavigation({
 	onConnect,
 	isConnecting,
-}: {
-	onConnect: () => void;
-	isConnecting: boolean;
-}) {
+}: DefaultNavigationProps) {
 	return (
 		<div className="flex items-center gap-6">
 			<Link href="/" className="text-white/80 hover:text-white transition-colors">
@@ -317,13 +315,7 @@ function UserNavigation({
 	setShowDropdown,
 	onDropdownItemClick,
 	dropdownRef,
-}: {
-	userInfo: any;
-	showDropdown: boolean;
-	setShowDropdown: (show: boolean) => void;
-	onDropdownItemClick: (href: string) => void;
-	dropdownRef: React.RefObject<HTMLDivElement | null>;
-}) {
+}: UserNavigationProps) {
 	return (
 		<div className="flex items-center gap-4">
 			<button className="p-2 text-white/80 hover:text-white transition-colors">
@@ -363,11 +355,7 @@ function UserDropdown({
 	userInfo,
 	onItemClick,
 	setShowDropdown,
-}: {
-	userInfo: any;
-	onItemClick: (href: string) => void;
-	setShowDropdown: (show: boolean) => void;
-}) {
+}: UserDropdownProps) {
 	return (
 		<div
 			className="px-6 py-4 absolute right-0 mt-2 w-64 bg-[#020618] rounded-lg shadow-lg z-50"

@@ -16,7 +16,7 @@ export default function CourseCard({ course }: CourseCardProps) {
         {course.img ? (
           <Image
             src={course.img}
-            alt={course.name}
+            alt={course.name || 'Course image'}
             fill
             className="object-cover rounded-t-xl"
           />
@@ -55,7 +55,7 @@ export default function CourseCard({ course }: CourseCardProps) {
         <div className="grid grid-cols-2 gap-4 mb-8">
           <div className="flex items-center gap-2 text-gray-300 text-sm">
             <DollarSign className="w-4 h-4" />
-            <span>{course.price.toFixed(2)} USD</span>
+            <span>{course.price ? (typeof course.price === 'number' ? course.price.toFixed(2) : course.price) : 'Free'} USD</span>
           </div>
           <div className="flex items-center gap-2 text-gray-300 text-sm">
             <Clock className="w-4 h-4" />

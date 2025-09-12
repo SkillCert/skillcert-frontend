@@ -3,14 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Footer from "@/components/footer";
-
-interface Course {
-  id: number;
-  name: string;
-  description: string;
-  nextLesson: string;
-  level: string;
-}
+import { Course } from "@/types";
 
 export default function MyCourses() {
   const courses: Course[] = [
@@ -19,28 +12,28 @@ export default function MyCourses() {
       name: "Course Name",
       description: "Short course description",
       nextLesson: "Lesson Name",
-      level: "Level",
+      level: "Beginner",
     },
     {
       id: 2,
       name: "Course Name",
       description: "Short course description",
       nextLesson: "Lesson Name",
-      level: "Level",
+      level: "Beginner",
     },
     {
       id: 3,
       name: "Course Name",
       description: "Short course description",
       nextLesson: "Lesson Name",
-      level: "Level",
+      level: "Beginner",
     },
     {
       id: 4,
       name: "Course Name",
       description: "Short course description",
       nextLesson: "Lesson Name",
-      level: "Level",
+      level: "Beginner",
     },
   ];
 

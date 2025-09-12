@@ -136,8 +136,8 @@ export async function addModule(
     }
 
     // Step 3: Call the smart contract (simulated here)
-    const module = await simulateContractCall(sanitizedRequest);
-    return { success: true, module };
+    const moduleResult = await simulateContractCall(sanitizedRequest);
+    return { success: true, module: moduleResult };
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error occurred";
     return { success: false, error: message };

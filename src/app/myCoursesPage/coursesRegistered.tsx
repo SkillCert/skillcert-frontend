@@ -6,18 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import { grantAccess } from "../../../contract_connections/CourseRegistry/grantAccess"
-
-interface Course {
-  id: number
-  name: string
-  description: string
-  rating: number
-  students: number
-  level: string
-  duration: string
-  price: string
-  category: string
-}
+import { Course } from "@/types"
 
 export default function CoursesRegistered() {
   const [userAddress] = useState("0x1234567890123456789012345678901234567890")
@@ -29,10 +18,10 @@ export default function CoursesRegistered() {
         "Description of the course text. In this space users will see a brief annotation about course content.",
       rating: 4.7,
       students: 100,
-      level: "Level",
+      level: "Beginner",
       duration: "8 weeks",
       price: "340.56 XLM",
-      category: "Category",
+      category: "Web Development",
     },
     {
       id: 2,
@@ -41,10 +30,10 @@ export default function CoursesRegistered() {
         "Description of the course text. In this space users will see a brief annotation about course content.",
       rating: 4.7,
       students: 100,
-      level: "Level",
+      level: "Beginner",
       duration: "8 weeks",
       price: "340.56 XLM",
-      category: "Category",
+      category: "Web Development",
     },
     {
       id: 3,
@@ -53,10 +42,10 @@ export default function CoursesRegistered() {
         "Description of the course text. In this space users will see a brief annotation about course content.",
       rating: 4.7,
       students: 100,
-      level: "Level",
+      level: "Beginner",
       duration: "8 weeks",
       price: "340.56 XLM",
-      category: "Category",
+      category: "Web Development",
     },
     {
       id: 4,
@@ -65,10 +54,10 @@ export default function CoursesRegistered() {
         "Description of the course text. In this space users will see a brief annotation about course content.",
       rating: 4.7,
       students: 100,
-      level: "Level",
+      level: "Beginner",
       duration: "8 weeks",
       price: "340.56 XLM",
-      category: "Category",
+      category: "Web Development",
     },
     {
       id: 5,
@@ -77,10 +66,10 @@ export default function CoursesRegistered() {
         "Description of the course text. In this space users will see a brief annotation about course content.",
       rating: 4.7,
       students: 100,
-      level: "Level",
+      level: "Beginner",
       duration: "8 weeks",
       price: "340.56 XLM",
-      category: "Category",
+      category: "Web Development",
     },
     {
       id: 6,
@@ -89,10 +78,10 @@ export default function CoursesRegistered() {
         "Description of the course text. In this space users will see a brief annotation about course content.",
       rating: 4.7,
       students: 100,
-      level: "Level",
+      level: "Beginner",
       duration: "8 weeks",
       price: "340.56 XLM",
-      category: "Category",
+      category: "Web Development",
     },
   ]
 
@@ -192,7 +181,7 @@ export default function CoursesRegistered() {
                       <span className="text-lg font-semibold">{course.price}</span>
                       <Button
                         className="bg-pink-600 hover:bg-pink-700 text-white px-6"
-                        onClick={() => handleEnroll(course.id)}
+                        onClick={() => handleEnroll(typeof course.id === 'string' ? parseInt(course.id, 10) : course.id)}
                       >
                         Enroll Now
                       </Button>

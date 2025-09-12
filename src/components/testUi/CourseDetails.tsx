@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
   getCourse,
-  Course,
 } from "../../contract_connections/CourseRegistry/getCourse";
+import { Course } from "@/types";
 
 interface CourseDetailsProps {
   courseId: string;

@@ -1,15 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import SorobanClient from "@stellar/stellar-sdk";
-
-// Define the expected output structure
-export interface CourseUser {
-  address: string;
-}
-
-export interface CourseUsers {
-  course: string; // course ID
-  users: CourseUser[];
-}
+import { CourseUsers } from "@/types";
 
 export async function listCourseAccess(
   courseId: string
@@ -46,7 +37,7 @@ export async function listCourseAccess(
     }
 
     return {
-      course: result.course,
+      course_id: result.course,
       users: result.users.map((user: any) => ({
         address: typeof user === "string" ? user : user.address,
       })),
@@ -56,7 +47,7 @@ export async function listCourseAccess(
     if (error instanceof Error) {
       if (error.message.includes("User Courses Not Found")) {
         return {
-          course: courseId,
+          course_id: courseId,
           users: [],
         };
       }

@@ -62,10 +62,11 @@ const courseIdToScVal = (courseId: string): StellarSdk.xdr.ScVal => {
   return StellarSdk.nativeToScVal(courseId, { type: 'string' });
 };
 
-const parseSorobanResult = (result: any): Result<void, string> => {
+const parseSorobanResult = (result: unknown): Result<void, string> => {
   try {
-    if (result && result.returnValue) {
-      const scVal = result.returnValue;
+    if (result && typeof result === 'object' && 'returnValue' in result) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const scVal = (result as { returnValue: unknown }).returnValue as any;
       
       if (scVal.switch().name === 'scvVoid') {
         return { ok: true, value: undefined };
@@ -305,7 +306,7 @@ declare global {
       isAllowed: () => Promise<boolean>;
       requestAccess: () => Promise<void>;
       getPublicKey: () => Promise<string>;
-      signTransaction: (xdr: string, opts?: any) => Promise<string>;
+      signTransaction: (xdr: string, opts?: unknown) => Promise<string>;
     };
   }
 }
