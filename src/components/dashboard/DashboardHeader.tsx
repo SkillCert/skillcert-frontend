@@ -10,7 +10,7 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({ userName }) => (
       <div className="w-[110px] h-[110px] rounded-full bg-gray-300 mb-2 md:mb-0 mx-auto md:mx-0" />
       <div>
         <h1 className="text-2xl md:text-[56px] font-bold text-purple-600">Welcome back, {userName}</h1>
-        <p className="text-[28px] text-purple-600 font-semibold mt-1">Here's what's happening with your courses today</p>
+        <p className="text-[28px] text-purple-600 font-semibold mt-1">Here&apos;s what&apos;s happening with your courses today</p>
       </div>
     </div>
     <div className="flex justify-center md:block mt-4 md:mt-0 w-full md:w-auto">

@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-function helloTest() {
+function HelloTest() {
   const [value, setValue] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -9,8 +9,8 @@ function helloTest() {
       try {
         setLoading(true);
         setValue("1");
-      } catch (err) {
-        console.log(err);
+      } catch {
+        // Handle error silently in test component
       } finally {
         setLoading(false);
       }
@@ -26,4 +26,4 @@ function helloTest() {
   );
 }
 
-export default helloTest;
+export default HelloTest;

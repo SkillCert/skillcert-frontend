@@ -50,7 +50,7 @@ const DeleteCourseDialog: React.FC<DeleteCourseDialogProps> = ({
         
         <div className="mb-6">
           <p className="text-gray-300 mb-3">
-            Are you sure you want to delete <span className="font-semibold text-white">"{courseName}"</span>?
+            Are you sure you want to delete <span className="font-semibold text-white">&quot;{courseName}&quot;</span>?
           </p>
           <div className="bg-red-900/30 border border-red-700 rounded-lg p-3">
             <p className="text-red-300 text-sm">

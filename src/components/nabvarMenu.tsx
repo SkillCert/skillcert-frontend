@@ -1,13 +1,14 @@
 "use client";
 import type React from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { Search, GraduationCap, Bell, User, Settings, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { isConnected, requestAccess, getAddress, getNetwork } from "@stellar/freighter-api";
+import { isConnected, requestAccess, getAddress } from "@stellar/freighter-api";
 import { toast } from "sonner";
 import Link from "next/link";
 import { Brand } from "../../public/images";
@@ -101,8 +102,8 @@ export default function NavbarMenu({
 					setCurrentMode("withUser");
 				}
 			}
-		} catch (error) {
-			console.error("Error checking wallet connection:", error);
+		} catch {
+			// Handle wallet connection error silently
 		}
 	};
 
@@ -138,7 +139,6 @@ export default function NavbarMenu({
 			clearTimeout(connectionTimeout);
 
 			if ((accessResult as any).error) {
-				console.error("Wallet connection error:", (accessResult as any).error);
 				setIsConnecting(false);
 				toast.error("Connection Failed", {
 					description: "Failed to connect wallet. Please try again.",
@@ -147,8 +147,6 @@ export default function NavbarMenu({
 			}
 
 			if ((accessResult as any).address) {
-				const networkInfo = await getNetwork();
-
 				setWalletConnected(true);
 				setWalletId(
 					`${(accessResult as any).address.slice(0, 6)}...${(
@@ -160,10 +158,6 @@ export default function NavbarMenu({
 				toast.success("Wallet Connected", {
 					description: "Successfully connected to your Stellar wallet!",
 				});
-
-				console.log("Wallet connected successfully!");
-				console.log("Address:", (accessResult as any).address);
-				console.log("Network:", (networkInfo as any).network);
 			}
 		} catch (error) {
 			clearTimeout(connectionTimeout);
@@ -300,9 +294,9 @@ function DefaultNavigation({
 }) {
 	return (
 		<div className="flex items-center gap-6">
-			<a href="/" className="text-white/80 hover:text-white transition-colors">
+			<Link href="/" className="text-white/80 hover:text-white transition-colors">
 				Home
-			</a>
+			</Link>
 			<a href="#" className="text-white/80 hover:text-white transition-colors">
 				Contact
 			</a>
