@@ -1,11 +1,4 @@
-interface Course {
-  id: string;
-  name: string;
-  duration: string;
-  progress: string;
-  level: string;
-  nextLesson: string;
-}
+import { Course } from "@/types";
 
 const courses: Course[] = [
   {

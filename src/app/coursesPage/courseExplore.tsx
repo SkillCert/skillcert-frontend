@@ -161,19 +161,18 @@ const CourseExplore: React.FC = () => {
   >([]);
   const [selectedLevels, setSelectedLevels] = useState<CourseLevel[]>([]);
   const [showMobileFilters, setShowMobileFilters] = useState<boolean>(false);
+  
+	const filteredCourses = useMemo((): Course[] => {
+		return coursesData.filter((course: Course) => {
+		const matchesSearch: boolean =
+			(course.name?.toLowerCase().includes(searchTerm.toLowerCase()) || false) ||
+			(course.description?.toLowerCase().includes(searchTerm.toLowerCase()) || false);
 
-  const filteredCourses = useMemo((): Course[] => {
-    return coursesData.filter((course: Course) => {
-      const matchesSearch: boolean =
-        course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        course.description.toLowerCase().includes(searchTerm.toLowerCase());
+		const matchesCategory: boolean =
+			selectedCategories.length === 0 || (course.category ? selectedCategories.includes(course.category) : false);
 
-      const matchesCategory: boolean =
-        selectedCategories.length === 0 ||
-        selectedCategories.includes(course.category);
-
-      const matchesLevel: boolean =
-        selectedLevels.length === 0 || selectedLevels.includes(course.level);
+		const matchesLevel: boolean =
+			selectedLevels.length === 0 || (course.level ? selectedLevels.includes(course.level) : false);
 
       return matchesSearch && matchesCategory && matchesLevel;
     });

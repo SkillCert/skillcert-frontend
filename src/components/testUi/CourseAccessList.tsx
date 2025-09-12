@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
-  CourseUsers,
   listCourseAccess,
 } from "@/contract_connections/CourseAccess/listCourseAccess";
+import { CourseUsers } from "@/types";
 import { formatWalletAddressCustom } from "@/lib/utils";
 
 interface CourseAccessListProps {
@@ -40,7 +40,7 @@ const CourseAccessList: React.FC<CourseAccessListProps> = ({ courseId }) => {
     <div>
       <h2>Course Access List</h2>
       <p>
-        <strong>Course ID:</strong> {courseAccess.course}
+        <strong>Course ID:</strong> {courseAccess.course_id}
       </p>
       <p>
         <strong>Total Users:</strong> {courseAccess.users.length}

@@ -125,9 +125,9 @@ const SearchCourses: React.FC = () => {
 
     return coursesData.filter((course: Course) => {
       const matchesSearch: boolean =
-        course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        course.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        course.category.toLowerCase().includes(searchTerm.toLowerCase());
+        (course.name?.toLowerCase().includes(searchTerm.toLowerCase()) || false) ||
+        (course.description?.toLowerCase().includes(searchTerm.toLowerCase()) || false) ||
+        (course.category?.toLowerCase().includes(searchTerm.toLowerCase()) || false);
 
       return matchesSearch;
     });
