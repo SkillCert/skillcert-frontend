@@ -20,7 +20,7 @@ interface Course {
 }
 
 export default function CoursesRegistered() {
-  const [userAddress, setUserAddress] = useState("0x1234567890123456789012345678901234567890")
+  const [userAddress] = useState("0x1234567890123456789012345678901234567890")
   const courses: Course[] = [
     {
       id: 1,

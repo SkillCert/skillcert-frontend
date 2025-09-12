@@ -35,8 +35,7 @@ export default function ThumbnailView() {
       setPreviewUrl(URL.createObjectURL(f));
       setFileName(f.name);
 
-    } catch (e) {
-      console.error(e);
+    } catch {
       alert("No se pudo subir la imagen.");
     } finally {
       setIsUploading(false);

@@ -29,9 +29,8 @@ export default function Access() {
       } else {
         setMessage(`Error: ${result.error}`);
       }
-    } catch (error) {
+    } catch {
       setMessage('An unexpected error occurred.');
-      console.error(error);
     }
     setLoading(false);
   };

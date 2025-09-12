@@ -58,11 +58,10 @@ const TeacherRegister = () => {
       const result = await saveProfile(data);
 
       if (result) {
-        console.log("[v0] Profile saved to blockchain:", result);
         form.reset(); // Reset form on successful submission
       }
-    } catch (err) {
-      console.error("[v0] Failed to save profile:", err);
+    } catch {
+      // Handle profile save error silently
     }
   };
 

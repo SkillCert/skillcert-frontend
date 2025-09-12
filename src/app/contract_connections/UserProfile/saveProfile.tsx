@@ -64,7 +64,7 @@ async function getWalletAddress(): Promise<string> {
     try {
       const { address } = await (window as any).freighter.getAddress();
       return address;
-    } catch (error) {
+    } catch {
       throw new Error('Failed to get wallet address. Please connect your wallet.');
     }
   }
@@ -183,8 +183,6 @@ export async function saveProfile(
     };
 
   } catch (error: any) {
-    console.error('Error saving profile:', error);
-    
     if (error.message.includes('Name cannot be empty')) {
       return {
         success: false,

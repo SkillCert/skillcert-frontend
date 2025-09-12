@@ -1,13 +1,6 @@
 import React from "react";
-import { welcomePageBlocksData } from "../../../public/mock-data";
-import Block from "@/components/welcomePage/Block";
-import { featuredCourses } from "../../../public/mock-data";
-import Card from "@/components/welcomePage/Card";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import CourseExplorationSection from "./components/welcomepage/courseExplorationSection";
 import HeroSection from "./components/welcomepage/heroSection";
-import Link from "next/link";
 // import Register from "../register/page";
 import Trusted from "./components/welcomepage/trusted";
 import Journey from "./components/welcomepage/journey";

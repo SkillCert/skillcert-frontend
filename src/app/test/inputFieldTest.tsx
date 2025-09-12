@@ -26,7 +26,7 @@ export default function InputFieldTest() {
           placeholder="Seleccionar opción" 
           variant="select"
           options={options}
-          onValueChange={(value) => console.log('Valor seleccionado:', value)}
+          onValueChange={() => {/* Value selected */}}
         />
       </div>
     </div>
