@@ -196,6 +196,8 @@ const COUNTRY_LIST = [
   "Zambia",
   "Zimbabwe",
 ];
+
+
 export default function BuildProfilePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#111827] to-[#59168B] flex justify-center items-center">

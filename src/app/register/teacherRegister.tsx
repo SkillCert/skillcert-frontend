@@ -57,11 +57,17 @@ const TeacherRegister = () => {
     try {
       const result = await saveProfile(data);
 
-      if (result) {
-        form.reset(); // Reset form on successful submission
+      if (result?.success) {
+        form.reset(); // ✅ Reset form only if API indicates success
+        // You can also show a success toast/message here
+      } else {
+        // Handle API-level failure (e.g. validation error, server issue)
+        console.error("Profile save failed:", error);
+        // Example: toast.error("Failed to save profile. Please try again.");
       }
-    } catch {
-      // Handle profile save error silently
+    } catch (error) {
+      console.error("Unexpected error saving profile:", error);
+      // Example: toast.error("An unexpected error occurred. Please try again.");
     }
   };
 

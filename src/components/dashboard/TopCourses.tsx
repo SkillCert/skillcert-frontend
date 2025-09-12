@@ -1,7 +1,7 @@
-import React from 'react';
-import { Star, Clock, ArrowRight } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
+import React from "react";
+import { Star, Clock, ArrowRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 interface Course {
   name: string;
@@ -32,31 +32,50 @@ const TopCourses: React.FC<TopCoursesProps> = ({ courses }) => (
     </div>
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       {courses.map((course, idx) => (
-        <div key={idx} className="bg-gray-800 rounded-2xl overflow-hidden shadow-lg flex flex-col border border-gray-700 cursor-pointer">
+        <div
+          key={idx}
+          className="bg-gray-800 rounded-2xl overflow-hidden shadow-lg flex flex-col border border-gray-700 cursor-pointer"
+        >
           <div className="relative h-[200px] w-full overflow-hidden rounded-t-2xl bg-[#181e2a]">
-            <span className="absolute top-3 right-3 bg-purple-700 text-xs text-white px-4 py-1 rounded-full font-semibold z-10">{course.category}</span>
+            <span className="absolute top-3 right-3 bg-purple-700 text-xs text-white px-4 py-1 rounded-full font-semibold z-10">
+              {course.category}
+            </span>
             <Image
-              src={course.imageUrl || '/images/not-found.jpg'}
+              src={course.imageUrl || "/images/not-found.jpg"}
               alt={course.name}
               className="w-full h-full object-cover"
               fill
             />
           </div>
           <div className="bg-[#23283b] p-5 flex-1 flex flex-col border-t border-gray-700">
-            <div className="font-bold text-white text-[32px] mb-1">{course.name}</div>
-            <div className="flex items-center text-yellow-400 text-sm mb-1">
-              <Star className="w-4 h-4 mr-1" fill="#facc15" /> {course.rating} <span className="text-gray-400 ml-2">({course.students} students)</span>
+            <div className="font-bold text-white text-[32px] mb-1">
+              {course.name}
             </div>
-            <div className="text-gray-300 text-xs mb-3 leading-snug">{course.description}</div>
+            <div className="flex items-center text-yellow-400 text-sm mb-1">
+              <Star className="w-4 h-4 mr-1" fill="#facc15" /> {course.rating}{" "}
+              <span className="text-gray-400 ml-2">
+                ({course.students} students)
+              </span>
+            </div>
+            <div className="text-gray-300 text-xs mb-3 leading-snug">
+              {course.description}
+            </div>
             <div className="flex gap-3 mb-4">
-              <span className="border bg-gray-900 border-cyan-400 text-cyan-300 font-bold text-base px-6 py-1 rounded-full flex items-center min-h-[38px]">{course.level}</span>
+              <span className="border bg-gray-900 border-cyan-400 text-cyan-300 font-bold text-base px-6 py-1 rounded-full flex items-center min-h-[38px]">
+                {course.level}
+              </span>
               <span className="border bg-gray-900 border-pink-600 text-pink-500 font-bold text-base px-6 py-1 rounded-full flex items-center min-h-[38px]">
-                <Clock className="w-5 h-5 mr-2 text-pink-600" />{course.duration}
+                <Clock className="w-5 h-5 mr-2 text-pink-600" />
+                {course.duration}
               </span>
             </div>
             <div className="border-t border-gray-700 pt-4 flex items-center justify-between mt-auto">
-              <span className="font-bold text-white text-lg">{course.price}</span>
-              <button className="bg-pink-700 hover:bg-pink-800 text-white text-base px-6 py-2 rounded-full font-semibold transition">Enroll Now</button>
+              <span className="font-bold text-white text-lg">
+                {course.price}
+              </span>
+              <button className="bg-pink-700 hover:bg-pink-800 text-white text-base px-6 py-2 rounded-full font-semibold transition">
+                Enroll Now
+              </button>
             </div>
           </div>
         </div>
@@ -65,4 +84,4 @@ const TopCourses: React.FC<TopCoursesProps> = ({ courses }) => (
   </div>
 );
 
-export default TopCourses; 
+export default TopCourses;

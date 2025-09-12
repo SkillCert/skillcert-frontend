@@ -40,38 +40,37 @@ export default function CreateCourse() {
     }));
   };
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setSuccessMessage(null);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSuccessMessage(null);
 
-  try {
-    const result = await createCourse(formData);
+    try {
+      const result = await createCourse(formData);
 
-    if (result.success) {
-      setSuccessMessage(
-        `Course created successfully! Course ID: ${result.courseId}`
+      if (result.success) {
+        setSuccessMessage(
+          `Course created successfully! Course ID: ${result.courseId}`
+        );
+        setFormData({
+          title: "",
+          description: "",
+          price: 0,
+          category: "",
+          level: "",
+          duration: "",
+        });
+      } else {
+        // In case the hook itself returns an error structure
+        alert(`Failed to create course: ${result.error || "Unknown error"}`);
+      }
+    } catch (err) {
+      // If the call throws instead of returning { success: false }
+      console.error("Error creating course:", err);
+      alert(
+        "An unexpected error occurred while creating the course. Please try again."
       );
-      setFormData({
-        title: "",
-        description: "",
-        price: 0,
-        category: "",
-        level: "",
-        duration: "",
-      });
-    } else {
-      // In case the hook itself returns an error structure
-      alert(`Failed to create course: ${result.error || "Unknown error"}`);
     }
-  } catch (err) {
-    // If the call throws instead of returning { success: false }
-    console.error("Error creating course:", err);
-    alert(
-      "An unexpected error occurred while creating the course. Please try again."
-    );
-  }
-};
-
+  };
 
   return (
     <Dialog>

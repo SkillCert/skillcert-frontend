@@ -1,5 +1,5 @@
-import { ArrowRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function LearningJourneySection() {
   const steps = [
@@ -24,9 +24,10 @@ export default function LearningJourneySection() {
     {
       number: "04",
       title: "Join Community",
-      description: "Connect with fellow learners, mentors, and industry experts in our thriving professional network.",
+      description:
+        "Connect with fellow learners, mentors, and industry experts in our thriving professional network.",
     },
-  ]
+  ];
 
   return (
     <section className="bg-slate-900 py-16 px-4">
@@ -43,12 +44,19 @@ export default function LearningJourneySection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {steps.map((step, index) => (
-            <div key={index} className="bg-gradient-to-b from-[#111827] to-[#020618] border border-gray-800 rounded-xl px-9 py-6 text-left">
+            <div
+              key={index}
+              className="bg-gradient-to-b from-[#111827] to-[#020618] border border-gray-800 rounded-xl px-9 py-6 text-left"
+            >
               <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white text-base font-bold w-[50px] h-[50px] flex justify-center items-center rounded-lg mb-3">
                 {step.number}
               </div>
-              <h3 className="text-white text-xl font-semibold mb-2">{step.title}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{step.description}</p>
+              <h3 className="text-white text-xl font-semibold mb-2">
+                {step.title}
+              </h3>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                {step.description}
+              </p>
             </div>
           ))}
         </div>
@@ -60,5 +68,5 @@ export default function LearningJourneySection() {
         </Button>
       </div>
     </section>
-  )
+  );
 }
