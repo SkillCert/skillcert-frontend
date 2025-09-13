@@ -1,1 +1,8 @@
-export default function AboutPage() {}
+import HeroSection from "./components/heroSection";
+export default function AboutPage() {
+  return (
+    <>
+      <HeroSection />
+    </>
+  );
+}
