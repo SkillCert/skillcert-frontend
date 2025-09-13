@@ -38,7 +38,6 @@ export function useSaveProfile(
       setValidationErrors(null);
 
       try {
-        // Client-side validation
         const clientValidationErrors = validateProfileData(profileData);
         if (clientValidationErrors) {
           setValidationErrors(clientValidationErrors);

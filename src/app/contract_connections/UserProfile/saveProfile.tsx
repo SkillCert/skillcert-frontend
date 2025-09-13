@@ -30,7 +30,6 @@ export interface ContractConfig {
   rpcUrl: string;
 }
 
-// Validate user profile data
 export function validateProfileData(profileData: UserProfileData): ValidationErrors | null {
   const errors: ValidationErrors = {};
 
@@ -56,10 +55,7 @@ function isValidEmail(email: string): boolean {
   return emailRegex.test(email);
 }
 
-/// Get wallet address from the connected wallet
 async function getWalletAddress(): Promise<string> {
-  // This will depend on wallet integration (Freighter, etc.)
-  // Example for Freighter wallet:
   if (typeof window !== 'undefined' && (window as unknown as { freighter?: unknown }).freighter) {
     try {
       const { address } = await ((window as unknown as { freighter: { getAddress: () => Promise<{ address: string }> } }).freighter.getAddress());
@@ -87,7 +83,6 @@ async function signAndSubmitTransaction(
       const result = await server.sendTransaction(signedTransaction as unknown as Transaction);
       
       if (result.status === 'PENDING') {
-        // Wait for transaction confirmation
         let getResponse = await server.getTransaction(result.hash);
         while (getResponse.status === 'NOT_FOUND') {
           await new Promise(resolve => setTimeout(resolve, 1000));
@@ -111,7 +106,6 @@ async function signAndSubmitTransaction(
   throw new Error('Wallet not available for signing');
 }
 
-// Save user profile data on the blockchain
 export async function saveProfile(
   profileData: UserProfileData,
   config: ContractConfig
@@ -164,7 +158,6 @@ export async function saveProfile(
       .setTimeout(30)
       .build();
 
-    // Simulate transaction first
     const simulateResponse = await server.simulateTransaction(transaction);
     if (Api.isSimulationError(simulateResponse)) {
       throw new Error(`Simulation failed: ${simulateResponse.error}`);
