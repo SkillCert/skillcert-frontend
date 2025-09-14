@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
-import { featuredCourseProps } from "@/lib/interface";
+import { FeaturedCourseProps } from "@/lib/interface";
 import { Button } from "../ui/button";
 
-const Card = ({ course }: { course: featuredCourseProps }) => {
+const Card = ({ course }: { course: FeaturedCourseProps }) => {
   return (
     <div className="">
       <Image

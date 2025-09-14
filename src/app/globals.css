@@ -131,7 +131,6 @@
   animation: anime 50s infinite ease-in-out;
 }
 
-
 .font-sans {
   font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
@@ -148,4 +147,6 @@
   50% {
     transform: rotate(360deg);
   }
+}
+
 }

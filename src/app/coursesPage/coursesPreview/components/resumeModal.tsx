@@ -1,7 +1,6 @@
 "use client";
 import React from 'react';
-import Image from "next/image";
-import { Dialog, DialogContent, DialogTrigger, DialogClose } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { PrimaryButton } from "@/components/ui/primaryButton";
 import { Clock, BookOpen, Users, Star, Check } from 'lucide-react';
 
@@ -49,12 +48,9 @@ export default function ResumeModal() {
       </DialogTrigger>
       <DialogContent className="max-w-6xl w-[1500px] h-[70vh] overflow-y-auto bg-slate-900 text-white border-slate-700">
         <div className="p-4">
-          {/* Header with Icon */}
           <div className="flex flex-col items-center gap-4 mb-6">
-            {/* <h2 className="text-2xl font-semibold text-purple-400">Course Overview</h2> */}
           </div>
 
-          {/* Statistics Cards */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
             {stats.map((stat, index) => {
               const IconComponent = stat.icon;
@@ -76,7 +72,6 @@ export default function ResumeModal() {
             })}
           </div>
 
-          {/* What you will learn section */}
           <div className="bg-slate-800 rounded-xl p-6 border border-slate-700 mb-6">
             <h3 className="text-xl font-bold mb-6 text-white">
               what you will learn

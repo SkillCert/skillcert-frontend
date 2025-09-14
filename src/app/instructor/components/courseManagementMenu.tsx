@@ -1,6 +1,5 @@
-'use client';
-
-import React, { useState } from 'react';
+"use client";
+import React, { useState } from "react";
 
 interface MenuItem {
   id: string;
@@ -12,14 +11,16 @@ interface CourseManagementMenuProps {
   onMenuItemClick?: (itemId: string) => void;
 }
 
-export default function CourseManagementMenu({ onMenuItemClick }: CourseManagementMenuProps) {
-  const [selectedItem, setSelectedItem] = useState('basic-info');
+export default function CourseManagementMenu({
+  onMenuItemClick,
+}: CourseManagementMenuProps) {
+  const [selectedItem, setSelectedItem] = useState("basic-info");
 
   const menuItems: MenuItem[] = [
-    { id: 'basic-info', label: 'Basic information', isSelected: true },
-    { id: 'media-thumbnail', label: 'Media & Thumbnail' },
-    { id: 'course-details', label: 'Course Details' },
-    { id: 'pricing-settings', label: 'Pricing & Settings' }
+    { id: "basic-info", label: "Basic information", isSelected: true },
+    { id: "media-thumbnail", label: "Media & Thumbnail" },
+    { id: "course-details", label: "Course Details" },
+    { id: "pricing-settings", label: "Pricing & Settings" },
   ];
 
   const handleItemClick = (itemId: string) => {
@@ -36,9 +37,10 @@ export default function CourseManagementMenu({ onMenuItemClick }: CourseManageme
             onClick={() => handleItemClick(item.id)}
             className={`
               px-4 py-3 rounded cursor-pointer transition-colors duration-200
-              ${selectedItem === item.id 
-                ? 'bg-[#1F2937] text-white text-base font-medium border border-[#1F2937]' 
-                : 'text-white hover:bg-[#1F2937]'
+              ${
+                selectedItem === item.id
+                  ? "bg-[#1F2937] text-white text-base font-medium border border-[#1F2937]"
+                  : "text-white hover:bg-[#1F2937]"
               }
             `}
           >

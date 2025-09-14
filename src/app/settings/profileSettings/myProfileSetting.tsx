@@ -19,7 +19,6 @@ export default function ProfileForm() {
   };
 
   const handleSave = () => {
-    console.log("Profile data:", formData);
     alert("Profile saved successfully!");
   };
 

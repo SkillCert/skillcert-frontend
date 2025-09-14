@@ -32,7 +32,6 @@ export default function SidebarSettings({ className }: SidebarSettingsProps) {
 
   return (
     <div className={cn("w-64 bg-[#1F2937] p-6 min-h-screen", className)}>
-    
       <div className="mb-8 text-center">
         <div className="w-24 h-24 bg-gray-300 rounded-full mx-auto mb-4"></div>
         <div className="text-[#9333EA] text-lg font-medium pb-2 border-b border-purple-400/30">
@@ -40,7 +39,6 @@ export default function SidebarSettings({ className }: SidebarSettingsProps) {
         </div>
       </div>
 
-  
       <nav>
         <ul className="space-y-2">
           {menuItems.map((item) => (

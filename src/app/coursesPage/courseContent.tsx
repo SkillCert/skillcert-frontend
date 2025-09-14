@@ -1,10 +1,8 @@
 "use client";
-import Image from "next/image";
 
 export default function CourseContentPage() {
   return (
     <div className="min-h-screen bg-[#151a23] text-white py-6">
-      {/* Course name alineado */}
       <div
         className="flex items-center justify-between mx-auto mb-12 mt-12"
         style={{ width: "1000px" }}
@@ -48,7 +46,6 @@ export default function CourseContentPage() {
         </div>
       </div>
 
-      {/* Tabs */}
       <div className="flex justify-center my-8 mb-12">
         <div
           className="flex gap-4 rounded-lg"
@@ -82,7 +79,6 @@ export default function CourseContentPage() {
         </div>
       </div>
 
-      {/* Course Content Title + Add Module */}
       <div
         className="flex items-center justify-between mb-6 mt-24 mx-auto"
         style={{ width: "1000px" }}
@@ -105,7 +101,6 @@ export default function CourseContentPage() {
         </button>
       </div>
 
-      {/* Module Card */}
       <section
         className="rounded-lg mx-auto"
         style={{

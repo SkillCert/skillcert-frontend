@@ -56,25 +56,21 @@ export default function Component() {
           Primary Button Component
         </h2>
 
-        {/* Main button matching the image */}
         <div className="flex justify-center">
           <PrimaryButton>Button</PrimaryButton>
         </div>
 
-        {/* Size variations */}
         <div className="flex gap-4 justify-center items-center">
           <PrimaryButton size="sm">Small</PrimaryButton>
           <PrimaryButton size="md">Medium</PrimaryButton>
           <PrimaryButton size="lg">Large</PrimaryButton>
         </div>
 
-        {/* Variant examples */}
         <div className="flex gap-4 justify-center items-center">
           <PrimaryButton variant="solid">Solid</PrimaryButton>
           <PrimaryButton variant="outline">Outline</PrimaryButton>
         </div>
 
-        {/* Interactive examples */}
         <div className="flex gap-4 justify-center items-center">
           <PrimaryButton onClick={() => alert("Button clicked!")}>
             Click Me

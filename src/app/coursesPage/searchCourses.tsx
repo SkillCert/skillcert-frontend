@@ -60,7 +60,8 @@ const coursesData: Course[] = [
     level: "Intermediate",
     rating: 4.7,
     students: 940,
-    description: "Build scalable backend applications using Node.js, Express, and MongoDB.",
+    description:
+      "Build scalable backend applications using Node.js, Express, and MongoDB.",
     duration: "9 weeks",
     price: 410.25,
   },
@@ -83,7 +84,8 @@ const coursesData: Course[] = [
     level: "Beginner",
     rating: 4.4,
     students: 1890,
-    description: "Master CSS for creating beautiful, responsive web designs from scratch.",
+    description:
+      "Master CSS for creating beautiful, responsive web designs from scratch.",
     duration: "5 weeks",
     price: 290.4,
   },
@@ -94,7 +96,8 @@ const coursesData: Course[] = [
     level: "Advanced",
     rating: 4.6,
     students: 620,
-    description: "Learn DevOps practices, containerization, and cloud deployment strategies.",
+    description:
+      "Learn DevOps practices, containerization, and cloud deployment strategies.",
     duration: "11 weeks",
     price: 590.8,
   },
@@ -122,22 +125,23 @@ const SearchCourses: React.FC = () => {
 
     return coursesData.filter((course: Course) => {
       const matchesSearch: boolean =
-        course.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        course.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        course.category.toLowerCase().includes(searchTerm.toLowerCase());
+        (course.name?.toLowerCase().includes(searchTerm.toLowerCase()) || false) ||
+        (course.description?.toLowerCase().includes(searchTerm.toLowerCase()) || false) ||
+        (course.category?.toLowerCase().includes(searchTerm.toLowerCase()) || false);
 
       return matchesSearch;
     });
   }, [searchTerm]);
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleSearchChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setSearchTerm(event.target.value);
   };
 
   return (
     <main className="min-h-screen bg-gray-900 py-8">
       <div className="max-w-[1544px] mx-auto">
-        {/* Search Header */}
         <div className="text-center max-w-[1199px] mx-auto">
           <h1 className="text-4xl text-left sm:text-4xl font-poppins font-medium text-white mb-8">
             Search courses
@@ -159,7 +163,6 @@ const SearchCourses: React.FC = () => {
 
         <div className="border-b-2 border-purple-400 w-full h-12 my-4"></div>
 
-        {/* Courses Section */}
         <div className="mb-8 max-w-[1379px] mx-auto">
           <h2 className="text-5xl sm:text-3xl font-medium font-poppins text-white mb-8">
             All Courses
@@ -167,12 +170,8 @@ const SearchCourses: React.FC = () => {
 
           {filteredCourses.length === 0 ? (
             <div className="text-center text-gray-400 py-12">
-              <p className="text-xl">
-                No courses found matching your search.
-              </p>
-              <p className="mt-2">
-                Try searching with different keywords.
-              </p>
+              <p className="text-xl">No courses found matching your search.</p>
+              <p className="mt-2">Try searching with different keywords.</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -183,7 +182,7 @@ const SearchCourses: React.FC = () => {
           )}
         </div>
       </div>
-    </main >
+    </main>
   );
 };
 

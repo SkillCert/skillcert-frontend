@@ -1,6 +1,4 @@
-import Image from "next/image";
 import WelcomePage from "./home/page";
-
 
 export default function Page() {
   return (
@@ -9,4 +7,3 @@ export default function Page() {
     </div>
   );
 }
-

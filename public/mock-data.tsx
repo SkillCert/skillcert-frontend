@@ -1,4 +1,4 @@
-import { featuredCourseProps, WelcomePageBlockProps } from "@/lib/interface";
+import { FeaturedCourseProps, WelcomePageBlockProps } from "@/lib/interface";
 
 export const welcomePageBlocksData: WelcomePageBlockProps[] = [
   {
@@ -60,7 +60,7 @@ export const welcomePageBlocksData: WelcomePageBlockProps[] = [
   }
 ];
 
-export const featuredCourses: featuredCourseProps[] = [
+export const featuredCourses: FeaturedCourseProps[] = [
   {
     id: 1,
     img: "/images/not-found.jpg",

@@ -1,26 +1,31 @@
-import React from 'react';
+import React from "react";
 
 const categories = [
   {
-    label: 'Enrolment',
+    label: "Enrolment",
     value: 100,
   },
   {
-    label: 'Revenue',
+    label: "Revenue",
     value: 100,
   },
   {
-    label: 'Ratings',
+    label: "Ratings",
     value: 100,
   },
 ];
 
 const CourseStatistics: React.FC = () => (
   <div>
-    <h3 className="text-lg font-bold text-purple-400 mb-3">Course Statistics</h3>
+    <h3 className="text-lg font-bold text-purple-400 mb-3">
+      Course Statistics
+    </h3>
     <div className="flex gap-3 mb-4">
       {categories.map((category, idx) => (
-        <button key={idx} className="bg-pink-600 text-white px-4 py-1 rounded-full text-xs font-semibold">
+        <button
+          key={idx}
+          className="bg-pink-600 text-white px-4 py-1 rounded-full text-xs font-semibold"
+        >
           {category.label}
         </button>
       ))}
@@ -31,4 +36,4 @@ const CourseStatistics: React.FC = () => (
   </div>
 );
 
-export default CourseStatistics; 
+export default CourseStatistics;

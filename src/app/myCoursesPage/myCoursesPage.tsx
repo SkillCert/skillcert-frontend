@@ -3,14 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Footer from "@/components/footer";
-
-interface Course {
-  id: number;
-  name: string;
-  description: string;
-  nextLesson: string;
-  level: string;
-}
+import { Course } from "@/types";
 
 export default function MyCourses() {
   const courses: Course[] = [
@@ -19,40 +12,38 @@ export default function MyCourses() {
       name: "Course Name",
       description: "Short course description",
       nextLesson: "Lesson Name",
-      level: "Level",
+      level: "Beginner",
     },
     {
       id: 2,
       name: "Course Name",
       description: "Short course description",
       nextLesson: "Lesson Name",
-      level: "Level",
+      level: "Beginner",
     },
     {
       id: 3,
       name: "Course Name",
       description: "Short course description",
       nextLesson: "Lesson Name",
-      level: "Level",
+      level: "Beginner",
     },
     {
       id: 4,
       name: "Course Name",
       description: "Short course description",
       nextLesson: "Lesson Name",
-      level: "Level",
+      level: "Beginner",
     },
   ];
 
   return (
     <div className="bg-slate-900 min-h-screen p-8">
       <div className="max-w-4xl mx-auto">
-        {/* Section Title */}
         <h1 className="text-3xl font-semibold text-purple-400 mb-10">
           My courses
         </h1>
 
-        {/* Course Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
           {courses.map((course) => (
             <Card
@@ -61,11 +52,8 @@ export default function MyCourses() {
             >
               <CardContent className="p-0 ">
                 <div className="flex items-stretch ">
-                  {/* Course Image Placeholder */}
-
                   <ImageIcon className="w-32 h-40 object-cover bg-gray-100 " />
 
-                  {/* Course Content */}
                   <div className="flex-1 p-4 pr-2">
                     <h3 className="font-semibold text-gray-100 text-2xl mb-1">
                       {course.name}
@@ -85,7 +73,6 @@ export default function MyCourses() {
                     </Badge>
                   </div>
 
-                  {/* Play Button */}
                   <div className="p-4 pl-2 flex items-end ">
                     <Button
                       size="icon"
