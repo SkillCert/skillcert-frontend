@@ -1,7 +1,6 @@
-import { apiFetch } from "@/lib/api";
+import { apiFetch } from "../../lib/api";
 
 const mockFetch = jest.fn();
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 global.fetch = mockFetch as any;
 
 describe("apiFetch", () => {
