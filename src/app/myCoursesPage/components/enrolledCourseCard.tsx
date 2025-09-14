@@ -1,4 +1,3 @@
-// app/myCoursesPage/components/enrolledCourseCard.tsx
 import React from "react";
 
 export type EnrolledCourseCardProps = {
@@ -31,17 +30,13 @@ export default function EnrolledCourseCard({
       className={`relative rounded-3xl bg-[#2B2E34]/90 p-3 sm:p-4 ${className}`}
       aria-label={`enrolled-course-card ${courseName}`}
     >
-      {/* Contenedor interno (la tarjeta oscura del mock) */}
       <div className="relative flex overflow-hidden rounded-3xl bg-[#0E1321]">
-        {/* Banda lateral con gradiente rosado */}
         <div
           aria-hidden
           className="w-24 shrink-0 rounded-l-3xl bg-gradient-to-b from-[#F2A7E2] via-[#F07ED6] to-[#B24CF2]"
         />
 
-        {/* Contenido principal */}
         <div className="relative flex-1 p-6 sm:p-7 md:p-8">
-          {/* Estrella (bookmark) */}
           <button
             type="button"
             aria-label={bookmarked ? "Quitar de guardados" : "Guardar curso"}
@@ -55,12 +50,10 @@ export default function EnrolledCourseCard({
             )}
           </button>
 
-          {/* Título */}
           <h3 className="text-[22px] font-extrabold leading-tight tracking-tight text-white md:text-2xl">
             {courseName}
           </h3>
 
-          {/* Chips */}
           <div className="mt-4 flex flex-wrap gap-3">
             <Pill>
               <ClockIcon className="mr-2 h-4 w-4" />
@@ -79,13 +72,11 @@ export default function EnrolledCourseCard({
             </Pill>
           </div>
 
-          {/* Siguiente lección */}
           <p className="mt-4 text-[18px] leading-7 text-white">
             <span className="font-semibold">Next Lesson:</span>{" "}
             <span className="italic opacity-90">{nextLessonName}</span>
           </p>
 
-          {/* Botón Continue alineado a la izquierda (como en el mock) */}
           <div className="mt-6">
             <button
               type="button"
@@ -99,11 +90,9 @@ export default function EnrolledCourseCard({
             </button>
           </div>
 
-          {/* Esquinas internas redondeadas (simulan borde del mock) */}
           <div className="pointer-events-none absolute inset-2 rounded-3xl ring-1 ring-white/5" />
         </div>
 
-        {/* Sombra curva inferior dentro de la tarjeta */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-x-6 bottom-3 h-4 rounded-b-3xl bg-black/35 blur"
@@ -113,8 +102,6 @@ export default function EnrolledCourseCard({
   );
 }
 
-/* ---------------- Subcomponentes ---------------- */
-
 function Pill({ children }: { children: React.ReactNode }) {
   return (
     <span className="inline-flex items-center rounded-full border border-[#8D5BFF] bg-[#0E1321] px-3.5 py-1.5 text-sm text-[#D7D8FF] shadow-[inset_0_0_0_9999px_rgba(255,255,255,0.02)]">
@@ -122,8 +109,6 @@ function Pill({ children }: { children: React.ReactNode }) {
     </span>
   );
 }
-
-/* ---------------- SVGs inline (sin dependencias) ---------------- */
 
 function ClockIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
