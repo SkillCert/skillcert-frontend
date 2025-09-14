@@ -1,3 +1,4 @@
+import type { xdr } from "@stellar/stellar-sdk";
 // =============================================================================
 // CORE TYPES & INTERFACES
 // =============================================================================
@@ -29,7 +30,7 @@ export interface ProfileData {
 }
 
 // Course Types
-export type CourseCategory = 
+export type CourseCategory =
   | "Web Development"
   | "Data Science"
   | "Design & UI/UX"
@@ -235,7 +236,7 @@ export interface FormState {
 
 // Hook Return Types
 export interface UseSaveProfileReturn {
-  saveProfile: (data: ProfileData) => Promise<void>;
+  saveProfile: (data: ProfileData) => Promise<ContractResult | null>;
   isLoading: boolean;
   error: string | null;
   success: boolean;
@@ -244,14 +245,14 @@ export interface UseSaveProfileReturn {
 // Constants
 export const COURSE_CATEGORIES: CourseCategory[] = [
   "Web Development",
-  "Data Science", 
+  "Data Science",
   "Design & UI/UX",
   "DevOps & Cloud",
 ];
 
 export const COURSE_LEVELS: CourseLevel[] = [
   "Beginner",
-  "Intermediate", 
+  "Intermediate",
   "Advanced",
 ];
 
@@ -260,3 +261,60 @@ export const COURSE_STATUSES: CourseStatus[] = [
   "Draft",
   "Archived",
 ];
+
+//use save types
+
+export interface ProfileData {
+  name: string;
+  lastname: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  specialization: string;
+  languages: string;
+  teachingCategories: string;
+}
+
+export interface FreighterResponse {
+  error?: string;
+}
+
+export interface AddressResponse extends FreighterResponse {
+  address: string;
+}
+
+export interface AllowedResponse extends FreighterResponse {
+  isAllowed: boolean;
+}
+
+export interface SignTransactionResponse extends FreighterResponse {
+  signedTxXdr: string;
+  signerAddress: string;
+}
+
+export interface ContractResult {
+  success: boolean;
+  result?: any;
+  hash: string;
+}
+
+export interface UseSaveProfileReturn {
+  saveProfile: (profileData: ProfileData) => Promise<ContractResult | null>;
+  isLoading: boolean;
+  error: string | null;
+  success: boolean;
+  transactionHash: string | null;
+  checkConnection: () => Promise<boolean>;
+  retrievePublicKey: () => Promise<string>;
+}
+
+export interface UseWalletReturn {
+  checkConnection: () => Promise<boolean>;
+  retrievePublicKey: () => Promise<string>;
+  getUserAddress: () => Promise<string>;
+  signTransaction: (
+    xdrString: string,
+    networkPassphrase: string,
+    signWith: string
+  ) => Promise<string>;
+}
