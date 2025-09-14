@@ -12,10 +12,6 @@
 
     --card-foreground: 0 0% 3.9%;
 
-    --popover: 0 0% 100%;
-
-    --popover-foreground: 0 0% 3.9%;
-
     --primary: 0 0% 9%;
 
     --primary-foreground: 0 0% 98%;
@@ -42,15 +38,6 @@
 
     --ring: 0 0% 3.9%;
 
-    --chart-1: 12 76% 61%;
-
-    --chart-2: 173 58% 39%;
-
-    --chart-3: 197 37% 24%;
-
-    --chart-4: 43 74% 66%;
-
-    --chart-5: 27 87% 67%;
 
     --radius: 0.5rem;
   }
@@ -63,9 +50,6 @@
 
     --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 3.9%;
-
-    --popover-foreground: 0 0% 98%;
 
     --primary: 0 0% 98%;
 
@@ -93,15 +77,6 @@
 
     --ring: 0 0% 83.1%;
 
-    --chart-1: 220 70% 50%;
-
-    --chart-2: 160 60% 45%;
-
-    --chart-3: 30 80% 55%;
-
-    --chart-4: 280 65% 60%;
-
-    --chart-5: 340 75% 55%;
   }
 }
 
@@ -117,5 +92,60 @@
 
   body {
     @apply bg-gray-900 text-gray-400;
+  }
+}
+
+
+* {
+  font-display: swap;
+}
+
+.background {
+  width: 150vw;
+  height: 165vw;
+  background: linear-gradient(to right, #db2778a9, #6c28d9a9);
+  position: absolute;
+  top: -125vw;
+  left: calc(50% - 75vw);
+  border-radius: 45%;
+  animation: anime 55s infinite ease-in-out;
+}
+
+.background::before,
+.background::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 45%;
+}
+
+.background::before {
+  animation: anime 45s infinite ease-in-out;
+}
+
+.background::after {
+  animation: anime 50s infinite ease-in-out;
+}
+
+
+.font-sans {
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.font-mono {
+  font-family: var(--font-geist-mono), 'SF Mono', Monaco, 'Cascadia Code', monospace;
+}
+
+@keyframes anime {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(360deg);
   }
 }
