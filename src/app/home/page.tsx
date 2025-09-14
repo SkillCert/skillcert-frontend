@@ -6,6 +6,7 @@ import Trusted from "./components/welcomepage/trusted";
 import Journey from "./components/welcomepage/journey";
 import Steller from "./components/welcomepage/steller";
 import Ready from "./components/welcomepage/ready";
+import PrinciplesSection from "../about/components/principlesSection";
 
 const welcomePage = () => {
   return (
@@ -16,6 +17,8 @@ const welcomePage = () => {
         <Journey />
         <CourseExplorationSection />
         <Steller />
+
+        {/* <section className="mt-4 md:mt-20 ">
         <Ready />
       </div>
     </div>
@@ -83,6 +86,7 @@ export default welcomePage;
 				</section> */
 }
 
+
 {
   /* <section className="mt-4 md:mt-10 ">
 					<div className="w-full md:w-7/12 mx-auto grid gap-2">
@@ -106,5 +110,13 @@ export default welcomePage;
 							</Button>
 						</div>
 					</div>
+				</section> */}
+        <Ready />
+      </div>
+    </div>
+  );
+};
+
+export default welcomePage;
 				</section> */
 }
