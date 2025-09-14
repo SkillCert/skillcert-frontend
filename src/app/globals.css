@@ -97,6 +97,10 @@
 }
 
 
+* {
+  font-display: swap;
+}
+
 .background {
   width: 150vw;
   height: 165vw;
@@ -126,6 +130,15 @@
 
 .background::after {
   animation: anime 50s infinite ease-in-out;
+}
+
+
+.font-sans {
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.font-mono {
+  font-family: var(--font-geist-mono), 'SF Mono', Monaco, 'Cascadia Code', monospace;
 }
 
 @keyframes anime {
