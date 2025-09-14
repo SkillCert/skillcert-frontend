@@ -1,20 +1,15 @@
-"use client"
+"use client";
 import React from "react";
-import { useState } from "react"
-import {
-  BookOpen,
-  Plus,
-  ChevronLeft,
-} from "lucide-react"
-import Lessons from '../components/lessons'
-
+import { useState } from "react";
+import { BookOpen, Plus, ChevronLeft } from "lucide-react";
+import Lessons from "../components/lessons";
 
 type Lesson = {
-  id: number
-  name: string
-  description: string
-  icon: React.ReactElement
-}
+  id: number;
+  name: string;
+  description: string;
+  icon: React.ReactElement;
+};
 
 const initialLessons: Lesson[] = [
   {
@@ -41,31 +36,31 @@ const initialLessons: Lesson[] = [
     description: "In this lesson the student will learn about ...",
     icon: <BookOpen className="w-7 h-7 text-purple-400" />,
   },
-]
+];
 
 export default function ModuleManagement() {
-  const [description, setDescription] = useState("")
-  const [lessons, setLessons] = useState(initialLessons)
-  const [editingLesson, setEditingLesson] = useState<Lesson | null>(null)
-  const [editName, setEditName] = useState("")
-  const [editDescription, setEditDescription] = useState("")
-  const [showEditModal, setShowEditModal] = useState(false)
+  const [description, setDescription] = useState("");
+  const [lessons, setLessons] = useState(initialLessons);
+  const [editingLesson, setEditingLesson] = useState<Lesson | null>(null);
+  const [editName, setEditName] = useState("");
+  const [editDescription, setEditDescription] = useState("");
+  const [showEditModal, setShowEditModal] = useState(false);
 
-  const [showAddModal, setShowAddModal] = useState(false)
-  const [addName, setAddName] = useState("")
-  const [addDescription, setAddDescription] = useState("")
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [addName, setAddName] = useState("");
+  const [addDescription, setAddDescription] = useState("");
 
-  const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
 
   function handleDelete(id: string | number) {
-    setLessons(lessons.filter((lesson) => lesson.id !== id))
+    setLessons(lessons.filter((lesson) => lesson.id !== id));
   }
 
   function handleEdit(lesson: Lesson) {
-    setEditingLesson(lesson)
-    setEditName(lesson.name)
-    setEditDescription(lesson.description)
-    setShowEditModal(true)
+    setEditingLesson(lesson);
+    setEditName(lesson.name);
+    setEditDescription(lesson.description);
+    setShowEditModal(true);
   }
 
   function handleEditSave() {
@@ -76,21 +71,21 @@ export default function ModuleManagement() {
             ? { ...lesson, name: editName, description: editDescription }
             : lesson
         )
-      )
-      setShowEditModal(false)
-      setEditingLesson(null)
+      );
+      setShowEditModal(false);
+      setEditingLesson(null);
     }
   }
 
   function handleEditCancel() {
-    setShowEditModal(false)
-    setEditingLesson(null)
+    setShowEditModal(false);
+    setEditingLesson(null);
   }
 
   function handleAddLesson() {
-    setShowAddModal(true)
-    setAddName("")
-    setAddDescription("")
+    setShowAddModal(true);
+    setAddName("");
+    setAddDescription("");
   }
 
   function handleAddSave() {
@@ -100,32 +95,32 @@ export default function ModuleManagement() {
         name: addName,
         description: addDescription,
         icon: <BookOpen className="w-7 h-7 text-purple-400" />,
-      }
-      setLessons([...lessons, newLesson])
-      setShowAddModal(false)
-      setAddName("")
-      setAddDescription("")
+      };
+      setLessons([...lessons, newLesson]);
+      setShowAddModal(false);
+      setAddName("");
+      setAddDescription("");
     }
   }
 
   function handleAddCancel() {
-    setShowAddModal(false)
-    setAddName("")
-    setAddDescription("")
+    setShowAddModal(false);
+    setAddName("");
+    setAddDescription("");
   }
 
   function handleDrop(targetIndex: number) {
-    if (draggedIndex === null) return
+    if (draggedIndex === null) return;
 
-    const newLessons = [...lessons]
-    const draggedItem = newLessons[draggedIndex]
+    const newLessons = [...lessons];
+    const draggedItem = newLessons[draggedIndex];
 
-    newLessons.splice(draggedIndex, 1)
+    newLessons.splice(draggedIndex, 1);
 
-    newLessons.splice(targetIndex, 0, draggedItem)
+    newLessons.splice(targetIndex, 0, draggedItem);
 
-    setLessons(newLessons)
-    setDraggedIndex(null)
+    setLessons(newLessons);
+    setDraggedIndex(null);
   }
 
   return (
@@ -177,14 +172,16 @@ export default function ModuleManagement() {
 
       <div className="space-y-5">
         {lessons.map((lesson, index) => (
-          <Lessons lesson={lesson}
-          key={index}
-          index={index}
-          draggedIndex={draggedIndex}
-          setDraggedIndex={setDraggedIndex}
-          handleDrop={handleDrop}
-          handleEdit={handleEdit}
-          handleDelete={handleDelete} />
+          <Lessons
+            lesson={lesson}
+            key={index}
+            index={index}
+            draggedIndex={draggedIndex}
+            setDraggedIndex={setDraggedIndex}
+            handleDrop={handleDrop}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+          />
         ))}
       </div>
 
@@ -272,5 +269,5 @@ export default function ModuleManagement() {
         </div>
       )}
     </div>
-  )
+  );
 }

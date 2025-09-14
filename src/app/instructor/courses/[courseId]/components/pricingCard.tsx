@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export function PricingCard() {
-  const [coursePrice, setCoursePrice] = useState("120")
-  const usdToXlm = Number.parseFloat(coursePrice) * 28.757 || 0
+  const [coursePrice, setCoursePrice] = useState("120");
+  const usdToXlm = Number.parseFloat(coursePrice) * 28.757 || 0;
 
   return (
     <div className="w-full max-w-md bg-slate-800/90 border border-slate-700 rounded-xl p-6 backdrop-blur-sm">
@@ -38,5 +38,5 @@ export function PricingCard() {
         </div>
       </div>
     </div>
-  )
+  );
 }

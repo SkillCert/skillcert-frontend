@@ -16,7 +16,7 @@ const TestProfileForm = () => {
   } = useSaveProfile({
     contractAddress: 'CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQAHHAGK67TM',
     networkPassphrase: 'Test SDF Network ; September 2015',
-    rpcUrl: 'https://soroban-testnet.stellar.org'
+    rpcUrl: process.env.NEXT_PUBLIC_SOROBAN_RPC_URL as string,
   })
 
   const [formData, setFormData] = React.useState({
@@ -69,7 +69,7 @@ const TestProfileForm = () => {
 }
 
 describe('Profile Form Integration', () => {
-  const { saveProfile } = require('../contract_connections/UserProfile/saveProfile')
+  const { saveProfile } = await import('../contract_connections/UserProfile/saveProfile')
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -194,7 +194,7 @@ describe('Profile Form Integration', () => {
 })
 
 describe('Validation Function Tests', () => {
-  const { validateProfileData } = require('../contract_connections/UserProfile/saveProfile')
+  const { validateProfileData } = await import('../contract_connections/UserProfile/saveProfile')
 
   it('should pass validation for valid data', () => {
     const validData = {

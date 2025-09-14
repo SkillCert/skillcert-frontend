@@ -1,4 +1,4 @@
-import { Contract, TransactionBuilder, BASE_FEE, xdr, Address } from '@stellar/stellar-sdk';
+import { Contract, TransactionBuilder, BASE_FEE, xdr, Address, Transaction } from '@stellar/stellar-sdk';
 import { Api, assembleTransaction, Server } from '@stellar/stellar-sdk/rpc'
 
 
@@ -30,7 +30,6 @@ export interface ContractConfig {
   rpcUrl: string;
 }
 
-// Validate user profile data
 export function validateProfileData(profileData: UserProfileData): ValidationErrors | null {
   const errors: ValidationErrors = {};
 
@@ -56,15 +55,12 @@ function isValidEmail(email: string): boolean {
   return emailRegex.test(email);
 }
 
-/// Get wallet address from the connected wallet
 async function getWalletAddress(): Promise<string> {
-  // This will depend on wallet integration (Freighter, etc.)
-  // Example for Freighter wallet:
-  if (typeof window !== 'undefined' && (window as any).freighter) {
+  if (typeof window !== 'undefined' && (window as unknown as { freighter?: unknown }).freighter) {
     try {
-      const { address } = await (window as any).freighter.getAddress();
+      const { address } = await ((window as unknown as { freighter: { getAddress: () => Promise<{ address: string }> } }).freighter.getAddress());
       return address;
-    } catch (error) {
+    } catch {
       throw new Error('Failed to get wallet address. Please connect your wallet.');
     }
   }
@@ -73,21 +69,20 @@ async function getWalletAddress(): Promise<string> {
 }
 
 async function signAndSubmitTransaction(
-  transaction: any,
+  transaction: unknown,
   config: ContractConfig
 ): Promise<string> {
-  if (typeof window !== 'undefined' && (window as any).freighter) {
+  if (typeof window !== 'undefined' && (window as unknown as { freighter?: unknown }).freighter) {
     try {
-      const signedTransaction = await (window as any).freighter.signTransaction(
-        transaction.toXDR(),
+      const signedTransaction = await ((window as unknown as { freighter: { signTransaction: (xdr: string, passphrase: string) => Promise<string> } }).freighter.signTransaction(
+        (transaction as { toXDR: () => string }).toXDR(),
         config.networkPassphrase
-      );
+      ));
 
       const server = new Server(config.rpcUrl);
-      const result = await server.sendTransaction(signedTransaction);
+      const result = await server.sendTransaction(signedTransaction as unknown as Transaction);
       
       if (result.status === 'PENDING') {
-        // Wait for transaction confirmation
         let getResponse = await server.getTransaction(result.hash);
         while (getResponse.status === 'NOT_FOUND') {
           await new Promise(resolve => setTimeout(resolve, 1000));
@@ -102,15 +97,15 @@ async function signAndSubmitTransaction(
       } else {
         throw new Error(`Transaction submission failed: ${result.status}`);
       }
-    } catch (error: any) {
-      throw new Error(`Failed to sign or submit transaction: ${error.message}`);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      throw new Error(`Failed to sign or submit transaction: ${errorMessage}`);
     }
   }
   
   throw new Error('Wallet not available for signing');
 }
 
-// Save user profile data on the blockchain
 export async function saveProfile(
   profileData: UserProfileData,
   config: ContractConfig
@@ -163,7 +158,6 @@ export async function saveProfile(
       .setTimeout(30)
       .build();
 
-    // Simulate transaction first
     const simulateResponse = await server.simulateTransaction(transaction);
     if (Api.isSimulationError(simulateResponse)) {
       throw new Error(`Simulation failed: ${simulateResponse.error}`);
@@ -182,25 +176,24 @@ export async function saveProfile(
       }
     };
 
-  } catch (error: any) {
-    console.error('Error saving profile:', error);
-    
-    if (error.message.includes('Name cannot be empty')) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    if (errorMessage.includes('Name cannot be empty')) {
       return {
         success: false,
         error: 'Name is required and cannot be empty'
       };
-    } else if (error.message.includes('Email cannot be empty')) {
+    } else if (errorMessage.includes('Email cannot be empty')) {
       return {
         success: false,
         error: 'Email is required and cannot be empty'
       };
-    } else if (error.message.includes('Country cannot be empty')) {
+    } else if (errorMessage.includes('Country cannot be empty')) {
       return {
         success: false,
         error: 'Country is required and cannot be empty'
       };
-    } else if (error.message.includes('wallet')) {
+    } else if (errorMessage.includes('wallet')) {
       return {
         success: false,
         error: 'Wallet connection required. Please connect your wallet and try again.'
@@ -209,7 +202,7 @@ export async function saveProfile(
 
     return {
       success: false,
-      error: error.message || 'An unexpected error occurred while saving profile'
+      error: errorMessage || 'An unexpected error occurred while saving profile'
     };
   }
 }

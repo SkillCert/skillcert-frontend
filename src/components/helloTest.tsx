@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 
-function helloTest() {
+function HelloTest() {
   const [value, setValue] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -9,8 +9,8 @@ function helloTest() {
       try {
         setLoading(true);
         setValue("1");
-      } catch (err) {
-        console.log(err);
+      } catch {
+        // Handle error silently in test component
       } finally {
         setLoading(false);
       }
@@ -18,6 +18,8 @@ function helloTest() {
 
     fetchValue();
   });
+
+  
   if (loading) return <div>Loading...</div>;
   return (
     <div className="border border-[#c6c6c6] rounded-sm py-2 px-5 font-normal">
@@ -26,4 +28,4 @@ function helloTest() {
   );
 }
 
-export default helloTest;
+export default HelloTest;

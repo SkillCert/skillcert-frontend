@@ -248,8 +248,8 @@ export function useCreateCourse() {
       ) {
         try {
           courseId = StellarSdk.scValToNative(getResponse.returnValue as StellarSdk.xdr.ScVal);
-        } catch (err) {
-          console.warn("Failed to extract course ID from result:", err);
+        } catch {
+          // Failed to extract course ID, will use fallback
         }
       }
 
@@ -259,7 +259,6 @@ export function useCreateCourse() {
         transactionHash: submitResponse.hash,
       };
     } catch (err) {
-      console.error("Create course error:", err);
       let errorMessage = "Failed to create course";
 
       if (err instanceof Error) {
@@ -447,8 +446,8 @@ export async function createCourse(
     ) {
       try {
         courseId = StellarSdk.scValToNative(getResponse.returnValue as StellarSdk.xdr.ScVal);
-      } catch (err) {
-        console.warn("Failed to extract course ID from result:", err);
+      } catch {
+        // Failed to extract course ID, will use fallback
       }
     }
 
@@ -458,7 +457,6 @@ export async function createCourse(
       transactionHash: submitResponse.hash,
     };
   } catch (err) {
-    console.error("Create course error:", err);
     let errorMessage = "Failed to create course";
 
     if (err instanceof Error) {

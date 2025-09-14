@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
-import { X, ArrowRight } from 'lucide-react';
+import React, { useState } from "react";
+import { X, ArrowRight } from "lucide-react";
 
 interface HeaderModalProps {
   onClose?: () => void;
@@ -9,10 +9,10 @@ interface HeaderModalProps {
   onTabChange?: (tab: string) => void;
 }
 
-export default function HeaderModal({ 
+export default function HeaderModal({
   onClose,
   activeTab = "Resume",
-  onTabChange
+  onTabChange,
 }: HeaderModalProps) {
   const [currentTab, setCurrentTab] = useState(activeTab);
 
@@ -20,7 +20,7 @@ export default function HeaderModal({
     { name: "Resume", label: "Resume" },
     { name: "Content", label: "Content" },
     { name: "Teacher", label: "Teacher" },
-    { name: "Reviews", label: "Reviews" }
+    { name: "Reviews", label: "Reviews" },
   ];
 
   const handleTabClick = (tabName: string) => {
@@ -38,32 +38,32 @@ export default function HeaderModal({
         >
           <X size={20} className="text-gray-400 hover:text-white" />
         </button>
-        
+
         <div className="flex flex-col items-start text-left ml-5">
-          <h1 
+          <h1
             className="text-white mb-2 font-poppins"
             style={{
-              width: '277px',
-              height: '60px',
+              width: "277px",
+              height: "60px",
               fontWeight: 500,
-              fontSize: '40px',
-              lineHeight: '100%',
-              letterSpacing: '0%',
-              textAlign: 'left',
-              display: 'flex',
-              alignItems: 'center'
+              fontSize: "40px",
+              lineHeight: "100%",
+              letterSpacing: "0%",
+              textAlign: "left",
+              display: "flex",
+              alignItems: "center",
             }}
           >
             Course Name
           </h1>
-          <p 
+          <p
             className="text-gray-400 font-poppins"
             style={{
               fontWeight: 400,
-              fontSize: '24px',
-              lineHeight: '100%',
-              letterSpacing: '0%',
-              textAlign: 'left'
+              fontSize: "24px",
+              lineHeight: "100%",
+              letterSpacing: "0%",
+              textAlign: "left",
             }}
           >
             Course Description
@@ -72,60 +72,58 @@ export default function HeaderModal({
       </div>
 
       <div className="px-6">
-        <div 
+        <div
           style={{
-            width: '100%',
-            height: '1px',
-            backgroundColor: '#C084FC',
-            transform: 'rotate(0.2deg)',
-            transformOrigin: 'left center'
+            width: "100%",
+            height: "1px",
+            backgroundColor: "#C084FC",
+            transform: "rotate(0.2deg)",
+            transformOrigin: "left center",
           }}
         ></div>
       </div>
-      
+
       <div className="px-6 py-6 flex justify-center">
-                <div 
+        <div
           style={{
-            width: '800px',
-            height: '80px',
-            backgroundColor: '#1F2937',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '0 24px'
+            width: "800px",
+            height: "80px",
+            backgroundColor: "#1F2937",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "0 24px",
           }}
         >
-            {tabs.map((tab) => (
-              <button
-                key={tab.name}
-                onClick={() => handleTabClick(tab.name)}
-                className={`
+          {tabs.map((tab) => (
+            <button
+              key={tab.name}
+              onClick={() => handleTabClick(tab.name)}
+              className={`
                   flex items-center justify-center gap-2 transition-all duration-200 ease-in-out
                   mx-2 font-poppins
-                  ${currentTab === tab.name 
-                    ? 'text-white' 
-                    : 'hover:text-white'
-                  }
+                  ${currentTab === tab.name ? "text-white" : "hover:text-white"}
                 `}
-                style={{
-                  width: '176px',
-                  height: '50px',
-                  borderRadius: '25px',
-                  backgroundColor: currentTab === tab.name ? '#A855F7' : 'transparent',
-                  color: currentTab === tab.name ? 'white' : '#9333EA',
-                  fontWeight: 500,
-                  fontSize: '20px',
-                  lineHeight: '100%',
-                  letterSpacing: '0%',
-                  textAlign: 'center'
-                }}
-              >
-                <span>{tab.label}</span>
-                {currentTab !== tab.name && (
-                  <ArrowRight size={14} className="opacity-60" />
-                )}
-              </button>
-            ))}
+              style={{
+                width: "176px",
+                height: "50px",
+                borderRadius: "25px",
+                backgroundColor:
+                  currentTab === tab.name ? "#A855F7" : "transparent",
+                color: currentTab === tab.name ? "white" : "#9333EA",
+                fontWeight: 500,
+                fontSize: "20px",
+                lineHeight: "100%",
+                letterSpacing: "0%",
+                textAlign: "center",
+              }}
+            >
+              <span>{tab.label}</span>
+              {currentTab !== tab.name && (
+                <ArrowRight size={14} className="opacity-60" />
+              )}
+            </button>
+          ))}
         </div>
       </div>
     </div>

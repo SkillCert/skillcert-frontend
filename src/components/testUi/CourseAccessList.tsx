@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
-  CourseUsers,
   listCourseAccess,
 } from "@/contract_connections/CourseAccess/listCourseAccess";
+import { CourseUsers } from "@/types";
 import { formatWalletAddressCustom } from "@/lib/utils";
 
 interface CourseAccessListProps {
@@ -15,18 +15,21 @@ const CourseAccessList: React.FC<CourseAccessListProps> = ({ courseId }) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
+    const fetchAccess = async () => {
+      setLoading(true);
+      setError(null);
 
-    listCourseAccess(courseId)
-      .then((data) => {
+      try {
+        const data = await listCourseAccess(courseId);
         setCourseAccess(data);
-        setLoading(false);
-      })
-      .catch((err) => {
+      } catch (err: any) {
         setError(err.message || "Failed to load course access.");
-        setLoading(false);
-      });
+      } finally {
+        setLoading(false); // ensures loading stops in both success & error
+      }
+    };
+
+    fetchAccess();
   }, [courseId]);
 
   if (loading) return <div>Loading course access...</div>;
@@ -37,7 +40,7 @@ const CourseAccessList: React.FC<CourseAccessListProps> = ({ courseId }) => {
     <div>
       <h2>Course Access List</h2>
       <p>
-        <strong>Course ID:</strong> {courseAccess.course}
+        <strong>Course ID:</strong> {courseAccess.course_id}
       </p>
       <p>
         <strong>Total Users:</strong> {courseAccess.users.length}

@@ -1,16 +1,5 @@
 import SorobanClient from "@stellar/stellar-sdk";
-
-export interface Course {
-  id: string;
-  title: string;
-  description?: string;
-  creator: string;
-  price?: string;
-  category?: string;
-  language?: string;
-  thumbnail_url?: string;
-  published: boolean;
-}
+import { Course } from "@/types";
 
 export async function getCourse(courseId: string): Promise<Course | null> {
   if (!courseId) throw new Error("Course ID is required");
@@ -19,14 +8,10 @@ export async function getCourse(courseId: string): Promise<Course | null> {
   const contractId = process.env.NEXT_PUBLIC_COURSE_REGISTRY_CONTRACT_ID;
 
   if (!rpcUrl) {
-    console.error("Missing NEXT_PUBLIC_SOROBAN_RPC_URL environment variable.");
-    return null;
+    throw new Error("Missing NEXT_PUBLIC_SOROBAN_RPC_URL environment variable.");
   }
   if (!contractId) {
-    console.error(
-      "Missing NEXT_PUBLIC_COURSE_REGISTRY_CONTRACT_ID environment variable."
-    );
-    return null;
+    throw new Error("Missing NEXT_PUBLIC_COURSE_REGISTRY_CONTRACT_ID environment variable.");
   }
 
   try {
@@ -44,8 +29,7 @@ export async function getCourse(courseId: string): Promise<Course | null> {
       typeof result.creator !== "string" ||
       typeof result.published !== "boolean"
     ) {
-      console.error("Unexpected contract result shape:", result);
-      return null;
+      throw new Error("Unexpected contract result shape");
     }
 
     return {
@@ -62,10 +46,9 @@ export async function getCourse(courseId: string): Promise<Course | null> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     if (error instanceof Error) {
-      console.error("Error fetching course from contract:", error.message);
+      throw new Error(`Error fetching course from contract: ${error.message}`);
     } else {
-      console.error("Unknown error fetching course from contract:", error);
+      throw new Error("Unknown error fetching course from contract");
     }
-    return null;
   }
 }

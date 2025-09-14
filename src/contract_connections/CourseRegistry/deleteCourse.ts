@@ -1,5 +1,5 @@
 import * as StellarSdk from '@stellar/stellar-sdk';
-import { Contract, Networks, Keypair, TransactionBuilder, BASE_FEE, Operation } from '@stellar/stellar-sdk';
+import { Contract, Networks, TransactionBuilder, BASE_FEE } from '@stellar/stellar-sdk';
 import { Server } from '@stellar/stellar-sdk/rpc';
 import { useState } from 'react';
 
@@ -15,7 +15,7 @@ type Result<T, E> = { ok: true; value: T } | { ok: false; error: E };
 const getContractConfig = () => {
   return {
     contractAddress: process.env.NEXT_PUBLIC_COURSE_REGISTRY_CONTRACT || '',
-    networkRpc: process.env.NEXT_PUBLIC_STELLAR_RPC || 'https://soroban-testnet.stellar.org',
+    networkRpc: process.env.NEXT_PUBLIC_STELLAR_RPC || '',
     networkPassphrase: process.env.NEXT_PUBLIC_NETWORK_PASSPHRASE || Networks.TESTNET,
   };
 };
@@ -62,10 +62,11 @@ const courseIdToScVal = (courseId: string): StellarSdk.xdr.ScVal => {
   return StellarSdk.nativeToScVal(courseId, { type: 'string' });
 };
 
-const parseSorobanResult = (result: any): Result<void, string> => {
+const parseSorobanResult = (result: unknown): Result<void, string> => {
   try {
-    if (result && result.returnValue) {
-      const scVal = result.returnValue;
+    if (result && typeof result === 'object' && 'returnValue' in result) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const scVal = (result as { returnValue: unknown }).returnValue as any;
       
       if (scVal.switch().name === 'scvVoid') {
         return { ok: true, value: undefined };
@@ -78,7 +79,7 @@ const parseSorobanResult = (result: any): Result<void, string> => {
     }
     
     return { ok: true, value: undefined };
-  } catch (error) {
+  } catch {
     return { ok: false, error: 'Failed to parse contract result' };
   }
 };
@@ -188,8 +189,6 @@ const callDeleteCourseContract = async (courseId: string): Promise<Result<string
     return { ok: true, value: result.hash };
 
   } catch (error) {
-    console.error('Stellar contract call error:', error);
-    
     // Handle specific error types
     if (error instanceof Error) {
       if (error.message.includes('Freighter')) {
@@ -240,9 +239,7 @@ export const deleteCourse = async (courseId: string): Promise<DeleteCourseResult
       transactionId: result.value,
     };
 
-  } catch (error) {
-    console.error('Error deleting course:', error);
-    
+  } catch {
     return {
       success: false,
       error: 'An unexpected error occurred while deleting the course',
@@ -285,8 +282,7 @@ export const useDeleteCourse = () => {
         setError(result.error || 'Failed to delete course');
         return false;
       }
-    } catch (error) {
-      console.error('Delete course hook error:', error);
+    } catch {
       setError('An unexpected error occurred');
       return false;
     } finally {
@@ -310,7 +306,7 @@ declare global {
       isAllowed: () => Promise<boolean>;
       requestAccess: () => Promise<void>;
       getPublicKey: () => Promise<string>;
-      signTransaction: (xdr: string, opts?: any) => Promise<string>;
+      signTransaction: (xdr: string, opts?: unknown) => Promise<string>;
     };
   }
 }

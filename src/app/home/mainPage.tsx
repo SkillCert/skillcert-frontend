@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { BookOpen, Library, Star, Clock } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
+import { BookOpen, Library, Star, Clock } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function MainPage() {
   return (
@@ -25,13 +25,17 @@ export default function MainPage() {
             {/* My Learning Button */}
             <button className="bg-gray-900 border border-gray-600 hover:border-gray-500 transition-colors cursor-pointer rounded-lg p-2 flex flex-col items-center justify-center h-40 w-40">
               <BookOpen className="w-24 h-24 text-white mb-2" />
-              <span className="text-sm font-semibold text-white text-center leading-tight">My learning</span>
+              <span className="text-sm font-semibold text-white text-center leading-tight">
+                My learning
+              </span>
             </button>
 
             {/* Course Catalog Button */}
             <button className="bg-gray-900 border border-gray-600 hover:border-gray-500 transition-colors cursor-pointer rounded-lg p-2 flex flex-col items-center justify-center h-40 w-40">
               <Library className="w-24 h-24 text-white mb-2" />
-              <span className="text-sm font-semibold text-white text-center leading-tight">Course Catalog</span>
+              <span className="text-sm font-semibold text-white text-center leading-tight">
+                Course Catalog
+              </span>
             </button>
           </div>
 
@@ -71,5 +75,5 @@ export default function MainPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

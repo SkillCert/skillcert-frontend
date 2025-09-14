@@ -1,45 +1,45 @@
-import Image from 'next/image';
+import Image from "next/image";
 
 const reviews = [
   {
     id: 1,
-    name: 'Sarah Johnson',
+    name: "Sarah Johnson",
     rating: 5,
     comment:
-      'This course exceeded my expectations! The content is well-structured and the instructor explains complex concepts clearly. Highly recommended!',
-    avatarUrl: 'https://i.pravatar.cc/150?u=sarah',
+      "This course exceeded my expectations! The content is well-structured and the instructor explains complex concepts clearly. Highly recommended!",
+    avatarUrl: "https://i.pravatar.cc/150?u=sarah",
   },
   {
     id: 2,
-    name: 'Michael Chen',
+    name: "Michael Chen",
     rating: 4,
     comment:
-      'Great course overall. The practical examples were very helpful. Could use more advanced topics in the later modules.',
-    avatarUrl: 'https://i.pravatar.cc/150?u=michael',
+      "Great course overall. The practical examples were very helpful. Could use more advanced topics in the later modules.",
+    avatarUrl: "https://i.pravatar.cc/150?u=michael",
   },
   {
     id: 3,
-    name: 'Emma Rodriguez',
+    name: "Emma Rodriguez",
     rating: 5,
     comment:
-      'Outstanding quality! The step-by-step approach made learning so much easier. Worth every penny.',
-    avatarUrl: 'https://i.pravatar.cc/150?u=emma',
+      "Outstanding quality! The step-by-step approach made learning so much easier. Worth every penny.",
+    avatarUrl: "https://i.pravatar.cc/150?u=emma",
   },
   {
     id: 4,
-    name: 'David Kim',
+    name: "David Kim",
     rating: 4,
     comment:
-      'Very informative course with good pacing. The assignments were challenging but fair. Really helped me improve my skills.',
-    avatarUrl: 'https://i.pravatar.cc/150?u=david',
+      "Very informative course with good pacing. The assignments were challenging but fair. Really helped me improve my skills.",
+    avatarUrl: "https://i.pravatar.cc/150?u=david",
   },
   {
     id: 5,
-    name: 'Lisa Thompson',
+    name: "Lisa Thompson",
     rating: 5,
     comment:
-      'Perfect for beginners and intermediate learners. The instructor is knowledgeable and responds quickly to questions.',
-    avatarUrl: 'https://i.pravatar.cc/150?u=lisa',
+      "Perfect for beginners and intermediate learners. The instructor is knowledgeable and responds quickly to questions.",
+    avatarUrl: "https://i.pravatar.cc/150?u=lisa",
   },
 ];
 

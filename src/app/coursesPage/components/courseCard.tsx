@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import { CourseCardProps, CourseCategory } from "@/lib/interface";
 import { Star, Clock } from "lucide-react";
 import { useState } from "react";
 import { grantAccess } from "../../../../contract_connections/CourseRegistry/grantAccess";
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
-  const [userAddress, setUserAddress] = useState("0x1234567890123456789012345678901234567890");
+  const [userAddress] = useState("0x1234567890123456789012345678901234567890");
   const getCategoryColor = (category: CourseCategory): string => {
     switch (category) {
       case "Web Development":
@@ -22,14 +22,24 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   };
 
   const handleEnroll = async (courseId: number) => {
-    const result = await grantAccess({
-      course_id: courseId.toString(),
-      user: userAddress,
-    });
-    if (result.success) {
-      alert("Enrollment successful!");
-    } else {
-      alert(`Enrollment failed: ${result.error}`);
+    try {
+      const result = await grantAccess({
+        course_id: courseId.toString(),
+        user: userAddress,
+      });
+
+      if (result.success) {
+        alert("Enrollment successful!");
+      } else {
+        alert(`Enrollment failed: ${result.error}`);
+      }
+    } catch (error) {
+      console.error("Enrollment error:", error);
+      alert(
+        error instanceof Error
+          ? `Enrollment failed: ${error.message}`
+          : "Enrollment failed due to an unexpected error."
+      );
     }
   };
 
@@ -40,13 +50,15 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gray-400 rounded-lg flex items-center justify-center">
             <div className="w-6 h-4 sm:w-8 sm:h-6 bg-gray-500 rounded"></div>
           </div>
-          <span
-            className={`absolute top-2 right-2 sm:top-3 sm:right-3 ${getCategoryColor(
-              course.category
-            )} text-white px-2 py-1 rounded text-xs font-medium`}
-          >
-            {course.category}
-          </span>
+          {course.category && (
+            <span
+              className={`absolute top-2 right-2 sm:top-3 sm:right-3 ${getCategoryColor(
+                course.category
+              )} text-white px-2 py-1 rounded text-xs font-medium`}
+            >
+              {course.category}
+            </span>
+          )}
         </div>
 
         <div className="flex flex-col justify-between pt-3 px-3 text-white">
@@ -82,11 +94,11 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
 
         <div className="flex items-center justify-between border-t border-gray-500">
           <span className="text-base sm:text-lg text-white font-bold mt-2">
-            {course.price.toFixed(2)} XLM
+            {course.price ? (typeof course.price === 'number' ? course.price.toFixed(2) : course.price) : 'Free'} XLM
           </span>
           <button
             className="bg-pink-800 text-white px-3 py-2 sm:px-4 rounded-full font-medium transition-colors text-xs sm:text-sm mt-2"
-            onClick={() => handleEnroll(course.id)}
+            onClick={() => handleEnroll(typeof course.id === 'string' ? parseInt(course.id, 10) : course.id)}
           >
             Enroll Now
           </button>

@@ -1,10 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Info } from 'lucide-react';
-import Image from 'next/image';
+import { useState } from "react";
+import { Info } from "lucide-react";
+import Image from "next/image";
 import CourseHeader from "../../components/courseHeader";
-
 
 interface Objective {
   id: string;
@@ -18,40 +17,46 @@ interface Prerequisite {
 
 export default function Details() {
   const [objectives, setObjectives] = useState<Objective[]>([
-    { id: '1', text: 'Build modern React applications from scratch' },
-    { id: '2', text: 'Master React hooks and state management' },
-    { id: '3', text: 'Implement routing with React Router' },
+    { id: "1", text: "Build modern React applications from scratch" },
+    { id: "2", text: "Master React hooks and state management" },
+    { id: "3", text: "Implement routing with React Router" },
   ]);
 
   const [prerequisites, setPrerequisites] = useState<Prerequisite[]>([
-    { id: '1', text: 'Basic JavaScript knowledge' },
-    { id: '2', text: 'HTML and CSS fundamentals' },
-    { id: '3', text: 'Understanding of ES6+ features' },
+    { id: "1", text: "Basic JavaScript knowledge" },
+    { id: "2", text: "HTML and CSS fundamentals" },
+    { id: "3", text: "Understanding of ES6+ features" },
   ]);
 
-  const [newObjective, setNewObjective] = useState('');
-  const [newPrerequisite, setNewPrerequisite] = useState('');
+  const [newObjective, setNewObjective] = useState("");
+  const [newPrerequisite, setNewPrerequisite] = useState("");
 
   const addObjective = () => {
     if (newObjective.trim()) {
-      setObjectives([...objectives, { id: Date.now().toString(), text: newObjective.trim() }]);
-      setNewObjective('');
+      setObjectives([
+        ...objectives,
+        { id: Date.now().toString(), text: newObjective.trim() },
+      ]);
+      setNewObjective("");
     }
   };
 
   const removeObjective = (id: string) => {
-    setObjectives(objectives.filter(obj => obj.id !== id));
+    setObjectives(objectives.filter((obj) => obj.id !== id));
   };
 
   const addPrerequisite = () => {
     if (newPrerequisite.trim()) {
-      setPrerequisites([...prerequisites, { id: Date.now().toString(), text: newPrerequisite.trim() }]);
-      setNewPrerequisite('');
+      setPrerequisites([
+        ...prerequisites,
+        { id: Date.now().toString(), text: newPrerequisite.trim() },
+      ]);
+      setNewPrerequisite("");
     }
   };
 
   const removePrerequisite = (id: string) => {
-    setPrerequisites(prerequisites.filter(prereq => prereq.id !== id));
+    setPrerequisites(prerequisites.filter((prereq) => prereq.id !== id));
   };
 
   return (
@@ -61,7 +66,9 @@ export default function Details() {
       <div className="bg-gray-900 rounded-lg p-6 border border-gray-800">
         <div className="flex justify-between items-start mb-4">
           <div>
-            <h3 className="text-3xl font-semibold text-white mb-2">Learning objectives</h3>
+            <h3 className="text-3xl font-semibold text-white mb-2">
+              Learning objectives
+            </h3>
             <p className="text-gray-400 text-xs">
               What will students achieve after completing this course?
             </p>
@@ -104,7 +111,9 @@ export default function Details() {
       <div className="bg-gray-900 rounded-lg p-6 border border-gray-800">
         <div className="flex justify-between items-start mb-4">
           <div>
-            <h3 className="text-3xl font-semibold text-white mb-2">Prerequisites</h3>
+            <h3 className="text-3xl font-semibold text-white mb-2">
+              Prerequisites
+            </h3>
             <p className="text-gray-400 text-xs">
               What should students know before taking this course?
             </p>
@@ -141,4 +150,4 @@ export default function Details() {
       </div>
     </div>
   );
-} 
+}

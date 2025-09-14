@@ -1,32 +1,33 @@
-"use client"
-
-import { Search, GraduationCap, Bell, User } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+"use client";
+import { Search, GraduationCap, Bell, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import Image from "next/image";
 
 interface NavbarProps {
-  variant?: "navbar1" | "navbar2"
+  variant?: "navbar1" | "navbar2";
 }
 
 export function Navbar({ variant = "navbar1" }: NavbarProps) {
   return (
     <nav className="bg-gray-800 px-6 py-4">
       <div className="flex items-center justify-between max-w-5xl mx-auto">
-        
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-3">
-           
-            <img
-              src="/nabvar-logo.svg" 
+            <Image
+              src="/nabvar-logo.svg"
               alt="Skillcert Logo"
+              width={40}
+              height={40}
               className="w-10 h-10"
             />
-            <span className="text-2xl font-medium text-purple-400">Skillcert</span>
+            <span className="text-2xl font-medium text-purple-400">
+              Skillcert
+            </span>
           </div>
           <span className="text-white/80 text-sm">Explore</span>
         </div>
 
-       
         <div className="flex-1 max-w-md mx-4">
           <div className="relative">
             <Input
@@ -38,16 +39,23 @@ export function Navbar({ variant = "navbar1" }: NavbarProps) {
           </div>
         </div>
 
-       
         {variant === "navbar1" ? (
           <div className="flex items-center gap-6">
-            <a href="#" className="text-white/80 hover:text-white transition-colors">
+            <a
+              href="#"
+              className="text-white/80 hover:text-white transition-colors"
+            >
               Home
             </a>
-            <a href="#" className="text-white/80 hover:text-white transition-colors">
+            <a
+              href="#"
+              className="text-white/80 hover:text-white transition-colors"
+            >
               Contact
             </a>
-            <Button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-full">Connect</Button>
+            <Button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-full">
+              Connect
+            </Button>
           </div>
         ) : (
           <div className="flex items-center gap-4">
@@ -64,5 +72,5 @@ export function Navbar({ variant = "navbar1" }: NavbarProps) {
         )}
       </div>
     </nav>
-  )
+  );
 }

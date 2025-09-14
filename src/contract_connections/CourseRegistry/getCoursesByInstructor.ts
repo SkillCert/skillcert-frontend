@@ -1,26 +1,9 @@
 import { useState, useCallback } from "react";
-
-interface Course {
-  id: string;
-  title: string;
-  description: string;
-  creator: string;
-  price: number;
-  category: string;
-  language: string;
-  thumbnail_url: string;
-  published: boolean;
-}
-
-interface GetCoursesByInstructorResponse {
-  success: boolean;
-  courses?: Course[];
-  error?: string;
-}
+import { Course } from "@/types";
 
 export async function getCoursesByInstructor(
   instructorAddress: string
-): Promise<GetCoursesByInstructorResponse> {
+): Promise<{ success: true; courses: Course[]; total: number } | { success: false; error: string }> {
   if (!instructorAddress.trim()) {
     return { success: false, error: "Instructor address cannot be empty" };
   }
@@ -31,6 +14,7 @@ export async function getCoursesByInstructor(
     return {
       success: true,
       courses,
+      total: courses.length,
     };
   } catch (err) {
     const message =
@@ -59,7 +43,7 @@ async function simulateContractCall(
       description: "Learn the fundamentals of blockchain development",
       creator: instructorAddress,
       price: 0.05,
-      category: "Development",
+      category: "Web Development",
       language: "English",
       thumbnail_url: "https://example.com/thumbnail1.jpg",
       published: true,
@@ -70,7 +54,7 @@ async function simulateContractCall(
       description: "Advanced techniques for smart contract development",
       creator: instructorAddress,
       price: 0.08,
-      category: "Development",
+      category: "Web Development",
       language: "English",
       thumbnail_url: "https://example.com/thumbnail2.jpg",
       published: true,
@@ -90,7 +74,7 @@ export function useGetCoursesByInstructor() {
     try {
       const response = await getCoursesByInstructor(instructorAddress);
 
-      if (response.success && response.courses) {
+      if (response.success) {
         setCourses(response.courses);
         return response.courses;
       } else {

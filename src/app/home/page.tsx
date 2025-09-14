@@ -1,13 +1,6 @@
 import React from "react";
-import { welcomePageBlocksData } from "../../../public/mock-data";
-import Block from "@/components/welcomePage/Block";
-import { featuredCourses } from "../../../public/mock-data";
-import Card from "@/components/welcomePage/Card";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import CourseExplorationSection from "./components/welcomepage/courseExplorationSection";
 import HeroSection from "./components/welcomepage/heroSection";
-import Link from "next/link";
 // import Register from "../register/page";
 import Trusted from "./components/welcomepage/trusted";
 import Journey from "./components/welcomepage/journey";
@@ -26,6 +19,16 @@ const welcomePage = () => {
         <Steller />
 
         {/* <section className="mt-4 md:mt-20 ">
+        <Ready />
+      </div>
+    </div>
+  );
+};
+
+export default welcomePage;
+
+{
+  /* <section className="mt-4 md:mt-20 ">
 					<div className="bg-gradient-to-b  from-[#1F293700] to-pink-900 py-6 px-10 grid gap-8 w-full md:w-full lg:w-8/12 mx-auto md:bg-gradient-to-r ">
 						<h4 className="hidden text-4xl font-medium text-purple-300 md:ml-52 lg:ml-40  md:block">
 							Pay with stellar
@@ -55,7 +58,7 @@ const welcomePage = () => {
 										{[
 											"Fast and secure transactions",
 											"Low transaction fee",
-											"Global accessibility",
+											"Global accessibility",			
 											"Easy integration with our platform",
 										].map((item, index) => (
 											<li key={index} className="list-disc">
@@ -80,9 +83,12 @@ const welcomePage = () => {
 							</div>
 						</div>
 					</div>
-				</section> */}
+				</section> */
+}
 
-        {/* <section className="mt-4 md:mt-10 ">
+
+{
+  /* <section className="mt-4 md:mt-10 ">
 					<div className="w-full md:w-7/12 mx-auto grid gap-2">
 						{" "}
 						<h3 className="text-center font-medium text-2xl text-purple-600 md:text-4xl">
@@ -112,3 +118,5 @@ const welcomePage = () => {
 };
 
 export default welcomePage;
+				</section> */
+}

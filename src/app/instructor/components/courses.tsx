@@ -1,21 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { CirclePlus } from "lucide-react";
-import React, { useCallback } from "react";
+import React from "react";
 import Image from "next/image";
-
-interface Course {
-  id: string;
-  title: string;
-  description: string;
-  thumbnail?: string;
-  studentsCount: number;
-  createdAt: Date;
-  updatedAt: Date;
-  status: "draft" | "published" | "archived";
-}
+import { InstructorCourse } from "@/types";
 
 interface CoursesProps {
-  courses?: Course[];
+  courses?: InstructorCourse[];
   isLoading?: boolean;
   onCreateCourse: () => void | Promise<void>;
   className?: string;
@@ -24,13 +14,8 @@ interface CoursesProps {
 const Courses: React.FC<CoursesProps> = ({
   courses = [],
   isLoading = false,
-  onCreateCourse,
   className = "",
 }) => {
-  const handleCreateCourse = useCallback(() => {
-    onCreateCourse();
-  }, [onCreateCourse]);
-
   if (isLoading) {
     return (
       <main className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
@@ -67,7 +52,7 @@ const Courses: React.FC<CoursesProps> = ({
     </div>
   );
 
-  const CourseCard: React.FC<{ course: Course }> = ({ course }) => (
+  const CourseCard: React.FC<{ course: InstructorCourse }> = ({ course }) => (
     <div className="rounded-lg p-6 transition-all duration-200 hover:shadow-lg cursor-pointer border bg-[#1a1a2e] border-[#374151]">
       <div className="w-full h-32 rounded-md mb-4 flex items-center justify-center bg-[#374151]">
         <svg
@@ -91,7 +76,7 @@ const Courses: React.FC<CoursesProps> = ({
       </p>
 
       <div className="flex items-center justify-between text-sm text-[#71717a]">
-        <span>{course.studentsCount} students</span>
+        <span>{course.students} students</span>
         <span>{new Date(course.createdAt).toLocaleDateString()}</span>
       </div>
     </div>

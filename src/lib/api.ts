@@ -15,6 +15,7 @@ export async function apiFetch<T>(
   endpoint: string,
   options: FetchOptions = {}
 ): Promise<T> {
+  // Configuration and validation (no try-catch needed)
   const { method = "GET", body, headers = {} } = options;
 
   if (!BASE_URL) {
@@ -23,6 +24,8 @@ export async function apiFetch<T>(
       message: "Missing BASE_URL configuration",
     } as ApiError;
   }
+
+  // API call (no try-catch here)
 
   const response = await fetch(`${BASE_URL}${endpoint}`, {
     method,
@@ -34,6 +37,7 @@ export async function apiFetch<T>(
     credentials: "include", // if using cookies/session
   });
 
+  // Error handling for non-OK responses
   if (!response.ok) {
     let errorMessage = "API request failed";
 

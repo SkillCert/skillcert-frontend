@@ -32,7 +32,7 @@ interface Course {
   duration: string;
   price: number;
   img?: string;
-  status: CourseStatus;
+  status?: CourseStatus;
 }
 
 export const categories: CourseCategory[] = [

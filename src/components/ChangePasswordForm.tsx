@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { type ChangeEvent, type FormEvent, useState } from "react"
-import { Button } from "./ui/button"
-import { Input } from "./ui/input"
+import { type ChangeEvent, type FormEvent, useState } from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 interface FormErrors {
-  currentPassword?: string
-  newPassword?: string
-  confirmNewPassword?: string
+  currentPassword?: string;
+  newPassword?: string;
+  confirmNewPassword?: string;
 }
 
 export default function ChangePasswordForm() {
@@ -15,96 +15,100 @@ export default function ChangePasswordForm() {
     currentPassword: "",
     newPassword: "",
     confirmNewPassword: "",
-  })
+  });
 
-  const [errors, setErrors] = useState<FormErrors>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
 
     setFormValues((prev) => ({
       ...prev,
       [name]: value,
-    }))
-
+    }));
 
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({
         ...prev,
         [name]: undefined,
-      }))
+      }));
     }
-  }
+  };
 
   const validateForm = (): boolean => {
-    const newErrors: FormErrors = {}
-
+    const newErrors: FormErrors = {};
 
     if (!formValues.currentPassword.trim()) {
-      newErrors.currentPassword = "Current password is required"
+      newErrors.currentPassword = "Current password is required";
     }
-
 
     if (!formValues.newPassword.trim()) {
-      newErrors.newPassword = "New password is required"
+      newErrors.newPassword = "New password is required";
     } else if (formValues.newPassword.length < 8) {
-      newErrors.newPassword = "New password must be at least 8 characters long"
+      newErrors.newPassword = "New password must be at least 8 characters long";
     } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formValues.newPassword)) {
       newErrors.newPassword =
-        "New password must contain at least one uppercase letter, one lowercase letter, and one number"
+        "New password must contain at least one uppercase letter, one lowercase letter, and one number";
     } else if (formValues.currentPassword === formValues.newPassword) {
-      newErrors.newPassword = "New password must be different from current password"
+      newErrors.newPassword =
+        "New password must be different from current password";
     }
-
 
     if (!formValues.confirmNewPassword.trim()) {
-      newErrors.confirmNewPassword = "Please confirm your new password"
+      newErrors.confirmNewPassword = "Please confirm your new password";
     } else if (formValues.newPassword !== formValues.confirmNewPassword) {
-      newErrors.confirmNewPassword = "Passwords do not match"
+      newErrors.confirmNewPassword = "Passwords do not match";
     }
 
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!validateForm()) {
-      return
+      return;
     }
 
-    setIsSubmitting(true)
+    setIsSubmitting(true);
 
     try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      alert("Password changed successfully!")
-
+      alert("Password changed successfully!");
 
       setFormValues({
         currentPassword: "",
         newPassword: "",
         confirmNewPassword: "",
-      })
-    } catch (error) {
-      alert("Failed to change password. Please try again.")
-      console.log(error)
+      });
+    } catch {
+      alert("Failed to change password. Please try again.");
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <div className="w-full flex flex-col items-center justify-start gap-4 md:gap-8">
-      <h1 className="text-2xl md:text-5xl font-medium text-[#9333EA]">Password</h1>
+      <h1 className="text-2xl md:text-5xl font-medium text-[#9333EA]">
+        Password
+      </h1>
       <hr className="bg-[#9333EA] w-full h-[1px] border-[#9333EA]" />
 
-      <form onSubmit={handleSubmit} className="w-full max-w-[485px] flex flex-col items-center gap-5 md:gap-10 mt-5">
-        <label htmlFor="currentPassword" className="flex flex-col items-center gap-5 w-full">
-          <span className="text-[#9333EA] font-medium text-xl md:text-[32px]">Enter current password</span>
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-[485px] flex flex-col items-center gap-5 md:gap-10 mt-5"
+      >
+        <label
+          htmlFor="currentPassword"
+          className="flex flex-col items-center gap-5 w-full"
+        >
+          <span className="text-[#9333EA] font-medium text-xl md:text-[32px]">
+            Enter current password
+          </span>
           <div className="w-full">
             <Input
               id="currentPassword"
@@ -114,18 +118,27 @@ export default function ChangePasswordForm() {
               placeholder="Current password"
               onChange={handleChange}
               className={`w-full border-[1px] rounded-[40px] py-7 px-[30px] bg-[#1F2937] text-base text-[#FFFFFF] font-normal ${
-                errors.currentPassword ? "border-red-500 focus:border-red-500" : "border-[#9333EA]"
+                errors.currentPassword
+                  ? "border-red-500 focus:border-red-500"
+                  : "border-[#9333EA]"
               }`}
               disabled={isSubmitting}
             />
             {errors.currentPassword && (
-              <p className="text-red-500 text-sm mt-2 text-center">{errors.currentPassword}</p>
+              <p className="text-red-500 text-sm mt-2 text-center">
+                {errors.currentPassword}
+              </p>
             )}
           </div>
         </label>
 
-        <label htmlFor="newPassword" className="flex flex-col items-center gap-5 w-full">
-          <span className="text-[#9333EA] font-medium text-xl md:text-[32px]">Enter new password</span>
+        <label
+          htmlFor="newPassword"
+          className="flex flex-col items-center gap-5 w-full"
+        >
+          <span className="text-[#9333EA] font-medium text-xl md:text-[32px]">
+            Enter new password
+          </span>
           <div className="w-full">
             <Input
               id="newPassword"
@@ -135,16 +148,27 @@ export default function ChangePasswordForm() {
               placeholder="New password"
               onChange={handleChange}
               className={`w-full border-[1px] rounded-[40px] py-7 px-[30px] bg-[#1F2937] text-base text-[#FFFFFF] font-normal ${
-                errors.newPassword ? "border-red-500 focus:border-red-500" : "border-[#9333EA]"
+                errors.newPassword
+                  ? "border-red-500 focus:border-red-500"
+                  : "border-[#9333EA]"
               }`}
               disabled={isSubmitting}
             />
-            {errors.newPassword && <p className="text-red-500 text-sm mt-2 text-center">{errors.newPassword}</p>}
+            {errors.newPassword && (
+              <p className="text-red-500 text-sm mt-2 text-center">
+                {errors.newPassword}
+              </p>
+            )}
           </div>
         </label>
 
-        <label htmlFor="confirmNewPassword" className="flex flex-col items-center gap-5 w-full">
-          <span className="text-[#9333EA] font-medium text-xl md:text-[32px]">Re-type new password</span>
+        <label
+          htmlFor="confirmNewPassword"
+          className="flex flex-col items-center gap-5 w-full"
+        >
+          <span className="text-[#9333EA] font-medium text-xl md:text-[32px]">
+            Re-type new password
+          </span>
           <div className="w-full">
             <Input
               id="confirmNewPassword"
@@ -154,12 +178,16 @@ export default function ChangePasswordForm() {
               placeholder="Confirm new password"
               onChange={handleChange}
               className={`w-full border-[1px] rounded-[40px] py-7 px-[30px] bg-[#1F2937] text-base text-[#FFFFFF] font-normal ${
-                errors.confirmNewPassword ? "border-red-500 focus:border-red-500" : "border-[#9333EA]"
+                errors.confirmNewPassword
+                  ? "border-red-500 focus:border-red-500"
+                  : "border-[#9333EA]"
               }`}
               disabled={isSubmitting}
             />
             {errors.confirmNewPassword && (
-              <p className="text-red-500 text-sm mt-2 text-center">{errors.confirmNewPassword}</p>
+              <p className="text-red-500 text-sm mt-2 text-center">
+                {errors.confirmNewPassword}
+              </p>
             )}
           </div>
         </label>
@@ -174,5 +202,5 @@ export default function ChangePasswordForm() {
         </Button>
       </form>
     </div>
-  )
+  );
 }
