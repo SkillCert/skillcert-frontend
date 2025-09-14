@@ -19,7 +19,7 @@ interface Course {
   category: string;
 }
 
-import { Course } from "@/types"
+import { Course } from "@/types";
 
 export default function CoursesRegistered() {
   const [userAddress] = useState("0x1234567890123456789012345678901234567890");
@@ -113,13 +113,11 @@ export default function CoursesRegistered() {
   return (
     <div className="bg-slate-900 min-h-screen p-8">
       <div className="max-w-6xl mx-auto">
-        {/* Greeting Section */}
         <div className="mb-8">
           <h1 className="text-4xl font-semibold text-purple-400 mb-8">
             ¡Hello, Alex Johnson!
           </h1>
 
-          {/* Search Courses Section */}
           <div className="mb-12">
             <h2 className="text-white text-xl mb-4">Search courses</h2>
             <div className="flex items-center gap-4 mb-6 w-full">
@@ -136,13 +134,11 @@ export default function CoursesRegistered() {
           </div>
         </div>
 
-        {/* Your Courses Section */}
         <div className="mb-8">
           <h2 className="text-white text-2xl font-semibold mb-6">
             Your Courses
           </h2>
 
-          {/* Search Input for Courses */}
           <div className="mb-8">
             <Input
               type="text"
@@ -151,7 +147,6 @@ export default function CoursesRegistered() {
             />
           </div>
 
-          {/* Course Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {courses.map((course) => (
               <Card
@@ -159,7 +154,6 @@ export default function CoursesRegistered() {
                 className="bg-white border-0 shadow-lg overflow-hidden"
               >
                 <CardContent className="p-0">
-                  {/* Course Image */}
                   <div className="relative">
                     <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
                       <ImageIcon className="w-16 h-16 text-gray-400" />
@@ -169,13 +163,11 @@ export default function CoursesRegistered() {
                     </Badge>
                   </div>
 
-                  {/* Course Content */}
                   <div className="p-4 bg-slate-800 text-white">
                     <h3 className="font-semibold text-lg mb-2">
                       {course.name}
                     </h3>
 
-                    {/* Rating and Students */}
                     <div className="flex items-center gap-2 mb-2">
                       <div className="flex items-center gap-1">
                         <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -190,7 +182,6 @@ export default function CoursesRegistered() {
                       {course.description}
                     </p>
 
-                    {/* Level and Duration Badges */}
                     <div className="flex gap-2 mb-4">
                       <Badge
                         variant="outline"
@@ -206,14 +197,19 @@ export default function CoursesRegistered() {
                       </Badge>
                     </div>
 
-                    {/* Price and Enroll Button */}
                     <div className="flex items-center justify-between">
                       <span className="text-lg font-semibold">
                         {course.price}
                       </span>
                       <Button
                         className="bg-pink-600 hover:bg-pink-700 text-white px-6"
-                        onClick={() => handleEnroll(typeof course.id === 'string' ? parseInt(course.id, 10) : course.id)}
+                        onClick={() =>
+                          handleEnroll(
+                            typeof course.id === "string"
+                              ? parseInt(course.id, 10)
+                              : course.id
+                          )
+                        }
                       >
                         Enroll Now
                       </Button>
