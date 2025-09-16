@@ -1,4 +1,5 @@
 import Footer from "@/components/footer";
+import NavbarMenu from "@/components/nabvarMenu";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
