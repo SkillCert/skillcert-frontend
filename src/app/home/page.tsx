@@ -5,7 +5,6 @@ import HeroSection from "./components/welcomepage/heroSection";
 import Journey from "./components/welcomepage/journey";
 import Ready from "./components/welcomepage/ready";
 import Steller from "./components/welcomepage/steller";
-import Ready from "./components/welcomepage/ready";
 // import PrinciplesSection from "../about/components/principlesSection";
 import Trusted from "./components/welcomepage/trusted";
 // import PrinciplesSection from "../about/components/principlesSection";
