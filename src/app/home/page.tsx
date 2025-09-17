@@ -6,7 +6,7 @@ import Trusted from "./components/welcomepage/trusted";
 import Journey from "./components/welcomepage/journey";
 import Steller from "./components/welcomepage/steller";
 import Ready from "./components/welcomepage/ready";
-import PrinciplesSection from "../about/components/principlesSection";
+// import PrinciplesSection from "../about/components/principlesSection";
 
 const welcomePage = () => {
   return (
@@ -58,7 +58,7 @@ export default welcomePage;
 										{[
 											"Fast and secure transactions",
 											"Low transaction fee",
-											"Global accessibility",			
+											"Global accessibility",
 											"Easy integration with our platform",
 										].map((item, index) => (
 											<li key={index} className="list-disc">
