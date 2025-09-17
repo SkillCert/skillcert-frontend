@@ -5,7 +5,6 @@ process.env.NEXT_PUBLIC_COURSE_ACCESS_CONTRACT_ID =
 import { listCourseAccess } from "@/contract_connections/CourseAccess/listCourseAccess";
 import SorobanClient from "@stellar/stellar-sdk";
 
-// Mock SorobanClient.Server and its getContractValue method
 jest.mock("@stellar/stellar-sdk");
 const mockSorobanClient = SorobanClient as jest.Mocked<typeof SorobanClient>;
 
@@ -25,7 +24,6 @@ mockSorobanClient.Server = jest.fn().mockImplementation(() => ({
 describe("listCourseAccess", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    // Reset to default mock implementation
     mockGetContractValue.mockResolvedValue({
       course: "mock-course-id",
       users: [
@@ -50,7 +48,6 @@ describe("listCourseAccess", () => {
   });
 
   it("handles empty user list", async () => {
-    // Mock empty user list response
     mockGetContractValue.mockResolvedValueOnce({
       course: "empty-course-id",
       users: [],
@@ -64,7 +61,7 @@ describe("listCourseAccess", () => {
   });
 
   it("handles User Courses Not Found error", async () => {
-    // Mock error response
+
     mockGetContractValue.mockRejectedValueOnce(
       new Error("User Courses Not Found")
     );
@@ -81,7 +78,7 @@ describe("listCourseAccess", () => {
   });
 
   it("returns null when environment variables are missing", async () => {
-    // Temporarily clear environment variables
+
     const originalRpcUrl = process.env.NEXT_PUBLIC_SOROBAN_RPC_URL;
     const originalContractId =
       process.env.NEXT_PUBLIC_COURSE_ACCESS_CONTRACT_ID;
@@ -92,15 +89,15 @@ describe("listCourseAccess", () => {
     const courseAccess = await listCourseAccess("test-course-id");
     expect(courseAccess).toBeNull();
 
-    // Restore environment variables
+
     process.env.NEXT_PUBLIC_SOROBAN_RPC_URL = originalRpcUrl;
     process.env.NEXT_PUBLIC_COURSE_ACCESS_CONTRACT_ID = originalContractId;
   });
 
   it("handles malformed contract response", async () => {
-    // Mock malformed response
+
     mockGetContractValue.mockResolvedValueOnce({
-      // Missing 'course' field and 'users' is not an array
+
       invalidField: "invalid-data",
       users: "not-an-array",
     });
@@ -110,7 +107,7 @@ describe("listCourseAccess", () => {
   });
 
   it("handles user objects instead of strings", async () => {
-    // Mock response with user objects instead of strings
+
     mockGetContractValue.mockResolvedValueOnce({
       course: "object-users-course-id",
       users: [
