@@ -118,5 +118,4 @@ export default welcomePage;
 };
 
 export default welcomePage;
-				</section> */
-}
+
