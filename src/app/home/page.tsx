@@ -1,11 +1,12 @@
-import React from "react";
+// import ErrorTest from "@/components/ErrorTest";
 import CourseExplorationSection from "./components/welcomepage/courseExplorationSection";
 import HeroSection from "./components/welcomepage/heroSection";
 // import Register from "../register/page";
-import Trusted from "./components/welcomepage/trusted";
 import Journey from "./components/welcomepage/journey";
-import Steller from "./components/welcomepage/steller";
 import Ready from "./components/welcomepage/ready";
+import Steller from "./components/welcomepage/steller";
+// import PrinciplesSection from "../about/components/principlesSection";
+import Trusted from "./components/welcomepage/trusted";
 // import PrinciplesSection from "../about/components/principlesSection";
 
 const welcomePage = () => {
@@ -17,7 +18,7 @@ const welcomePage = () => {
         <Journey />
         <CourseExplorationSection />
         <Steller />
-
+        {/* <ErrorTest /> */}
         {/* <section className="mt-4 md:mt-20 ">
         <Ready />
       </div>
@@ -59,6 +60,7 @@ export default welcomePage;
 											"Fast and secure transactions",
 											"Low transaction fee",
 											"Global accessibility",
+											"Global accessibility",
 											"Easy integration with our platform",
 										].map((item, index) => (
 											<li key={index} className="list-disc">
@@ -83,12 +85,9 @@ export default welcomePage;
 							</div>
 						</div>
 					</div>
-				</section> */
-}
+				</section> */}
 
-
-{
-  /* <section className="mt-4 md:mt-10 ">
+        {/* <section className="mt-4 md:mt-10 ">
 					<div className="w-full md:w-7/12 mx-auto grid gap-2">
 						{" "}
 						<h3 className="text-center font-medium text-2xl text-purple-600 md:text-4xl">
@@ -119,3 +118,5 @@ export default welcomePage;
 
 export default welcomePage;
 
+// 				</section> */
+// }
