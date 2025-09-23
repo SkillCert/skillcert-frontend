@@ -128,3 +128,150 @@ export const ShieldIcon = () => (
     </defs>
   </svg>
 );
+export const ShieldIcon2 = () => (
+  <svg
+  width={30}
+  height={30}
+  viewBox="0 0 30 30"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlnsXlink="http://www.w3.org/1999/xlink"
+>
+  <g filter="url(#filter0_i_1854_1635)">
+    <rect width={30} height={30} fill="url(#pattern0_1854_1635)" />
+  </g>
+  <defs>
+    <filter
+      id="filter0_i_1854_1635"
+      x={0}
+      y={0}
+      width={30}
+      height={30}
+      filterUnits="userSpaceOnUse"
+      colorInterpolationFilters="sRGB"
+    >
+      <feFlood floodOpacity={0} result="BackgroundImageFix" />
+      <feBlend
+        mode="normal"
+        in="SourceGraphic"
+        in2="BackgroundImageFix"
+        result="shape"
+      />
+      <feColorMatrix
+        in="SourceAlpha"
+        type="matrix"
+        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+        result="hardAlpha"
+      />
+      <feOffset dx={50} dy={4} />
+      <feGaussianBlur stdDeviation={2} />
+      <feComposite in2="hardAlpha" operator="arithmetic" k2={-1} k3={1} />
+      <feColorMatrix
+        type="matrix"
+        values="0 0 0 0 0.576471 0 0 0 0 0.2 0 0 0 0 0.917647 0 0 0 1 0"
+      />
+      <feBlend
+        mode="normal"
+        in2="shape"
+        result="effect1_innerShadow_1854_1635"
+      />
+    </filter>
+    <pattern
+      id="pattern0_1854_1635"
+      patternContentUnits="objectBoundingBox"
+      width={1}
+      height={1}
+    >
+      <use xlinkHref="#image0_1854_1635" transform="scale(0.0104167)" />
+    </pattern>
+    <image
+      id="image0_1854_1635"
+      width={96}
+      height={96}
+      preserveAspectRatio="none"
+      xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAGE0lEQVR4nO2dXahVRRTHp26pkBHZS0H0BUmlZd3Ao2VZ2AcafUL1JvYiBIX0wfUhSKEPqgfJ6iWql8hA8EnJgijKSgmVwpLqoVv0UlneTh+mea1fDGcuHE7ds9bsPbNnzj7793i5d63/rJm91t4za+9rTENDQ0NDwwABHA/cDHwI7AFWAiek1lV7gJOBNcA3/Bf7s7XAqal11g7gHOApYAKZ34CN9m9S6x54gMuBV4FJ/Pkb2AYsST2OQc7voWjqRMn8HoqmTpTM76Fo6kTJ/B6K4aoTwAhwJ7AzUAAnAl45O522EVM3IuT3r10uPwWYDawGvghkuz51IkJ+3+PuZkb63D29zbDXicD5/ZjL04s9/F/m/B8dmjoR4f79V7cCzyqh6XRgPXCwts8TMfO7CaexfnWiyvweilrUidT5PRQDWyfIJL+HInSdqEJwVvk9tzpRhdAs83sudaIKgdnn95R1ogpRA5PfU9SJKsRIzDY1hU6dyHsCTM0h9fiTC0hM8vEnF5CY5ONPLiAxycefXEBiko8/uYBIAAuBMcXvNRMQGmC06x5/nfC7zQREDD7SJCQff3IB8YPfdxKSjz+5gGqCP+0kJB9/cgHhCu4v6BjLavzJBVSz8qdoA62ev28mIFXwnY1mAlIF39lpJiBV8J2tZgJSBd/ZayYgVfBrOQF0WsLFgRe81bRB1WBvSRcq7SafgL8EDTM8gz/pArUo55Xv7M4QbB0LNYZ+In4WRMzxDP4UQSYhVvCd7dMEe4fK6teIkJpwz1bYuHua1sZ2mXQUK+309MP2Y6Kodh8R+wQR8zxXfi+FroSYK7/Lx8WC3XETG+AjQcSVff72LmVTb9szNbQ8Vn7bd+V3+blKsL27iF1fEdsFESsDBqqVS/Cdr1WC/e1FbfuIeEEQ8VjgVLFIaJXXvp9Qqr44f08KPjaWsa8VcZ8gYrPCRulJoOLgO59bBD/3lvWhEbFMELFPaadVNB1VmXZ6NH8u+Lo2hB9JxJmKrmjVu1MUuBJSrHyndY57E6YfZ4TwJQk5znVA9+MWD3stz9Vc+cp3Om+X/IXypREjvbywwdPeaMBXSaeCH3R/CXhO8PlWSH+SGPuaUek6UOJKqGzld+nbL/h9OLTPfmJsHpaYX8DuaMkrIfjKd7rmKXwvCO1Xeo/qgCDoiYK2RwtOQpTgO01PC75/tLUxhu9+ojYLor4tKgr/dBQz+HaxfSf43xTDtyTsDkVgbixhv6WchGjBdzpWKDTcGsu/dDghpaF3S/oYFdJR1OA7DTuEMf4AnBhTQz9xGxSrY3GkSWhXEHz74CfxTEwNksD5CoFbA/hp9aSj6MF3ft9UjO+i2DokkZrvA10fcBLaFQV/uWJcO2Lr0Ai9QSF0f4g8SWcSWhXVty8V47rO5IDyKnjIDAjAmGI8H5hcsCtBIfiwPVM1mUPnqfdPxXjibz37ALynEP0JMNNkCjBT0XRgecdkunKkpi3LsyZTgOcV+o8AF5ocAR5Hx2qTGcA9Su3rTeaXsOaLU0dzyqHAEuXV+xUwy+QMsNQdS0ocrHQLd3q9lyqPOCez/3jrFMAj6DggddJF1nmB28vRsNYMCm4L9w3lwL4HLkmgcYFH8LdWvt8fqIvAngloaFdZE1xrjdRYMMX4wH5J3W5UeZxuHenX1hhQ0yplwcW14ud5y+nZMv47el70ecnD8w7NfkxQyyHgClMH3KmSzyeCPwbmBi62uz38W63LTZ2wx3YuzfiswPttQS95M7BGubfTvWelbiwbKIBr3BfHfdhbJBW41pldnr7+CHF2kTXumE96z6wX25P5GnC+wv5c4HXgH/z4KUZDV5YA5yl3Hf/vaXQTcHX3fbnrV13qAl/ks/qfAueaYcJ9hXYLxbF7Tg/agx7l6dV02P6mk8wwQmflPuAKX9UcdgV6sJ5wIz6w7a0w+J/lsBGYFXQOwtdFvhrs7eijMR706lagt0UI/rahK7QBDvp3BfofkctSj2dgAW4C3i8QeNsksCK1/tpA59+JvCx0TNvvP7xkT7lS660twCz3wtwrbq9+3E3MbTm3vDQ0NDQ0NJge/gXnuBSCM6dpFgAAAABJRU5ErkJggg=="
+    />
+  </defs>
+</svg>
+)
+export const GlobeIcon2 = () => (
+  <svg
+  width={30}
+  height={30}
+  viewBox="0 0 30 30"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlnsXlink="http://www.w3.org/1999/xlink"
+>
+  <g filter="url(#filter0_i_1854_1636)">
+    <rect width={30} height={30} fill="url(#pattern0_1854_1636)" />
+  </g>
+  <defs>
+    <filter
+      id="filter0_i_1854_1636"
+      x={0}
+      y={0}
+      width={30}
+      height={30}
+      filterUnits="userSpaceOnUse"
+      colorInterpolationFilters="sRGB"
+    >
+      <feFlood floodOpacity={0} result="BackgroundImageFix" />
+      <feBlend
+        mode="normal"
+        in="SourceGraphic"
+        in2="BackgroundImageFix"
+        result="shape"
+      />
+      <feColorMatrix
+        in="SourceAlpha"
+        type="matrix"
+        values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+        result="hardAlpha"
+      />
+      <feOffset dx={50} dy={4} />
+      <feGaussianBlur stdDeviation={2} />
+      <feComposite in2="hardAlpha" operator="arithmetic" k2={-1} k3={1} />
+      <feColorMatrix
+        type="matrix"
+        values="0 0 0 0 0.576471 0 0 0 0 0.2 0 0 0 0 0.917647 0 0 0 1 0"
+      />
+      <feBlend
+        mode="normal"
+        in2="shape"
+        result="effect1_innerShadow_1854_1636"
+      />
+    </filter>
+    <pattern
+      id="pattern0_1854_1636"
+      patternContentUnits="objectBoundingBox"
+      width={1}
+      height={1}
+    >
+      <use xlinkHref="#image0_1854_1636" transform="scale(0.0104167)" />
+    </pattern>
+    <image
+      id="image0_1854_1636"
+      width={96}
+      height={96}
+      preserveAspectRatio="none"
+      xlinkHref="data:image/png;base64,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"
+    />
+  </defs>
+</svg>
+)
+export const RightArrow = () => (
+  <svg
+  width={22}
+  height={23}
+  viewBox="0 0 22 23"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M9.36328 2.26611L10.4473 1.18213C10.9062 0.723145 11.6484 0.723145 12.1025 1.18213L21.5947 10.6694C22.0537 11.1284 22.0537 11.8706 21.5947 12.3247L12.1025 21.8169C11.6436 22.2759 10.9014 22.2759 10.4473 21.8169L9.36328 20.7329C8.89941 20.269 8.90918 19.5122 9.38281 19.0581L15.2666 13.4526H1.2334C0.583984 13.4526 0.0615234 12.9302 0.0615234 12.2808V10.7183C0.0615234 10.0688 0.583984 9.54639 1.2334 9.54639H15.2666L9.38281 3.94092C8.9043 3.48682 8.89453 2.72998 9.36328 2.26611Z"
+    fill="white"
+  />
+</svg>
+
+)
