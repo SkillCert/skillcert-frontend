@@ -224,8 +224,11 @@ export default function NavbarMenu({
   if (path === "/") {
     return (
       <div
-        className={`fixed top-0 z-[1000] py-[40px] w-full flex items-center justify-center transition-all duration-300 ${
-          scrolled ? "bg-white/10 backdrop-blur-lg py-[20px]" : "bg-transparent"
+        className={`fixed top-0 z-[1000] py-[40px] w-full flex items-center justify-center 
+          transition-all duration-300 
+          ${scrolled ? 
+            "bg-gray-950/10 backdrop-blur-lg py-[2px]" : 
+            "bg-transparent"
         }`}
       >
         <nav className="flex justify-between items-center min-w-[1200px] ">
