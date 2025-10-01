@@ -15,9 +15,11 @@ import { Input } from "@/components/ui/input";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { isConnected, requestAccess, getAddress } from "@stellar/freighter-api";
+import { requestAccess, getAddress } from "@stellar/freighter-api";
 import { toast } from "sonner";
 import { Brand } from "../../public/images";
+import { useWalletProvider } from "@/provider/walletProvider";
+import { NAV_DEFAULT, NAV_TYPE } from "@/types/navbar";
 
 const defaultUserInfo = {
   name: "Legend4tech",
@@ -44,7 +46,7 @@ const dropdownMenu = [
 ] as const;
 
 interface NavbarMenuProps {
-  variant?: "default" | "withUser";
+  variant?: NAV_TYPE;
   userInfo?: {
     name: string;
     email: string;
@@ -53,7 +55,7 @@ interface NavbarMenuProps {
 }
 
 export default function NavbarMenu({
-  variant = "default",
+  variant = NAV_DEFAULT,
   userInfo = defaultUserInfo,
 }: NavbarMenuProps) {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -66,6 +68,8 @@ export default function NavbarMenu({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const path = usePathname();
+
+  const {isConnected, connect, disconnect, address, isLoading} = useWalletProvider();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -96,88 +100,44 @@ export default function NavbarMenu({
     };
   }, [showDropdown]);
 
-  useEffect(() => {
-    checkWalletConnection();
-  }, []);
+  // useEffect(() => {
+  //   checkWalletConnection();
+  // }, []);
 
-  const checkWalletConnection = async () => {
-    try {
-      const connected = await isConnected();
-      if (connected.isConnected) {
-        const address = await getAddress();
-        if (address.address) {
-          setWalletConnected(true);
-          setWalletId(
-            `${address.address.slice(0, 6)}...${address.address.slice(-6)}`
-          );
-          setCurrentMode("withUser");
-        }
-      }
-    } catch {
-      // Handle wallet connection error silently
-    }
-  };
+  // const checkWalletConnection = async () => {
+  //   try {
+  //     const connected = await isConnected();
+  //     if (connected.isConnected) {
+  //       const address = await getAddress();
+  //       if (address.address) {
+  //         setWalletConnected(true);
+  //         setWalletId(
+  //           `${address.address.slice(0, 6)}...${address.address.slice(-6)}`
+  //         );
+  //         setCurrentMode("withUser");
+  //       }
+  //     }
+  //   } catch {
+  //     // Handle wallet connection error silently
+  //   }
+  // };
 
   const handleConnect = async () => {
-    setIsConnecting(true);
-
-    const connectionTimeout = setTimeout(() => {
-      setIsConnecting(false);
-      toast.error("Connection Timeout", {
-        description: "Wallet connection timed out. Please try again.",
+    if (isConnected) {
+      toast.success("Wallet Already Connected", {
+        description: "Your wallet is already connected.",
       });
-    }, 30000);
-
+      await router.push("/home");
+      return;
+    }
     try {
-      const connected = await isConnected();
-
-      if (!connected.isConnected) {
-        clearTimeout(connectionTimeout);
-        setIsConnecting(false);
-        toast.error("Wallet Not Found", {
-          description: "Please install Freighter wallet extension to connect.",
-        });
-        return;
-      }
-
-      const accessPromise = requestAccess();
-      const timeoutPromise = new Promise((_, reject) => {
-        setTimeout(
-          () => reject(new Error("User closed wallet extension")),
-          15000
-        );
+      setIsConnecting(true);
+      await connect();
+      toast.success("Wallet Connected", {
+        description: "Successfully connected to your Stellar wallet!",
       });
-
-      const accessResult = await Promise.race([accessPromise, timeoutPromise]);
-
-      clearTimeout(connectionTimeout);
-
-      if ((accessResult as any).error) {
-        setIsConnecting(false);
-        toast.error("Connection Failed", {
-          description: "Failed to connect wallet. Please try again.",
-        });
-        return;
-      }
-
-      if ((accessResult as any).address) {
-        setWalletConnected(true);
-        setWalletId(
-          `${(accessResult as any).address.slice(0, 6)}...${(
-            accessResult as any
-          ).address.slice(-6)}`
-        );
-        setCurrentMode("withUser");
-
-        toast.success("Wallet Connected", {
-          description: "Successfully connected to your Stellar wallet!",
-        });
-      }
     } catch (error) {
-      clearTimeout(connectionTimeout);
-
       let errorMessage = "An error occurred while connecting to the wallet.";
-
       const msg = (error as any)?.message;
       if (msg === "User closed wallet extension") {
         errorMessage =
@@ -186,13 +146,87 @@ export default function NavbarMenu({
         errorMessage =
           "Connection was rejected. Please approve the connection to continue.";
       }
-
       toast.error("Connection Error", {
         description: errorMessage,
       });
     } finally {
       setIsConnecting(false);
     }
+
+    // setIsConnecting(true);
+
+    // const connectionTimeout = setTimeout(() => {
+    //   setIsConnecting(false);
+    //   toast.error("Connection Timeout", {
+    //     description: "Wallet connection timed out. Please try again.",
+    //   });
+    // }, 30000);
+
+    // try {
+    //   const connected = await isConnected();
+
+    //   if (!connected.isConnected) {
+    //     clearTimeout(connectionTimeout);
+    //     setIsConnecting(false);
+    //     toast.error("Wallet Not Found", {
+    //       description: "Please install Freighter wallet extension to connect.",
+    //     });
+    //     return;
+    //   }
+
+    //   const accessPromise = requestAccess();
+    //   const timeoutPromise = new Promise((_, reject) => {
+    //     setTimeout(
+    //       () => reject(new Error("User closed wallet extension")),
+    //       15000
+    //     );
+    //   });
+
+    //   const accessResult = await Promise.race([accessPromise, timeoutPromise]);
+
+    //   clearTimeout(connectionTimeout);
+
+    //   if ((accessResult as any).error) {
+    //     setIsConnecting(false);
+    //     toast.error("Connection Failed", {
+    //       description: "Failed to connect wallet. Please try again.",
+    //     });
+    //     return;
+    //   }
+
+    //   if ((accessResult as any).address) {
+    //     setWalletConnected(true);
+    //     setWalletId(
+    //       `${(accessResult as any).address.slice(0, 6)}...${(
+    //         accessResult as any
+    //       ).address.slice(-6)}`
+    //     );
+    //     setCurrentMode("withUser");
+
+    //     toast.success("Wallet Connected", {
+    //       description: "Successfully connected to your Stellar wallet!",
+    //     });
+    //   }
+    // } catch (error) {
+    //   clearTimeout(connectionTimeout);
+
+    //   let errorMessage = "An error occurred while connecting to the wallet.";
+
+    //   const msg = (error as any)?.message;
+    //   if (msg === "User closed wallet extension") {
+    //     errorMessage =
+    //       "Wallet connection was cancelled. Please try again when ready.";
+    //   } else if (typeof msg === "string" && msg.includes("User rejected")) {
+    //     errorMessage =
+    //       "Connection was rejected. Please approve the connection to continue.";
+    //   }
+
+    //   toast.error("Connection Error", {
+    //     description: errorMessage,
+    //   });
+    // } finally {
+    //   setIsConnecting(false);
+    // }
   };
 
   const handleDisconnect = () => {
@@ -221,14 +255,14 @@ export default function NavbarMenu({
       }
     : userInfo;
 
-  if (path === "/") {
+  if (path === "/home" || path === "/signup" || path === "/login") {
     return (
       <div
-        className={`fixed top-0 z-[1000] py-[40px] w-full flex items-center justify-center 
+        className={`fixed top-0 z-[1000] py-6 w-full flex items-center justify-center 
           transition-all duration-300 
           ${scrolled ? 
-            "bg-gray-950/10 backdrop-blur-lg py-[2px]" : 
-            "bg-transparent"
+            "bg-gray-950/10 backdrop-blur-lg h-16 py-2" : 
+            "bg-transparent h-32 "
         }`}
       >
         <nav className="flex justify-between items-center min-w-[1200px] ">
@@ -243,8 +277,15 @@ export default function NavbarMenu({
             text-white font-bold rounded-[8px] text-sm shadow-lg hover:shadow-xl
             transition-all duration-300 transform hover:scale-105"
               size="lg"
+              onClick={() => {
+                // if (isConnected) {
+                //   router.push("/dashboard");
+                // } else {
+                  handleConnect();
+                // }
+              }}
             >
-              Get started
+                { isConnected? "Go to Dashboard":"Get started"}
             </Button>
           </div>
         </nav>
@@ -252,58 +293,58 @@ export default function NavbarMenu({
     );
   }
 
-  return (
-    <nav className="bg-[#1F2937] px-6 py-4">
-      <div className="flex items-center justify-between max-w-4xl mx-auto">
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/nabvar-logo.png"
-                alt="Skillcert Logo"
-                width={100}
-                height={100}
-              />
-            </Link>
-          </div>
-          <Link href="/coursesPage" className="text-white/80 text-sm">
-            <span>Explore</span>
-          </Link>
-        </div>
-        <div className="flex-1 max-w-md mx-4">
-          <div className="relative">
-            <Input
-              type="search"
-              placeholder=""
-              className="w-full border-2 border-white rounded-full px-4 py-2 text-white placeholder:text-white/50 focus:border-red-400 bg-transparent"
-              onFocus={() => setIsSearchFocused(true)}
-              onBlur={() => setIsSearchFocused(false)}
-            />
-            <Search
-              className={`absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 transition-colors duration-200 ${
-                isSearchFocused ? "text-red-400" : "text-white"
-              }`}
-            />
-          </div>
-        </div>
+  // return (
+  //   <nav className="bg-[#1F2937] px-6 py-4">
+  //     <div className="flex items-center justify-between max-w-4xl mx-auto">
+  //       <div className="flex items-center gap-6">
+  //         <div className="flex items-center gap-3">
+  //           <Link href="/" className="flex items-center">
+  //             <Image
+  //               src="/nabvar-logo.png"
+  //               alt="Skillcert Logo"
+  //               width={100}
+  //               height={100}
+  //             />
+  //           </Link>
+  //         </div>
+  //         <Link href="/coursesPage" className="text-white/80 text-sm">
+  //           <span>Explore</span>
+  //         </Link>
+  //       </div>
+  //       <div className="flex-1 max-w-md mx-4">
+  //         <div className="relative">
+  //           <Input
+  //             type="search"
+  //             placeholder=""
+  //             className="w-full border-2 border-white rounded-full px-4 py-2 text-white placeholder:text-white/50 focus:border-red-400 bg-transparent"
+  //             onFocus={() => setIsSearchFocused(true)}
+  //             onBlur={() => setIsSearchFocused(false)}
+  //           />
+  //           <Search
+  //             className={`absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 transition-colors duration-200 ${
+  //               isSearchFocused ? "text-red-400" : "text-white"
+  //             }`}
+  //           />
+  //         </div>
+  //       </div>
 
-        {currentMode === "default" ? (
-          <DefaultNavigation
-            onConnect={handleConnect}
-            isConnecting={isConnecting}
-          />
-        ) : (
-          <UserNavigation
-            userInfo={displayUserInfo}
-            showDropdown={showDropdown}
-            setShowDropdown={setShowDropdown}
-            onDropdownItemClick={handleDropdownItemClick}
-            dropdownRef={dropdownRef}
-          />
-        )}
-      </div>
-    </nav>
-  );
+  //       {currentMode === "default" ? (
+  //         <DefaultNavigation
+  //           onConnect={handleConnect}
+  //           isConnecting={isConnecting}
+  //         />
+  //       ) : (
+  //         <UserNavigation
+  //           userInfo={displayUserInfo}
+  //           showDropdown={showDropdown}
+  //           setShowDropdown={setShowDropdown}
+  //           onDropdownItemClick={handleDropdownItemClick}
+  //           dropdownRef={dropdownRef}
+  //         />
+  //       )}
+  //     </div>
+  //   </nav>
+  // );
 }
 
 function DefaultNavigation({
