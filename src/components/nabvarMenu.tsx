@@ -61,8 +61,6 @@ export default function NavbarMenu({
   const [showDropdown, setShowDropdown] = useState(false);
   const [currentMode, setCurrentMode] = useState(variant);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [walletConnected, setWalletConnected] = useState(false);
-  const [walletId, setWalletId] = useState("");
   const [isConnecting, setIsConnecting] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -230,15 +228,14 @@ export default function NavbarMenu({
     // }
   };
 
-  const handleDisconnect = () => {
-    setWalletConnected(false);
-    setWalletId("");
-    setCurrentMode("default");
+  const handleDisconnect = async () => {
+    disconnect();
     setShowDropdown(false);
 
     toast.success("Wallet Disconnected", {
       description: "Your wallet has been disconnected successfully.",
     });
+    await router.push("/")
   };
 
   const handleDropdownItemClick = (href: string) => {
@@ -249,10 +246,10 @@ export default function NavbarMenu({
     }
   };
 
-  const displayUserInfo = walletConnected
+  const displayUserInfo = isConnected
     ? {
         ...userInfo,
-        userId: walletId,
+        userId: address?.substring(0,10).concat("..."),
       }
     : userInfo;
 
@@ -330,7 +327,7 @@ export default function NavbarMenu({
               </div>
             </div>
 
-            {currentMode === "default" ? (
+            {!isConnected ? (
               <DefaultNavigation
                 onConnect={handleConnect}
                 isConnecting={isConnecting}
