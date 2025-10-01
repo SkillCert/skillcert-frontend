@@ -38,7 +38,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#111627]`}
       >
         <WalletProvider>
-          <NavbarMenu />
           <Toaster position="top-right" richColors />
           <main className="flex flex-col min-h-screen p1">{children}</main>
           <Footer />
