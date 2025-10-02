@@ -10,8 +10,9 @@ import QuickActions from "@/components/dashboard/QuickActions";
 
 const TeacherDashboard = () => {
   return (
-    <div className="container min-h-screen px-6 py-8 mx-auto">
+    <div className="container min-h-screen w-full px-4 sm:px-6 lg:px-8 py-8 mx-auto">
       <DashboardHeader userName="Alex Johnson" />
+
       <DashboardMetrics
         metrics={[
           {
@@ -42,6 +43,7 @@ const TeacherDashboard = () => {
           },
         ]}
       />
+
       <TopCourses
         courses={[
           {
@@ -79,7 +81,7 @@ const TeacherDashboard = () => {
           },
         ]}
       />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[85%] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mx-auto mt-8">
         <CourseStatistics />
         <QuickActions />
       </div>
