@@ -20,7 +20,7 @@ interface TopCoursesProps {
 }
 
 const TopCourses: React.FC<TopCoursesProps> = ({ courses }) => (
-  <div className="mb-10 max-w-[85%] mx-auto">
+  <div className="w-full px-4 sm:px-0 mb-10 mx-auto">
     <div className="flex items-center justify-between mb-4">
       <h2 className="text-xl font-bold text-purple-600">Your Top Courses</h2>
       <Link
@@ -30,7 +30,8 @@ const TopCourses: React.FC<TopCoursesProps> = ({ courses }) => (
         All Courses <ArrowRight className="w-4 h-4" />
       </Link>
     </div>
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {courses.map((course, idx) => (
         <div
           key={idx}
@@ -45,10 +46,11 @@ const TopCourses: React.FC<TopCoursesProps> = ({ courses }) => (
               alt={course.name}
               className="w-full h-full object-cover"
               fill
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
             />
           </div>
           <div className="bg-[#23283b] p-5 flex-1 flex flex-col border-t border-gray-700">
-            <div className="font-bold text-white text-[32px] mb-1">
+            <div className="font-bold text-white text-2xl sm:text-3xl mb-1 leading-tight">
               {course.name}
             </div>
             <div className="flex items-center text-yellow-400 text-sm mb-1">
@@ -60,20 +62,25 @@ const TopCourses: React.FC<TopCoursesProps> = ({ courses }) => (
             <div className="text-gray-300 text-xs mb-3 leading-snug">
               {course.description}
             </div>
-            <div className="flex gap-3 mb-4">
-              <span className="border bg-gray-900 border-cyan-400 text-cyan-300 font-bold text-base px-6 py-1 rounded-full flex items-center min-h-[38px]">
+            <div className="flex flex-wrap gap-3 mb-4">
+              {" "}
+              <span className="border bg-gray-900 border-cyan-400 text-cyan-300 font-bold text-sm px-4 py-1 rounded-full flex items-center min-h-[38px]">
+                {" "}
                 {course.level}
               </span>
-              <span className="border bg-gray-900 border-pink-600 text-pink-500 font-bold text-base px-6 py-1 rounded-full flex items-center min-h-[38px]">
-                <Clock className="w-5 h-5 mr-2 text-pink-600" />
+              <span className="border bg-gray-900 border-pink-600 text-pink-500 font-bold text-sm px-4 py-1 rounded-full flex items-center min-h-[38px]">
+                {" "}
+                <Clock className="w-4 h-4 mr-1 text-pink-600" />{" "}
                 {course.duration}
               </span>
             </div>
-            <div className="border-t border-gray-700 pt-4 flex items-center justify-between mt-auto">
+            <div className="border-t border-gray-700 pt-4 flex flex-wrap items-center justify-between gap-3 mt-auto">
+              {" "}
               <span className="font-bold text-white text-lg">
                 {course.price}
               </span>
-              <button className="bg-pink-700 hover:bg-pink-800 text-white text-base px-6 py-2 rounded-full font-semibold transition">
+              <button className="bg-pink-700 hover:bg-pink-800 text-white text-sm px-5 py-2 rounded-full font-semibold transition">
+                {" "}
                 Enroll Now
               </button>
             </div>

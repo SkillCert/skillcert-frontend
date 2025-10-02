@@ -8,19 +8,21 @@ import Steller from "./components/welcomepage/steller";
 // import PrinciplesSection from "../about/components/principlesSection";
 import Trusted from "./components/welcomepage/trusted";
 // import PrinciplesSection from "../about/components/principlesSection";
+import TeacherDashboard from "./teacherDashboard";
 
 const welcomePage = () => {
   return (
     <div className="">
-      <HeroSection />
+      <TeacherDashboard/>
+      {/* <HeroSection /> */}
       <div className="">
-        <Trusted />
-        <Journey />
-        <CourseExplorationSection />
-        <Steller />
+        {/* <Trusted /> */}
+        {/* <Journey /> */}
+        {/* <CourseExplorationSection /> */}
+        {/* <Steller /> */}
         {/* <ErrorTest /> */}
 
-        <Ready />
+        {/* <Ready /> */}
       </div>
     </div>
   );
