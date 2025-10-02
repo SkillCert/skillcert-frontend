@@ -46,11 +46,11 @@ const Journey = () => {
             </p>
           </div>
 
-          <div className="flex justify-center gap-[30px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 justify-center gap-[30px]">
             {journeyData.map((item) => (
               <div
                 key={item.step}
-                className="w-max p-8 rounded-xl backdrop-blur-lg border border-gray-800 shadow-lg text-left bg-gradient-to-r from-[#111827] to-[#020618]"
+                className="p-8 rounded-xl backdrop-blur-lg border border-gray-800 shadow-lg text-left bg-gradient-to-r from-[#111827] to-[#020618]"
               >
                 <div className="text-base font-bold mb-4 bg-purple-600 w-max text-white py-[10px] px-4 rounded-[8px]">
                   {item.step}
