@@ -16,6 +16,13 @@ const welcomePage = () => {
         <CourseExplorationSection />
         <Steller />
         <StatisticsSection />
+
+        {/* <Trusted /> */}
+        {/* <Journey /> */}
+        {/* <CourseExplorationSection /> */}
+        {/* <Steller /> */}
+        {/* <ErrorTest /> */}
+
         <Ready />
       </div>
     </div>
