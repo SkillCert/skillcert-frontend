@@ -22,7 +22,7 @@ const welcomePage = () => {
         {/* <Steller /> */}
         {/* <ErrorTest /> */}
 
-        {/* <Ready /> */}
+        <Ready />
       </div>
     </div>
   );
