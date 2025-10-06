@@ -1,10 +1,8 @@
 "use client";
 import React from "react";
-import { Clock, Users, ArrowRight } from "lucide-react";
-import { useState } from "react";
-import { grantAccess } from "../../../../../contract_connections/CourseRegistry/grantAccess";
 import Link from "next/link";
 import Container from "@/components/container/Container";
+import CourseCard from "./CourseCard";
 
 interface Course {
   id: string;
@@ -42,83 +40,21 @@ const courses: Course[] = [
   },
 ];
 
-const CourseCard: React.FC<{ course: Course }> = ({ course }) => {
-  const [userAddress] = useState("0x1234567890123456789012345678901234567890");
-
-  const handleEnroll = async (courseId: string) => {
-    try {
-      const result = await grantAccess({
-        course_id: courseId,
-        user: userAddress,
-      });
-
-      if (result.success) {
-        alert("Enrollment successful!");
-      } else {
-        alert(`Enrollment failed: ${result.error}`);
-      }
-    } catch (error) {
-      console.error("Error enrolling in course:", error);
-      alert("An unexpected error occurred while enrolling. Please try again.");
-    }
-  };
-
+const CourseExplorationSection: React.FC = () => {
   return (
-    <div className="bg-gray-800 rounded-xl overflow-hidden shadow-xl">
-      <div
-        className={`h-[150px] bg-gradient-to-r from-purple-700 to-pink-700`}
-      ></div>
-      <div className=" py-5 px-4">
-        <h3 className="text-xl font-bold text-white mb-3">{course.title}</h3>
-
-        <p className="text-gray-400 mb-2 text-sm">By {course.instructor}</p>
-
-        <div className="flex items-center gap-4 mb-6 text-gray-400 text-sm">
-          <div className="flex items-center gap-1">
-            <Clock size={16} />
-            <span>{course.duration}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Users size={16} />
-            <span>{course.students}</span>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <span className="text-[19px] font-bold text-white">
-            {course.price}
-          </span>
-          <button
-            className="bg-gradient-to-r from-purple-700 to-pink-700 text-white px-[12px] py-2 rounded-[12px]  text-[14px] font-semibold flex items-center gap-2 group"
-            onClick={() => handleEnroll(course.id)}
-          >
-            Enroll Now
-            <ArrowRight
-              size={16}
-              className="group-hover:translate-x-1 transition-transform duration-300"
-            />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const courseExplorationSection: React.FC = () => {
-  return (
-    <section className="bg-gray-900 py-[80px]">
+    <section className="bg-gray-900 py-12 sm:py-16 lg:py-20">
       <Container alt>
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
             Featured Courses
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto">
             Discover our most popular courses designed to accelerate your career
             growth
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-12">
           {courses.map((course) => (
             <CourseCard key={course.id} course={course} />
           ))}
@@ -127,9 +63,10 @@ const courseExplorationSection: React.FC = () => {
         <div className="text-center pt-[30px]">
           <Link
             href="/coursesPage"
-            className="bg-gradient-to-r from-[#9333EA] to-[#FB64B6] text-white px-8 py-3 rounded-[16px] border border-white font-semibold text-lg"
+            className="inline-block w-full sm:w-auto bg-gradient-to-r from-[#9333EA] to-[#FB64B6] text-white px-6 md:px-8 py-3 rounded-[16px] border border-white font-semibold text-base md:text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+            aria-label="Explore all courses in the app"
           >
-            <button>Explore all courses in the app</button>
+            Explore all courses in the app
           </Link>
         </div>
       </Container>
@@ -137,4 +74,4 @@ const courseExplorationSection: React.FC = () => {
   );
 };
 
-export default courseExplorationSection;
+export default CourseExplorationSection;
