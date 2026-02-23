@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Search, Filter, X } from "lucide-react";
 import CourseCard from "./components/courseCard";
 import CreateCourse from "./components/createCourse";
@@ -7,176 +7,91 @@ import { levels } from "@/lib/interface";
 import { categories } from "@/lib/interface";
 import { Course, CourseLevel, CourseCategory } from "@/lib/interface";
 
-const coursesData: Course[] = [
-  {
-    id: 1,
-    name: "React Fundamentals",
-    category: "Web Development",
-    level: "Beginner",
-    rating: 4.7,
-    students: 1250,
-    description:
-      "Learn the basics of React including components, state, and props. Perfect for beginners starting their journey.",
-    duration: "8 weeks",
-    price: 340.56,
-  },
-  {
-    id: 2,
-    name: "Advanced JavaScript",
-    category: "Web Development",
-    level: "Advanced",
-    rating: 4.8,
-    students: 890,
-    description:
-      "Deep dive into advanced JavaScript concepts including closures, prototypes, and async programming.",
-    duration: "6 weeks",
-    price: 450.75,
-  },
-  {
-    id: 3,
-    name: "Python for Data Science",
-    category: "Data Science",
-    level: "Intermediate",
-    rating: 4.6,
-    students: 2100,
-    description:
-      "Master Python programming for data analysis, visualization, and machine learning applications.",
-    duration: "10 weeks",
-    price: 520.3,
-  },
-  {
-    id: 4,
-    name: "UI/UX Design Basics",
-    category: "Design & UI/UX",
-    level: "Beginner",
-    rating: 4.5,
-    students: 1580,
-    description:
-      "Learn the fundamentals of user interface and user experience design principles and tools.",
-    duration: "7 weeks",
-    price: 380.9,
-  },
-  {
-    id: 5,
-    name: "Node.js Backend Development",
-    category: "Web Development",
-    level: "Intermediate",
-    rating: 4.7,
-    students: 940,
-    description:
-      "Build scalable backend applications using Node.js, Express, and MongoDB.",
-    duration: "9 weeks",
-    price: 410.25,
-  },
-  {
-    id: 6,
-    name: "Machine Learning Fundamentals",
-    category: "Data Science",
-    level: "Advanced",
-    rating: 4.9,
-    students: 750,
-    description:
-      "Introduction to machine learning algorithms, neural networks, and practical applications.",
-    duration: "12 weeks",
-    price: 680.5,
-  },
-  {
-    id: 7,
-    name: "Web Design with CSS",
-    category: "Design & UI/UX",
-    level: "Beginner",
-    rating: 4.4,
-    students: 1890,
-    description:
-      "Master CSS for creating beautiful, responsive web designs from scratch.",
-    duration: "5 weeks",
-    price: 290.4,
-  },
-  {
-    id: 8,
-    name: "DevOps and Cloud Computing",
-    category: "DevOps & Cloud",
-    level: "Advanced",
-    rating: 4.6,
-    students: 620,
-    description:
-      "Learn DevOps practices, containerization, and cloud deployment strategies.",
-    duration: "11 weeks",
-    price: 590.8,
-  },
-  {
-    id: 9,
-    name: "Data Visualization with D3.js",
-    category: "Data Science",
-    level: "Intermediate",
-    rating: 4.3,
-    students: 445,
-    description:
-      "Create interactive and compelling data visualizations using D3.js library and modern web standards.",
-    duration: "6 weeks",
-    price: 395.6,
-  },
-  {
-    id: 10,
-    name: "Figma for Designers",
-    category: "Design & UI/UX",
-    level: "Beginner",
-    rating: 4.6,
-    students: 1320,
-    description:
-      "Master Figma for creating professional UI designs, prototypes, and design systems.",
-    duration: "4 weeks",
-    price: 275.8,
-  },
-  {
-    id: 11,
-    name: "Docker & Kubernetes",
-    category: "DevOps & Cloud",
-    level: "Intermediate",
-    rating: 4.7,
-    students: 780,
-    description:
-      "Learn containerization with Docker and orchestration with Kubernetes for modern applications.",
-    duration: "8 weeks",
-    price: 510.25,
-  },
-  {
-    id: 12,
-    name: "Full Stack Web Development",
-    category: "Web Development",
-    level: "Advanced",
-    rating: 4.8,
-    students: 960,
-    description:
-      "Complete full stack development course covering frontend, backend, and database technologies.",
-    duration: "16 weeks",
-    price: 799.99,
-  },
-];
+
 
 const CourseExplore: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [selectedCategories, setSelectedCategories] = useState<
-    CourseCategory[]
-  >([]);
+  const [selectedCategories, setSelectedCategories] = useState<CourseCategory[]>([]);
   const [selectedLevels, setSelectedLevels] = useState<CourseLevel[]>([]);
   const [showMobileFilters, setShowMobileFilters] = useState<boolean>(false);
-  
-	const filteredCourses = useMemo((): Course[] => {
-		return coursesData.filter((course: Course) => {
-		const matchesSearch: boolean =
-			(course.name?.toLowerCase().includes(searchTerm.toLowerCase()) || false) ||
-			(course.description?.toLowerCase().includes(searchTerm.toLowerCase()) || false);
+  const [coursesData, setCoursesData] = useState<Course[]>([])
+  const PAGE_SIZE = 10
+  const [page, setPage] = useState<number>(1)
+  const [hasMore, setHasMore] = useState(true)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-		const matchesCategory: boolean =
-			selectedCategories.length === 0 || (course.category ? selectedCategories.includes(course.category) : false);
 
-		const matchesLevel: boolean =
-			selectedLevels.length === 0 || (course.level ? selectedLevels.includes(course.level) : false);
+
+
+  // function to fetch courses
+  const fetchCourses = async (pageNumber: number) => {
+    try {
+      setLoading(true)
+      setError(null)
+
+      const res = await fetch(`/api/courses?page=${pageNumber}&limit=${PAGE_SIZE}`); // replace with your backend URL
+
+      if (!res.ok) throw new Error("Failed to fetch courses")
+
+      const data: Course[] = await res.json()
+
+      if (data.length < PAGE_SIZE) {
+        setHasMore(false)
+      }
+
+      setCoursesData((prev) => [...prev, ...data]);
+
+    }
+
+    catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message)
+      }
+      else {
+        setError("Something went wrong")
+      }
+    }
+
+    finally {
+      setLoading(false)
+    }
+  }
+
+
+  // Initial + Pagination Fetch
+  useEffect(() => {
+    fetchCourses(page)
+  }, [page])
+
+
+
+
+  //  filter logic
+  const filteredCourses = useMemo((): Course[] => {
+    return coursesData.filter((course: Course) => {
+      const matchesSearch: boolean =
+        (course.name?.toLowerCase().includes(searchTerm.toLowerCase()) || false) ||
+        (course.description?.toLowerCase().includes(searchTerm.toLowerCase()) || false);
+
+      const matchesCategory: boolean =
+        selectedCategories.length === 0 || (course.category ? selectedCategories.includes(course.category) : false);
+
+      const matchesLevel: boolean =
+        selectedLevels.length === 0 || (course.level ? selectedLevels.includes(course.level) : false);
 
       return matchesSearch && matchesCategory && matchesLevel;
     });
-  }, [searchTerm, selectedCategories, selectedLevels]);
+  }, [searchTerm, selectedCategories, selectedLevels, coursesData]);
+
+
+  // function to load more courses
+  const loadMore = () => {
+    if (hasMore && !loading) {
+      setPage((prev) => prev + 1);
+    }
+  }
+
 
   const handleCategoryChange = (category: CourseCategory): void => {
     setSelectedCategories((prev: CourseCategory[]) =>
@@ -368,24 +283,48 @@ const CourseExplore: React.FC = () => {
           )}
 
           <div className="flex-1 min-w-0">
-            {filteredCourses.length === 0 ? (
-              <div className="text-center text-gray-400 py-8 sm:py-12">
-                <p className="text-lg sm:text-xl">
-                  No courses found matching your criteria.
-                </p>
-                <p className="mt-2 text-sm sm:text-base">
-                  Try adjusting your filters or search term.
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2  gap-4 sm:gap-6">
-                {filteredCourses.map((course: Course) => (
-                  <CourseCard key={course.id} course={course} />
-                ))}
+            {loading ? (
+              <div className="text-center text-gray-400 py-8">
+                Loading courses...
+              </div>)
+              :
+              !loading && filteredCourses.length === 0 ? (
+                <div className="text-center text-gray-400 py-8 sm:py-12">
+                  <p className="text-lg sm:text-xl">
+                    No courses found matching your criteria.
+                  </p>
+                  <p className="mt-2 text-sm sm:text-base">
+                    Try adjusting your filters or search term.
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2  gap-4 sm:gap-6">
+                  {filteredCourses.map((course: Course) => (
+                    <CourseCard key={course.id} course={course} />
+                  ))}
+
+                </div>
+              )}
+
+            {hasMore && (
+              <div className="mt-8 text-center">
+                {
+                  coursesData.length > 0 ? (
+                    <button
+                      onClick={loadMore}
+                      disabled={loading}
+                      className="bg-purple-600 hover:bg-purple-500 text-white px-6 py-2 rounded-lg transition disabled:opacity-50"
+                    >
+                      {loading ? "Loading..." : "Load More"}
+                    </button>
+                  )
+                    :
+                    null
+                }
               </div>
             )}
 
-            <div className="mt-6 text-gray-400 text-sm">
+            <div className="mt-6  text-gray-400 text-sm flex items-center justify-center ">
               Showing {filteredCourses.length} of {coursesData.length} courses
             </div>
           </div>
