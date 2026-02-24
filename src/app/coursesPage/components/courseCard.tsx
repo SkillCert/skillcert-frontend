@@ -3,6 +3,7 @@ import { CourseCardProps, CourseCategory } from "@/lib/interface";
 import { Star, Clock } from "lucide-react";
 import { useState } from "react";
 import { grantAccess } from "../../../../contract_connections/CourseRegistry/grantAccess";
+import Link from "next/link";
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   const [userAddress] = useState("0x1234567890123456789012345678901234567890");
@@ -96,12 +97,18 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           <span className="text-base sm:text-lg text-white font-bold mt-2">
             {course.price ? (typeof course.price === 'number' ? course.price.toFixed(2) : course.price) : 'Free'} XLM
           </span>
-          <button
+
+
+
+{/* This takes the user to the course page  */}
+          <Link
+          href={`/coursesPage/${course.id}`}
             className="bg-pink-800 text-white px-3 py-2 sm:px-4 rounded-full font-medium transition-colors text-xs sm:text-sm mt-2"
-            onClick={() => handleEnroll(typeof course.id === 'string' ? parseInt(course.id, 10) : course.id)}
           >
             Enroll Now
-          </button>
+          </Link>
+
+
         </div>
       </div>
     </div>
