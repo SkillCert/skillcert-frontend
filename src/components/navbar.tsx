@@ -1,8 +1,8 @@
 "use client";
 import { Search, GraduationCap, Bell, User } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { WalletConnect } from "@/components/WalletConnect";
 
 interface NavbarProps {
   variant?: "navbar1" | "navbar2";
@@ -41,21 +41,14 @@ export function Navbar({ variant = "navbar1" }: NavbarProps) {
 
         {variant === "navbar1" ? (
           <div className="flex items-center gap-6">
-            <a
-              href="#"
-              className="text-white/80 hover:text-white transition-colors"
-            >
+            <a href="#" className="text-white/80 hover:text-white transition-colors">
               Home
             </a>
-            <a
-              href="#"
-              className="text-white/80 hover:text-white transition-colors"
-            >
+            <a href="#" className="text-white/80 hover:text-white transition-colors">
               Contact
             </a>
-            <Button className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-full">
-              Connect
-            </Button>
+            {/* WalletConnect handles all states: not installed, loading, connected */}
+            <WalletConnect />
           </div>
         ) : (
           <div className="flex items-center gap-4">
