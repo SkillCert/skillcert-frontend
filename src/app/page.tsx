@@ -1,23 +1,26 @@
-'use client';
+"use client";
 
 import ErrorTest from "@/components/ErrorTest";
 import WelcomePage from "./home/page";
 import { useWalletProvider } from "@/provider/walletProvider";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import NavbarMenu from "@/components/nabvarMenu";
 import { NAV_TYPES } from "@/types/navbar";
 
-export default async function Page() {
-  const {isConnected} = useWalletProvider();
+export default function Page() {
+  const { isConnected } = useWalletProvider();
   const router = useRouter();
 
-  if (isConnected) {
-    return await router.push('/instructor');
-  } 
-     
+  useEffect(() => {
+    if (isConnected) {
+      router.push("/instructor");
+    }
+  }, [isConnected, router]);
+
   return (
     <div className="">
-      <NavbarMenu variant={NAV_TYPES.Default}/>
+      <NavbarMenu variant={NAV_TYPES.Default} />
       <WelcomePage />
       <ErrorTest />
     </div>
