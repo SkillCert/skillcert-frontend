@@ -1,6 +1,10 @@
 import { useState, useCallback } from "react";
 
 interface Course {
+  progress?: number;
+  instructor?: string;
+  duration?: string;
+  students?: number;
   id: string;
   title: string;
   description: string;
