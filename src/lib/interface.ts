@@ -22,15 +22,15 @@ type CourseCategory =
 type CourseLevel = "Beginner" | "Intermediate" | "Advanced";
 
 interface Course {
-  id: number;
+  id?: number;
   name: string;
-  category: CourseCategory;
-  level: CourseLevel;
-  rating: number;
-  students: number;
-  description: string;
-  duration: string;
-  price: number;
+  category?: CourseCategory;
+  level?: CourseLevel;
+  rating?: number;
+  students?: number;
+  description?: string;
+  duration?: string;
+  price?: number;
   img?: string;
   status?: CourseStatus;
 }
