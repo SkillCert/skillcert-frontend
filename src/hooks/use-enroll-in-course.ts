@@ -22,7 +22,7 @@ export function useEnrollInCourse() {
       } else {
         toast.error(result.error ?? "Enrollment failed");
       }
-    } catch (error) {
+    } catch {
       toast.error("An unexpected error occurred while enrolling.");
     } finally {
       setIsEnrolling(false);

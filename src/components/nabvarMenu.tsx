@@ -15,7 +15,6 @@ import { Input } from "@/components/ui/input";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { requestAccess, getAddress } from "@stellar/freighter-api";
 import { toast } from "sonner";
 import { Brand } from "../../public/images";
 import { useWalletProvider } from "@/provider/walletProvider";
@@ -59,15 +58,14 @@ export default function NavbarMenu({
   userInfo = defaultUserInfo,
 }: NavbarMenuProps) {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [currentMode, setCurrentMode] = useState(variant);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isConnecting, setIsConnecting] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const path = usePathname();
+  usePathname();
 
-  const { isConnected, connect, disconnect, address, isLoading } =
+  const { isConnected, connect, disconnect, address } =
     useWalletProvider();
 
   useEffect(() => {
@@ -137,7 +135,8 @@ export default function NavbarMenu({
       });
     } catch (error) {
       let errorMessage = "An error occurred while connecting to the wallet.";
-      const msg = (error as any)?.message;
+      const msg =
+        error instanceof Error ? error.message : typeof error === "string" ? error : "";
       if (msg === "User closed wallet extension") {
         errorMessage =
           "Wallet connection was cancelled. Please try again when ready.";
@@ -249,7 +248,7 @@ export default function NavbarMenu({
   const displayUserInfo = isConnected
     ? {
         ...userInfo,
-        userId: address?.substring(0,10).concat("..."),
+        userId: address ? address.substring(0, 10).concat("...") : userInfo.userId,
       }
     : userInfo;
 
@@ -384,7 +383,7 @@ function UserNavigation({
   onDropdownItemClick,
   dropdownRef,
 }: {
-  userInfo: any;
+  userInfo: { name: string; email: string; userId: string };
   showDropdown: boolean;
   setShowDropdown: (show: boolean) => void;
   onDropdownItemClick: (href: string) => void;
@@ -429,7 +428,7 @@ function UserDropdown({
   onItemClick,
   setShowDropdown,
 }: {
-  userInfo: any;
+  userInfo: { name: string; email: string; userId: string };
   onItemClick: (href: string) => void;
   setShowDropdown: (show: boolean) => void;
 }) {

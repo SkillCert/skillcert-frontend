@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { useSaveProfile } from '../contract_connections/UserProfile/useSaveProfile'
+import { saveProfile, validateProfileData } from '../contract_connections/UserProfile/saveProfile'
 
 jest.mock('../contract_connections/UserProfile/saveProfile', () => ({
   ...jest.requireActual('../contract_connections/UserProfile/saveProfile'),
@@ -69,7 +70,7 @@ const TestProfileForm = () => {
 }
 
 describe('Profile Form Integration', () => {
-  const { saveProfile } = await import('../contract_connections/UserProfile/saveProfile')
+  const mockedSaveProfile = saveProfile as jest.MockedFunction<typeof saveProfile>
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -89,7 +90,7 @@ describe('Profile Form Integration', () => {
   })
 
   it('should handle successful wallet connection and profile save', async () => {
-    saveProfile.mockResolvedValue({
+    mockedSaveProfile.mockResolvedValue({
       success: true,
       transactionHash: 'mock-transaction-hash-123',
       profile: {
@@ -122,7 +123,7 @@ describe('Profile Form Integration', () => {
       expect(screen.getByText('Save Profile')).toBeInTheDocument()
     })
 
-    expect(saveProfile).toHaveBeenCalledWith(
+    expect(mockedSaveProfile).toHaveBeenCalledWith(
       {
         name: 'John Doe',
         email: 'john@example.com',
@@ -135,7 +136,7 @@ describe('Profile Form Integration', () => {
   })
 
   it('should handle wallet connection errors', async () => {
-    saveProfile.mockResolvedValue({
+    mockedSaveProfile.mockResolvedValue({
       success: false,
       error: 'Wallet connection required. Please connect your wallet and try again.'
     })
@@ -164,7 +165,7 @@ describe('Profile Form Integration', () => {
   })
 
   it('should handle contract errors', async () => {
-    saveProfile.mockResolvedValue({
+    mockedSaveProfile.mockResolvedValue({
       success: false,
       error: 'Transaction failed: Contract execution failed'
     })
@@ -194,7 +195,6 @@ describe('Profile Form Integration', () => {
 })
 
 describe('Validation Function Tests', () => {
-  const { validateProfileData } = await import('../contract_connections/UserProfile/saveProfile')
 
   it('should pass validation for valid data', () => {
     const validData = {

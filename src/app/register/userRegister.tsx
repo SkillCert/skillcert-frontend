@@ -70,7 +70,6 @@ export default function UserRegister() {
 
     setIsSubmitting(true);
 
-    console.log("Form submitted:", formData);
   };
 
   const getPasswordStrength = (password: string) => {

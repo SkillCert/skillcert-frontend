@@ -67,7 +67,7 @@ export function WalletProvider({ children }: WalletProviderProps) {
 
   useEffect(() => {
     detectAndCheckConnection();
-  }, []);
+  }, [detectAndCheckConnection]);
 
   // Listen for account / network changes from Freighter
   useEffect(() => {
@@ -109,7 +109,6 @@ export function WalletProvider({ children }: WalletProviderProps) {
       setAddress(userAddress);
       setIsConnected(true);
     } catch (error) {
-      console.error("Failed to connect wallet:", error);
       throw error;
     } finally {
       setIsLoading(false);

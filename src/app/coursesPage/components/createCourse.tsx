@@ -63,9 +63,7 @@ export default function CreateCourse() {
         // In case the hook itself returns an error structure
         alert(`Failed to create course: ${result.error || "Unknown error"}`);
       }
-    } catch (err) {
-      // If the call throws instead of returning { success: false }
-      console.error("Error creating course:", err);
+    } catch {
       alert(
         "An unexpected error occurred while creating the course. Please try again."
       );

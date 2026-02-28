@@ -32,8 +32,7 @@ export default function Access() {
       } else {
         setMessage(`Error: ${result.error}`);
       }
-    } catch (error) {
-      console.error("Grant access failed:", error);
+    } catch {
       setMessage("An unexpected error occurred. Please try again.");
     } finally {
       setLoading(false); // ✅ ensures loading stops on both success & failure

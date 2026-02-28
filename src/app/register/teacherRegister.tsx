@@ -62,11 +62,9 @@ const TeacherRegister = () => {
         // You can also show a success toast/message here
       } else {
         // Handle API-level failure (e.g. validation error, server issue)
-        console.error("Profile save failed:", error);
         // Example: toast.error("Failed to save profile. Please try again.");
       }
-    } catch (error) {
-      console.error("Unexpected error saving profile:", error);
+    } catch {
       // Example: toast.error("An unexpected error occurred. Please try again.");
     }
   };

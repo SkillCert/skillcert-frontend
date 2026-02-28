@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo, useEffect, useRef, use } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import { Search, Filter, X } from "lucide-react";
 import CourseCard from "./components/courseCard";
 import CreateCourse from "./components/createCourse";
@@ -136,13 +136,14 @@ const CourseExplore: React.FC = () => {
       { threshold: 1 }
     )
 
-    if (observerRef.current) {
-      observer.observe(observerRef.current)
+    const current = observerRef.current
+    if (current) {
+      observer.observe(current)
     }
 
     return () => {
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current)
+      if (current) {
+        observer.unobserve(current)
       }
     }
   }, [hasMore, loadingMore])

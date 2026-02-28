@@ -1,7 +1,7 @@
 import { apiFetch } from "../../lib/api";
 
-const mockFetch = jest.fn();
-global.fetch = mockFetch as any;
+const mockFetch: jest.Mock = jest.fn();
+global.fetch = mockFetch as unknown as typeof fetch;
 
 describe("apiFetch", () => {
   beforeEach(() => {

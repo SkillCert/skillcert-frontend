@@ -14,8 +14,6 @@ const contractConfig = {
 
 export default function HeroSection() {
   const { profile, address, loading } = useUserProfile(contractConfig);
-  console.log("User profile:", profile);
-  console.log("Wallet address:", address);
 
   const shortAddress = address
     ? `${address.slice(0, 6)}…${address.slice(-4)}`
@@ -40,12 +38,14 @@ export default function HeroSection() {
           </div>
         ) : profile && profile.name ? (
           <div className="flex flex-col items-center gap-3 mb-6">
-            {/* Avatar */}
             <div className="w-20 h-20 rounded-full ring-2 ring-purple-400/60 overflow-hidden bg-gray-700">
               {avatarSrc && (
-                <img
+                <Image
                   src={avatarSrc}
                   alt={profile.name}
+                  width={80}
+                  height={80}
+                  unoptimized
                   className="w-full h-full object-cover"
                 />
               )}
