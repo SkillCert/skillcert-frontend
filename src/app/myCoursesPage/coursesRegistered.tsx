@@ -7,18 +7,6 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { grantAccess } from "../../../contract_connections/CourseRegistry/grantAccess";
 
-interface Course {
-  id: number;
-  name: string;
-  description: string;
-  rating: number;
-  students: number;
-  level: string;
-  duration: string;
-  price: string;
-  category: string;
-}
-
 import { Course } from "@/types";
 
 export default function CoursesRegistered() {

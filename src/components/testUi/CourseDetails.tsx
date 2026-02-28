@@ -21,8 +21,9 @@ const CourseDetails: React.FC<CourseDetailsProps> = ({ courseId }) => {
       try {
         const data = await getCourse(courseId);
         setCourse(data);
-      } catch (err: any) {
-        setError(err.message || "Failed to load course.");
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : "Failed to load course.";
+        setError(message);
       } finally {
         setLoading(false);
       }

@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { Play, ImageIcon, AlertCircle, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -89,13 +90,13 @@ export default function MyCourses() {
                 <CardContent className="p-0">
                   <div className="flex items-stretch">
                     {course.thumbnail_url ? (
-                      <img
+                      <Image
                         src={course.thumbnail_url}
                         alt={course.title}
+                        width={128}
+                        height={160}
+                        unoptimized
                         className="w-32 h-40 object-cover flex-shrink-0"
-                        onError={(e) => {
-                          (e.currentTarget as HTMLImageElement).style.display = "none";
-                        }}
                       />
                     ) : (
                       <ImageIcon className="w-32 h-40 object-cover bg-gray-100 flex-shrink-0" />

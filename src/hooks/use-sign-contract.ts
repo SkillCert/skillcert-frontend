@@ -45,7 +45,7 @@ interface SignTransactionResponse extends FreighterResponse {
 
 interface ContractResult {
   success: boolean;
-  result?: any;
+  result?: unknown;
   hash: string;
 }
 

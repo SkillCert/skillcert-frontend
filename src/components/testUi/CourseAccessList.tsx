@@ -22,8 +22,9 @@ const CourseAccessList: React.FC<CourseAccessListProps> = ({ courseId }) => {
       try {
         const data = await listCourseAccess(courseId);
         setCourseAccess(data);
-      } catch (err: any) {
-        setError(err.message || "Failed to load course access.");
+      } catch (err: unknown) {
+        const message = err instanceof Error ? err.message : "Failed to load course access.";
+        setError(message);
       } finally {
         setLoading(false); // ensures loading stops in both success & error
       }

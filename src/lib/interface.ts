@@ -6,7 +6,7 @@ export interface WelcomePageBlockProps {
   figure: number;
 }
 
-export interface featuredCourseProps {
+export interface FeaturedCourseProps {
   id: number;
   title: string;
   description: string;

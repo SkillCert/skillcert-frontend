@@ -1,12 +1,9 @@
 "use client";
 import { CourseCardProps, CourseCategory } from "@/lib/interface";
 import { Star, Clock } from "lucide-react";
-import { useState } from "react";
-import { grantAccess } from "../../../../contract_connections/CourseRegistry/grantAccess";
 import Link from "next/link";
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
-  const [userAddress] = useState("0x1234567890123456789012345678901234567890");
   const getCategoryColor = (category: CourseCategory): string => {
     switch (category) {
       case "Web Development":
@@ -21,28 +18,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
         return "bg-gray-600";
     }
   };
-
-  const handleEnroll = async (courseId: number) => {
-    try {
-      const result = await grantAccess({
-        course_id: courseId.toString(),
-        user: userAddress,
-      });
-
-      if (result.success) {
-        alert("Enrollment successful!");
-      } else {
-        alert(`Enrollment failed: ${result.error}`);
-      }
-    } catch (error) {
-      console.error("Enrollment error:", error);
-      alert(
-        error instanceof Error
-          ? `Enrollment failed: ${error.message}`
-          : "Enrollment failed due to an unexpected error."
-      );
-    }
-  };
+ 
 
   return (
     <div className="bg-gray-800 border border-gray-500  flex flex-col justify-between  rounded-xl  shadow-lg transition-all duration-1000 hover:shadow-xl">

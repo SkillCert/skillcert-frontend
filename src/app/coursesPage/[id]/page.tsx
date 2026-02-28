@@ -46,8 +46,7 @@ const CourseDetailPage = () => {
 
         const data: CourseDetail = await res.json();
         setCourse(data);
-      } catch (err) {
-        console.error(err);
+      } catch {
         setError("Something went wrong while loading the course.");
       } finally {
         setLoading(false);

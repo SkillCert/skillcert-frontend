@@ -73,7 +73,6 @@ export async function getUserProfile(
     config: ContractConfig
 ): Promise<UserProfile> {
     const walletAddress = await getWalletAddress().catch(() => getUserAddress());
-    console.log("Fetching profile for address:", walletAddress);
 
     const server = new Server(config.rpcUrl);
     const contract = new Contract(config.contractAddress);

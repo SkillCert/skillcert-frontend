@@ -1,4 +1,3 @@
-import type { xdr } from "@stellar/stellar-sdk";
 // =============================================================================
 // CORE TYPES & INTERFACES
 // =============================================================================
@@ -294,7 +293,7 @@ export interface SignTransactionResponse extends FreighterResponse {
 
 export interface ContractResult {
   success: boolean;
-  result?: any;
+  result?: unknown;
   hash: string;
 }
 
