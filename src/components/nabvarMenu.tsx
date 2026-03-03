@@ -256,7 +256,7 @@ export default function NavbarMenu({
     case NAV_TYPES.Default:
       return (
         <div
-          className={`fixed top-0 z-[1000] py-6 w-full flex items-center justify-center 
+          className={`fixed top-0 z-[1000] py-6 w-full flex items-center justify-between
                 transition-all duration-300 
                 ${
                   scrolled
@@ -264,7 +264,7 @@ export default function NavbarMenu({
                     : "bg-transparent h-32 "
                 }`}
         >
-          <nav className="flex justify-between items-center min-w-[1200px] ">
+         <nav className="flex justify-between items-center w-full max-w-7xl mx-auto px-4">
             <Image src={Brand} alt="brand" className="w-[150px] " />
             <div className="flex items-center gap-[35px]">
               <ul className="flex items-center gap-[35px] text-gray-100">
@@ -272,10 +272,16 @@ export default function NavbarMenu({
                 <li>Contact</li>
               </ul>
               <Button
-                className="bg-gradient-to-r from-purple-400 to-pink-500 hover:from-purple-500 hover:to-pink-600
-                  text-white font-bold rounded-[8px] text-sm shadow-lg hover:shadow-xl
-                  transition-all duration-300 transform hover:scale-105"
-                size="lg"
+  className="
+    bg-gradient-to-r from-purple-400 to-pink-500
+    hover:from-purple-500 hover:to-pink-600
+    text-white font-bold rounded-[8px]
+    text-sm md:text-base
+    px-4 py-2 md:px-6 md:py-3
+    shadow-lg hover:shadow-xl
+    transition-all duration-300 transform hover:scale-105
+  "
+
                 onClick={() => {
                   // if (isConnected) {
                   //   router.push("/dashboard");
