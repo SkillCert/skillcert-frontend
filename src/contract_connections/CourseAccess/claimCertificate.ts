@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Contract,
   rpc,
@@ -8,25 +7,15 @@ import {
   nativeToScVal,
 } from "@stellar/stellar-sdk";
 import { getUserAddress, userSignTransaction } from "@/hooks/wallet-utils";
+import type { ClaimCertificateResponse } from "@/types";
 
 // ---------------------------------------------------------------------------
-// Types
+// Local params type (not shared — specific to this function's signature)
 // ---------------------------------------------------------------------------
-
-export type ClaimStatus = "idle" | "pending" | "success" | "error";
 
 export interface ClaimCertificateParams {
   /** The on-chain ID of the course the user completed */
   courseId: string;
-}
-
-export interface ClaimCertificateResponse {
-  success: boolean;
-  /** On-chain certificate identifier returned by the contract */
-  certificateId?: string;
-  /** Transaction hash of the confirmed claim transaction */
-  transactionHash?: string;
-  error?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -176,7 +165,9 @@ export async function claimCertificate(
     if (txResponse.status === "SUCCESS" && txResponse.returnValue) {
       try {
         const { scValToNative } = await import("@stellar/stellar-sdk");
-        certificateId = scValToNative(txResponse.returnValue as Parameters<typeof scValToNative>[0]);
+        certificateId = scValToNative(
+          txResponse.returnValue as Parameters<typeof scValToNative>[0]
+        );
       } catch {
         // returnValue parsing is best-effort; fall back to a local identifier
         certificateId = `cert_${courseId}_${Date.now()}`;
@@ -191,59 +182,4 @@ export async function claimCertificate(
   } catch (err) {
     return { success: false, error: classifyError(err) };
   }
-}
-
-// ---------------------------------------------------------------------------
-// React hook
-// ---------------------------------------------------------------------------
-
-/**
- * Hook that wraps `claimCertificate` and exposes reactive UI state:
- * - `status`: 'idle' | 'pending' | 'success' | 'error'
- * - `transactionHash`: set only after blockchain confirmation
- * - `certificateId`: on-chain certificate identifier
- * - `error`: user-friendly error message
- */
-export function useClaimCertificate() {
-  const [status, setStatus] = useState<ClaimStatus>("idle");
-  const [transactionHash, setTransactionHash] = useState<string | null>(null);
-  const [certificateId, setCertificateId] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  const claim = async (courseId: string): Promise<ClaimCertificateResponse> => {
-    setStatus("pending");
-    setError(null);
-    setTransactionHash(null);
-    setCertificateId(null);
-
-    const result = await claimCertificate({ courseId });
-
-    if (result.success) {
-      setStatus("success");
-      setTransactionHash(result.transactionHash ?? null);
-      setCertificateId(result.certificateId ?? null);
-    } else {
-      setStatus("error");
-      setError(result.error ?? "Unknown error");
-    }
-
-    return result;
-  };
-
-  const reset = () => {
-    setStatus("idle");
-    setError(null);
-    setTransactionHash(null);
-    setCertificateId(null);
-  };
-
-  return {
-    claim,
-    reset,
-    status,
-    transactionHash,
-    certificateId,
-    error,
-    isLoading: status === "pending",
-  };
 }

@@ -1,4 +1,3 @@
-import { useState, useCallback } from "react";
 import {
     Contract,
     rpc,
@@ -8,31 +7,11 @@ import {
     nativeToScVal,
     scValToNative,
 } from "@stellar/stellar-sdk";
+import type { VerifyCertificateResponse } from "@/types";
 
 // ---------------------------------------------------------------------------
-// Types
+// Local params type (not shared — specific to this function's signature)
 // ---------------------------------------------------------------------------
-
-export interface CertificateData {
-    /** On-chain certificate ID */
-    certificateId: string;
-    /** Stellar address of the certificate owner */
-    owner: string;
-    /** Course ID associated with the certificate */
-    courseId: string;
-    /** Unix timestamp (seconds) when the certificate was issued */
-    issuedAt: number;
-    /** Whether the certificate is currently valid on-chain */
-    isValid: boolean;
-}
-
-export interface VerifyCertificateResponse {
-    success: boolean;
-    certificate?: CertificateData;
-    /** Raw verification result — true means the certificate is valid on-chain */
-    isValid?: boolean;
-    error?: string;
-}
 
 export interface VerifyCertificateParams {
     /** The on-chain certificate ID to verify */
@@ -85,8 +64,8 @@ export async function verifyCertificate(
         const provider = new rpc.Server(rpcUrl, { allowHttp: true });
         const contract = new Contract(contractAddress);
 
-        // Use a zero-account keypair as the source for the simulation —
-        // verification is read-only so no real signer is needed.
+        // Use the owner account as source for the simulation —
+        // verification is read-only so no signature is needed.
         const sourceAccount = await provider.getAccount(ownerAddress);
 
         const transaction = new TransactionBuilder(sourceAccount, {
@@ -113,18 +92,15 @@ export async function verifyCertificate(
                 errMsg.toLowerCase().includes("not found") ||
                 errMsg.toLowerCase().includes("does not exist")
             ) {
-                return {
-                    success: true,
-                    isValid: false,
-                    certificate: undefined,
-                };
+                return { success: true, isValid: false, certificate: undefined };
             }
             throw new Error(`Simulation failed: ${errMsg}`);
         }
 
         // Parse the returned ScVal
-        const returnValue = (simulationResponse as rpc.Api.SimulateTransactionSuccessResponse)
-            .result?.retval;
+        const returnValue = (
+            simulationResponse as rpc.Api.SimulateTransactionSuccessResponse
+        ).result?.retval;
 
         if (!returnValue) {
             return { success: true, isValid: false };
@@ -132,8 +108,8 @@ export async function verifyCertificate(
 
         const native = scValToNative(returnValue);
 
-        // The contract is expected to return a map/struct with the certificate data.
-        // We defensively parse it to cover variations in the on-chain schema.
+        // The contract is expected to return a map/struct with certificate data.
+        // Defensively parse it to cover variations in the on-chain schema.
         if (typeof native === "boolean") {
             return { success: true, isValid: native };
         }
@@ -166,57 +142,4 @@ export async function verifyCertificate(
 
         return { success: false, error: message };
     }
-}
-
-// ---------------------------------------------------------------------------
-// React hook
-// ---------------------------------------------------------------------------
-
-/**
- * Hook that wraps `verifyCertificate` and exposes reactive UI state.
- */
-export function useVerifyCertificate() {
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const [isValid, setIsValid] = useState<boolean | null>(null);
-    const [certificate, setCertificate] = useState<CertificateData | null>(null);
-
-    const verify = useCallback(
-        async (
-            params: VerifyCertificateParams
-        ): Promise<VerifyCertificateResponse> => {
-            setIsLoading(true);
-            setError(null);
-            setIsValid(null);
-            setCertificate(null);
-
-            const result = await verifyCertificate(params);
-
-            if (result.success) {
-                setIsValid(result.isValid ?? false);
-                setCertificate(result.certificate ?? null);
-            } else {
-                setError(result.error ?? "Verification failed.");
-            }
-
-            setIsLoading(false);
-            return result;
-        },
-        []
-    );
-
-    const reset = useCallback(() => {
-        setError(null);
-        setIsValid(null);
-        setCertificate(null);
-    }, []);
-
-    return {
-        verify,
-        reset,
-        isLoading,
-        error,
-        isValid,
-        certificate,
-    };
 }
