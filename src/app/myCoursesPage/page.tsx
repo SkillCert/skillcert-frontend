@@ -5,8 +5,23 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Footer from "@/components/footer";
+import dynamic from "next/dynamic";
 // import ContentModal from "../coursesPage/coursesPreview/components/contentModal";
 import { useEnrolledCourses } from "@/hooks/useEnrolledCourse";
+
+// ---------------------------------------------------------------------------
+// Lazy-loaded certificate components (keep main bundle lean)
+// ---------------------------------------------------------------------------
+
+const ClaimCertificate = dynamic(
+  () => import("@/components/certificate/ClaimCertificate"),
+  { ssr: false }
+);
+
+const VerifyCertificate = dynamic(
+  () => import("@/components/certificate/VerifyCertificate"),
+  { ssr: false }
+);
 
 // ---------------------------------------------------------------------------
 // Skeleton — matches the existing Card layout
@@ -130,11 +145,32 @@ export default function MyCourses() {
                       </Button>
                     </div>
                   </div>
+
+                  {/* Claim certificate — shown only when course is 100% complete */}
+                  {(course.progress ?? 0) >= 100 && (
+                    <div className="border-t border-gray-700/50 px-4 pt-0">
+                      <ClaimCertificate
+                        courseId={String(course.id)}
+                        courseName={course.title}
+                      />
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             ))
           )}
         </div>
+
+        {/* Certificate verification — always accessible from My Courses */}
+        <section aria-labelledby="verify-section-heading" className="mb-10">
+          <h2
+            id="verify-section-heading"
+            className="text-xl font-semibold text-purple-400 mb-4"
+          >
+            Verify a Certificate
+          </h2>
+          <VerifyCertificate />
+        </section>
       </div>
 
       <Footer />
