@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
 import { Web3Provider } from "@/context/Web3Context";
+import { AuthProvider } from "@/context/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,9 +38,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#111627]`}
       >
         <Web3Provider>
-          <Toaster position="top-right" richColors />
-          <main className="flex flex-col min-h-screen p1">{children}</main>
-          <Footer />
+          <AuthProvider>
+            <Toaster position="top-right" richColors />
+            <main className="flex flex-col min-h-screen p1">{children}</main>
+            <Footer />
+          </AuthProvider>
         </Web3Provider>
       </body>
     </html>

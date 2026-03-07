@@ -4,6 +4,7 @@ interface FetchOptions {
   method?: string;
   body?: unknown;
   headers?: Record<string, string>;
+  token?: string | null;
 }
 
 interface ApiError {
@@ -16,7 +17,7 @@ export async function apiFetch<T>(
   options: FetchOptions = {}
 ): Promise<T> {
   // Configuration and validation (no try-catch needed)
-  const { method = "GET", body, headers = {} } = options;
+  const { method = "GET", body, headers = {}, token } = options;
 
   if (!BASE_URL) {
     throw {
@@ -25,14 +26,21 @@ export async function apiFetch<T>(
     } as ApiError;
   }
 
+  // Build headers with optional authorization
+  const finalHeaders: Record<string, string> = {
+    "Content-Type": "application/json",
+    ...headers,
+  };
+
+  if (token) {
+    finalHeaders.Authorization = `Bearer ${token}`;
+  }
+
   // API call (no try-catch here)
 
   const response = await fetch(`${BASE_URL}${endpoint}`, {
     method,
-    headers: {
-      "Content-Type": "application/json",
-      ...headers,
-    },
+    headers: finalHeaders,
     body: body ? JSON.stringify(body) : undefined,
     credentials: "include", // if using cookies/session
   });

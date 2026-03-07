@@ -1,4 +1,6 @@
 "use client";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -14,6 +16,8 @@ import {
 } from "@/components/ui/form";
 import Container from "@/components/container/Container";
 import { useSaveProfile } from "@/hooks/use-save-profile";
+import { useWeb3 } from "@/context/Web3Context";
+import { useAuth } from "@/context/AuthContext";
 
 const teacherRegisterSchema = z
   .object({
@@ -36,6 +40,12 @@ const teacherRegisterSchema = z
 type TeacherRegisterForm = z.infer<typeof teacherRegisterSchema>;
 
 const TeacherRegister = () => {
+  const router = useRouter();
+  const { address, isConnected, connect, isInstalled } = useWeb3();
+  const { login } = useAuth();
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
+
   const form = useForm<TeacherRegisterForm>({
     resolver: zodResolver(teacherRegisterSchema),
     defaultValues: {
@@ -53,19 +63,48 @@ const TeacherRegister = () => {
   const { saveProfile, isLoading, error, success, transactionHash } =
     useSaveProfile();
 
+  // Auto-authenticate and redirect on successful registration
+  useEffect(() => {
+    const authenticateAndRedirect = async () => {
+      if (success && transactionHash && isConnected && address) {
+        setIsAuthenticating(true);
+        setAuthError(null);
+
+        try {
+          await login(address);
+          // Navigate to dashboard on successful authentication
+          router.push("/home");
+        } catch (err) {
+          const errorMessage =
+            err instanceof Error ? err.message : "Authentication failed";
+          setAuthError(errorMessage);
+          setIsAuthenticating(false);
+        }
+      }
+    };
+
+    authenticateAndRedirect();
+  }, [success, transactionHash, isConnected, address, login, router]);
+
   const onSubmit = async (data: TeacherRegisterForm) => {
+    if (!isConnected) {
+      setAuthError("Please connect your wallet first");
+      return;
+    }
+
+    setAuthError(null);
+
     try {
       const result = await saveProfile(data);
 
       if (result?.success) {
-        form.reset(); // ✅ Reset form only if API indicates success
-        // You can also show a success toast/message here
+        form.reset(); // ✅ Reset form only if blockchain indicates success
+        // Authentication will happen via the useEffect above
       } else {
-        // Handle API-level failure (e.g. validation error, server issue)
-        // Example: toast.error("Failed to save profile. Please try again.");
+        setAuthError("Failed to save profile. Please try again.");
       }
     } catch {
-      // Example: toast.error("An unexpected error occurred. Please try again.");
+      setAuthError("An unexpected error occurred. Please try again.");
     }
   };
 
@@ -75,13 +114,53 @@ const TeacherRegister = () => {
         <div className="w-full">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
-              {error && (
+              {/* Wallet Connection Status */}
+              <div className="p-4 bg-slate-800/50 border border-slate-600 rounded-lg">
+                {!isConnected ? (
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-slate-300 font-medium">
+                        Connect Your Wallet
+                      </p>
+                      <p className="text-slate-400 text-sm">
+                        Required to register and verify your identity
+                      </p>
+                    </div>
+                    <Button
+                      type="button"
+                      onClick={() => connect()}
+                      disabled={!isInstalled}
+                      className="bg-blue-600 hover:bg-blue-700"
+                    >
+                      {!isInstalled ? "Install Freighter" : "Connect Wallet"}
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    <div>
+                      <p className="text-slate-300 font-medium">Wallet Connected</p>
+                      <p className="text-slate-400 text-sm break-all">{address}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Errors */}
+              {(error || authError) && (
                 <div className="p-4 bg-red-900/50 border border-red-500 rounded-lg text-red-200">
-                  Error: {error}
+                  Error: {error || authError}
                 </div>
               )}
 
-              {success && transactionHash && (
+              {/* Success with Authentication Loading */}
+              {success && transactionHash && isAuthenticating && (
+                <div className="p-4 bg-blue-900/50 border border-blue-500 rounded-lg text-blue-200">
+                  Profile saved! Authenticating and redirecting to dashboard...
+                </div>
+              )}
+
+              {success && transactionHash && !isAuthenticating && !authError && (
                 <div className="p-4 bg-green-900/50 border border-green-500 rounded-lg text-green-200">
                   Profile saved successfully! Transaction: {transactionHash}
                 </div>
@@ -249,11 +328,15 @@ const TeacherRegister = () => {
               <div className="pt-3 flex justify-end">
                 <Button
                   type="submit"
-                  disabled={isLoading}
+                  disabled={isLoading || !isConnected || isAuthenticating}
                   size="lg"
                   className="w-max self-end rounded-full h-12 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50"
                 >
-                  {isLoading ? "Saving to Blockchain..." : "Register"}
+                  {isLoading
+                    ? "Saving to Blockchain..."
+                    : isAuthenticating
+                      ? "Authenticating..."
+                      : "Register"}
                 </Button>
               </div>
             </form>
