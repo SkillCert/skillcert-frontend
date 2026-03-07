@@ -68,6 +68,7 @@ async function simulateContractCall(user: string): Promise<Course[]> {
       language: "Spanish",
       thumbnail_url: "https://example.com/thumbnail2.png",
       published: true,
+      progress: 100, // Mark as completed to show Claim Certificate button
     },
     {
       id: "course-002",
@@ -80,6 +81,7 @@ async function simulateContractCall(user: string): Promise<Course[]> {
       language: "French",
       thumbnail_url: "https://example.com/thumbnail3.jpg",
       published: true,
+      progress: 45, // In progress
     },
   ];
 }

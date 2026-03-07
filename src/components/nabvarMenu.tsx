@@ -9,6 +9,7 @@ import {
   User,
   Settings,
   LogOut,
+  Award,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,6 +37,11 @@ const dropdownMenu = [
     title: "Instructor Panel",
     icon: <GraduationCap className="w-4 h-4 group-hover:text-pink-500" />,
     href: "/instructor-panel",
+  },
+  {
+    title: "Certificates",
+    icon: <Award className="w-4 h-4 group-hover:text-pink-500" />,
+    href: "/certificates",
   },
   {
     title: "Disconnect",
@@ -247,9 +253,9 @@ export default function NavbarMenu({
 
   const displayUserInfo = isConnected
     ? {
-        ...userInfo,
-        userId: address ? address.substring(0, 10).concat("...") : userInfo.userId,
-      }
+      ...userInfo,
+      userId: address ? address.substring(0, 10).concat("...") : userInfo.userId,
+    }
     : userInfo;
 
   switch (variant) {
@@ -258,21 +264,25 @@ export default function NavbarMenu({
         <div
           className={`fixed top-0 z-[1000] py-6 w-full flex items-center justify-between
                 transition-all duration-300 
-                ${
-                  scrolled
-                    ? "bg-gray-950/10 backdrop-blur-lg h-16 py-2"
-                    : "bg-transparent h-32 "
-                }`}
+                ${scrolled
+              ? "bg-gray-950/10 backdrop-blur-lg h-16 py-2"
+              : "bg-transparent h-32 "
+            }`}
         >
-         <nav className="flex justify-between items-center w-full max-w-7xl mx-auto px-4">
+          <nav className="flex justify-between items-center w-full max-w-7xl mx-auto px-4">
             <Image src={Brand} alt="brand" className="w-[150px] " />
             <div className="flex items-center gap-[35px]">
               <ul className="flex items-center gap-[35px] text-gray-100">
                 <li>About</li>
+                <li>
+                  <Link href="/certificates" className="hover:text-purple-400 transition-colors">
+                    Certificates
+                  </Link>
+                </li>
                 <li>Contact</li>
               </ul>
               <Button
-  className="
+                className="
     bg-gradient-to-r from-purple-400 to-pink-500
     hover:from-purple-500 hover:to-pink-600
     text-white font-bold rounded-[8px]
@@ -325,9 +335,8 @@ export default function NavbarMenu({
                   onBlur={() => setIsSearchFocused(false)}
                 />
                 <Search
-                  className={`absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 transition-colors duration-200 ${
-                    isSearchFocused ? "text-red-400" : "text-white"
-                  }`}
+                  className={`absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 transition-colors duration-200 ${isSearchFocused ? "text-red-400" : "text-white"
+                    }`}
                 />
               </div>
             </div>

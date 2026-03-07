@@ -125,6 +125,36 @@ export interface GetCoursesByInstructorResponse {
   total: number;
 }
 
+// Certificate Types
+export interface Certificate {
+  /** On-chain certificate identifier */
+  certificateId: string;
+  /** Stellar address of the certificate owner */
+  owner: string;
+  /** Course ID associated with the certificate */
+  courseId: string;
+  /** Unix timestamp (seconds) when the certificate was issued */
+  issuedAt: number;
+  /** Whether the certificate is currently valid on the blockchain */
+  isValid: boolean;
+}
+
+export type ClaimStatus = "idle" | "pending" | "success" | "error";
+
+export interface ClaimCertificateResponse {
+  success: boolean;
+  certificateId?: string;
+  transactionHash?: string;
+  error?: string;
+}
+
+export interface VerifyCertificateResponse {
+  success: boolean;
+  certificate?: Certificate;
+  isValid?: boolean;
+  error?: string;
+}
+
 // UI Component Types
 export interface WelcomePageBlockProps {
   icon: React.ReactElement;
