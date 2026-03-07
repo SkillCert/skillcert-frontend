@@ -10,9 +10,13 @@ const VerifyCertificate = dynamic(
     { ssr: false }
 );
 
+import NavbarMenu from "@/components/nabvarMenu";
+import { NAV_TYPES } from "@/types/navbar";
+
 export default function CertificatesPage() {
     return (
         <div className="bg-slate-900 min-h-screen">
+            <NavbarMenu variant={NAV_TYPES.Connected} />
             <div className="max-w-3xl mx-auto px-6 py-12">
                 {/* Page header */}
                 <div className="mb-10">
