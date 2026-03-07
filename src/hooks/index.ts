@@ -1,10 +1,12 @@
 // Hooks
 export { useSaveProfile } from "./use-save-profile";
 export { useWallet } from "./use-wallet";
+export { useAuthToken } from "./use-auth-token";
 
 // Services
 export { saveProfile } from "./profile-service";
 export { contractInt } from "./contract-service";
+export { getAuthToken, verifyToken, getAuthHeaders } from "./auth-service";
 
 // Utilities
 export {
